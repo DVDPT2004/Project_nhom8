@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <!-- Image of food -->
+            <ImageView
+                android:id="@+id/admin_image_item"
+                android:layout_width="120dp"
+                android:layout_height="90dp"
+                android:src="@drawable/ic_launcher_background"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="8dp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <!-- Title of food -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/admin_name_item"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Tên món"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        >
+                        <TextView
+                            android:id="@+id/admin_discount_item"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="Giảm N%"
+                            android:textColor="#ff0000"
+                            android:textStyle="bold|italic"
+                            />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+                <!-- Original price and discount -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/admin_original_price_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="250,000 VND"
+                        android:textColor="@android:color/darker_gray"
+                        android:layout_marginEnd="10dp"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/admin_current_price_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="213,000 VND"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Danh mục: "
+                        android:textColor="@android:color/black"
+                        android:textSize="15dp"
+                        />
+                    <TextView
+                        android:id="@+id/admin_category_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="aaaaaaaa"
+                        android:textSize="15dp"
+                        android:textColor="@android:color/black"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tình trạng: "
+                        android:textSize="15dp"
+                        android:textColor="@android:color/black"
+                        />
+                    <TextView
+                        android:id="@+id/admin_status_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="aaaaaaaa"
+                        android:textSize="15dp"
+                        android:textColor="@android:color/black"
+                        />
+                </LinearLayout>
+                <!-- Popularity -->
+
+
+                <!-- Description of food -->
+
+            </LinearLayout>
+
+            <!-- Icons on the right side -->
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/admin_description_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bò cuộn phô mai xốt nấm với hương vị tuyệt vời, chút béo, thơm phức, ngọt thịt."
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:maxLines="2"
+            android:paddingHorizontal="8dp"
+            android:paddingBottom="5dp"
+            android:ellipsize="end"
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="3">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Ẩn"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="20dp"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Sửa"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="20dp"
+                />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Xóa"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="20dp"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
