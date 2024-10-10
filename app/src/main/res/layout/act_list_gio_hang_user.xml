@@ -1,6 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/act_list_gio_hang_user"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_gravity="center|top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginRight="20px"
+            android:id="@+id/imgSanPham"
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"></ImageView>
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_tensp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên sản phẩm"
+                android:textSize="18dp"
+                android:textStyle="bold"></TextView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/txt_gia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 VNĐ"
+                    android:textColor="#ff6351">
+
+                </TextView>
+                <TextView
+                    android:layout_marginLeft="20px"
+                    android:textColor="#ff6351"
+                    android:text="VNĐ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_giam"
+                    android:layout_width="90px"
+                    android:layout_height="90px"
+                    android:layout_marginRight="20px"
+                    android:padding="0px"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textColorLink="#DB6262"
+                    app:cornerRadius="8dp"></Button>
+
+                <EditText
+                    android:id="@+id/et_soluong"
+                    android:inputType="number"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20px"
+                    android:hint="0">
+
+                </EditText>
+
+                <Button
+                    android:id="@+id/btn_tang"
+                    android:layout_width="90px"
+                    android:layout_height="90px"
+                    android:padding="0px"
+                    android:text="+"
+                    android:textColor="@color/white"
+                    android:textColorLink="#DB6262"
+                    app:cornerRadius="8dp"></Button>
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/btn_xoa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xóa"></Button>
+
+
+    </LinearLayout>
+    <View
+        android:id="@+id/view_bottom_border"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray" />
+</LinearLayout>
