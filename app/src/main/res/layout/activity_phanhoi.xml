@@ -1,6 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".activity_phanhoi.PhanHoi">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/lavender"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- Nút thoát (Back) ở góc trái -->
+        <ImageButton
+            android:id="@+id/btn_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:contentDescription="Nút thoát"
+            android:src="@android:drawable/ic_menu_revert"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <!-- Tiêu đề ở giữa -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_marginRight="20dp"
+            android:text="Phản Hồi"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Họ và Tên (*)"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:hint="Họ và tên"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/thietlapedit"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:hint="Số điện thoại"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/thietlapedit"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:hint="nguyenquocviet@gmail.com"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/thietlapedit"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phản Hồi(*)"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="380dp"
+            android:layout_height="100dp"
+            android:hint="Phản Hồi"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/thietlapedit"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imagemayanh"
+            android:src="@drawable/mayanh"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="30dp"/>
+        <ImageView
+            android:id="@+id/imagefile"
+            android:src="@drawable/file"
+            android:layout_width="150dp"
+            android:layout_marginLeft="50dp"
+            android:layout_height="100dp" />
+    </TableRow>
+    <ImageView
+        android:id="@+id/imageanh"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/lavender"
+        android:minHeight="32dp"
+        android:padding="10dp"
+        android:text="Gửi phản hồi"
+        android:textColor="@android:color/white"
+        app:background="@null"
+        app:backgroundTint="@null" />
+
+
+</LinearLayout>
