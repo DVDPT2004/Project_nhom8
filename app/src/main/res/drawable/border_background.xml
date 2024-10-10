@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Định nghĩa viền -->
+    <stroke
+        android:width="2dp"
+        android:color="#ADADAD"/>
+
+    <!-- Định nghĩa nền của thành phần -->
+    <solid android:color="#FFFFFF"/> <!-- Nền màu trắng -->
+
+    <!-- Bo góc viền -->
+    <corners android:radius="5dp"/> <!-- Độ cong của góc viền -->
+</shape>
