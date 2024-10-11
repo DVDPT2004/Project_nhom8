@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="Admin.Phuoc.AdminFeedbackFragment">
+    tools:context="Admin.Phuoc.AdminAccountFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="PHAN HOI"
+        android:text="TAI KHOAN"
         android:gravity="center"
         android:textSize="30sp"
         android:textColor="@color/black"/>
