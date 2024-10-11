@@ -71,7 +71,7 @@ public class ThucDonAdapter extends BaseAdapter {
         if ("Hết".equals(thucDon.getTinhtrang())) {
             // Làm mờ sản phẩm
             convertView.setAlpha(0.5f);
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.gray)); // Thay đổi thành màu sắc bạn muốn
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.black)); // Thay đổi thành màu sắc bạn muốn
 
             // Thiết lập sự kiện nhấn
             convertView.setOnClickListener(v -> {
