@@ -4,6 +4,7 @@ package User.Viet.activity_chitietmonan;
 import android.content.Intent;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -21,11 +23,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.project_nhom8.R;
-//import com.example.appdatdoan.activity_trangchu.Trangchu;
+
+
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
+import User.Viet.activity_phanhoi.PhanHoiDatabase;
 import User.Viet.activity_trangchu.Trangchu;
 
 public class ChiTietMonAn extends AppCompatActivity {
@@ -38,8 +43,12 @@ public class ChiTietMonAn extends AppCompatActivity {
     private View viewMo;
     private TextView txtSoLuong;
     private Button btnTang, btnGiam;
-    private int soLuong = 1;
-    ImageView imageMonAn;// Khởi tạo số lượng mặc định là 1
+    private int soLuong = 1;// Khởi tạo số lượng mặc định là 1
+    ImageView imageMonAn;
+    ArrayList<Feedback> feedbacksList = new ArrayList<>();
+    FeedbackAdapter adapterfeedback;
+    ListView lvFeedback;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +86,27 @@ public class ChiTietMonAn extends AppCompatActivity {
         // Cập nhật giá trị ban đầu cho txtSoLuong
         txtSoLuong.setText(String.valueOf(soLuong));
 
+        //feedback
+        lvFeedback=findViewById(R.id.listViewFeedback);
+        adapterfeedback = new FeedbackAdapter(this, feedbacksList);
+        lvFeedback.setAdapter(adapterfeedback);
+        PhanHoiDatabase phanHoiDatabase = new PhanHoiDatabase(ChiTietMonAn.this);
+        Cursor cursor = phanHoiDatabase.rawQuery("SELECT * FROM PHANHOI");
+        while (cursor.moveToNext()) {
+            feedbacksList.add(new Feedback(
+                    cursor.getString(8), // Tên người dùng
+                    cursor.getString(2), // Ngày phản hồi
+                    cursor.getString(3), // Nội dung phản hồi
+                    cursor.getBlob(4),   // Hình ảnh 1 (BLOB)
+                    cursor.getBlob(5),   // Hình ảnh 2 (BLOB)
+                    cursor.getBlob(6)
+
+            ));
+        }
+        adapterfeedback.notifyDataSetChanged();
+
+
+
 
         // Nhận dữ liệu từ Intent
         Intent intent = getIntent();
@@ -109,7 +139,7 @@ public class ChiTietMonAn extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ChiTietMonAn.this, Trangchu.class);
                 startActivity(intent);
-                finish(); // Hoặc sử dụng finish() nếu bạn muốn thoát khỏi Activity này
+
             }
         });
         btnAddCard.setOnClickListener(new View.OnClickListener() {
@@ -191,5 +221,3 @@ public class ChiTietMonAn extends AppCompatActivity {
 
     }
 }
-
-

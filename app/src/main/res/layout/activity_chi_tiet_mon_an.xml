@@ -5,122 +5,148 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    tools:context=".activity_chitietmonan.ChiTietMonAn">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/lavender"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <!-- Nút thoát (Back) ở góc trái -->
-        <ImageButton
-            android:id="@+id/btn_exit"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:contentDescription="Nút thoát"
-            android:src="@android:drawable/ic_menu_revert"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:orientation="vertical">
 
-        <!-- Tiêu đề ở giữa -->
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@android:color/white"
-            android:text="Chi tiết món ăn"
-            android:layout_weight="1"
-            android:gravity="center" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@android:color/holo_red_light"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        <!-- Biểu tượng giỏ hàng ở góc phải -->
-        <ImageButton
-            android:id="@+id/cart_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:background="@null"
-            android:contentDescription="Giỏ hàng"
-            android:src="@drawable/cart_icon"
-            tools:ignore="TouchTargetSizeCheck" />
+                <!-- Nút thoát (Back) ở góc trái -->
+                <ImageButton
+                    android:id="@+id/btn_exit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:contentDescription="Nút thoát"
+                    android:src="@android:drawable/ic_menu_revert"
+                    tools:ignore="TouchTargetSizeCheck" />
 
-    </LinearLayout>
+                <!-- Tiêu đề ở giữa -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/white"
+                    android:text="Chi tiết món ăn"
+                    android:layout_weight="1"
+                    android:gravity="center" />
 
-    <TextView
-        android:id="@+id/mota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mô tả món ăn"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginTop="70dp"
-        />
+                <!-- Biểu tượng giỏ hàng ở góc phải -->
+                <ImageButton
+                    android:id="@+id/cart_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:background="@null"
+                    android:contentDescription="Giỏ hàng"
+                    android:src="@drawable/cart_icon"
+                    tools:ignore="TouchTargetSizeCheck" />
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mô tả món ăn..."
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/mota" />
+            </LinearLayout>
 
-    <!-- Món ăn -->
-    <TextView
-        android:id="@+id/txtmotamonan"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:textSize="17dp"
-        android:textColor="@android:color/black"
-        android:layout_below="@id/description"
-        android:scaleType="centerCrop"
-        android:layout_marginBottom="16dp" />
+            <TextView
+                android:id="@+id/mota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mô tả món ăn"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="40dp" />
 
-    <!-- Các hình ảnh khác -->
-    <TextView
-        android:id="@+id/other_images_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Một số hình ảnh khác"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_below="@id/txtmotamonan"
-        android:layout_marginBottom="8dp" />
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mô tả món ăn..."
+                android:textSize="16sp"
+                android:textColor="@android:color/holo_red_light"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/mota" />
 
-    <GridView
-        android:id="@+id/grHinhanhkhac"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="2"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        android:layout_margin="16dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"
-        android:clipToPadding="false"
-        android:layout_below="@id/other_images_title"
-        android:scrollbars="vertical"
-        />
+            <TextView
+                android:id="@+id/txtmotamonan"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:textSize="17dp"
+                android:textColor="@android:color/black"
+                android:layout_below="@id/description"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="16dp" />
 
-    <!-- Nút thêm vào giỏ hàng -->
-    <Button
-        android:id="@+id/btnaddcard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="10dp"
-        android:background="@android:color/holo_green_dark"
-        android:text="Thêm vào giỏ hàng"
-        app:backgroundTint="@null"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        />
+            <TextView
+                android:id="@+id/other_images_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Một số hình ảnh khác"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_below="@id/txtmotamonan"
+                android:layout_marginBottom="8dp" />
+
+            <GridView
+                android:id="@+id/grHinhanhkhac"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:numColumns="2"
+                android:verticalSpacing="10dp"
+                android:horizontalSpacing="10dp"
+                android:layout_margin="16dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center"
+                android:clipToPadding="false"
+                android:layout_below="@id/other_images_title"
+                android:scrollbars="vertical" />
+
+            <!-- Nút thêm vào giỏ hàng -->
+            <Button
+                android:id="@+id/btnaddcard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/holo_green_dark"
+                android:text="Thêm vào giỏ hàng"
+                app:backgroundTint="@null"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/phanhoikh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phản hồi khách hàng"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_below="@id/txtmotamonan"
+                android:layout_marginBottom="8dp" />
+
+            <!-- ListView phản hồi -->
+            <ListView
+                android:id="@+id/listViewFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="1dp" />
+        </LinearLayout>
+    </ScrollView>
+
+
 
     <View
         android:id="@+id/view_mo"
@@ -220,7 +246,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:backgroundTint="@null"
-                android:background="@color/black"
+                android:background="@android:color/holo_red_light"
                 android:text="Hủy"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
