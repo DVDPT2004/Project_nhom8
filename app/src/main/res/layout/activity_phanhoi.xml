@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/lavender"
+        android:background="@android:color/holo_red_light"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -47,6 +47,7 @@
         android:layout_marginTop="30dp">
 
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Họ và Tên (*)"
@@ -54,6 +55,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/txttenkhachphanhoi"
             android:layout_width="380dp"
             android:layout_height="wrap_content"
             android:hint="Họ và tên"
@@ -78,6 +80,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/txtsodienthoaiphanhoi"
             android:layout_width="380dp"
             android:layout_height="wrap_content"
             android:hint="Số điện thoại"
@@ -102,6 +105,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/txtemailphanhoi"
             android:layout_width="380dp"
             android:layout_height="wrap_content"
             android:hint="nguyenquocviet@gmail.com"
@@ -126,6 +130,7 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/txtphanhoi"
             android:layout_width="380dp"
             android:layout_height="100dp"
             android:hint="Phản Hồi"
@@ -152,26 +157,50 @@
             android:layout_marginLeft="50dp"
             android:layout_height="100dp" />
     </TableRow>
-    <ImageView
-        android:id="@+id/imageanh"
-        android:layout_width="100dp"
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"/>
+        android:numColumns="3"
+        />
 
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="130dp"
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="140dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/lavender"
-        android:minHeight="32dp"
-        android:padding="10dp"
-        android:text="Gửi phản hồi"
-        android:textColor="@android:color/white"
-        app:background="@null"
-        app:backgroundTint="@null" />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/holo_red_light"
+            android:padding="10dp"
+            android:text="Gửi phản hồi"
+            android:textColor="#212121"
+            app:background="@null"
+            app:backgroundTint="@null"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btnHuy"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/holo_red_light"
+            android:padding="10dp"
+            android:text="Hủy"
+            android:textColor="#212121"
+            app:background="@null"
+            app:backgroundTint="@null"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
 
 
 </LinearLayout>
