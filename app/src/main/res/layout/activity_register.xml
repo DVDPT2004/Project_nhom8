@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
+        android:text="Đăng Ký"
         android:textSize="30sp"
         android:textColor="#000000"
         android:textStyle="bold"/>
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Create a new account"
+        android:text="Tạo tài khoản mới"
         android:layout_marginTop="5dp"/>
     <EditText
         android:id="@+id/fullNameET"
@@ -117,29 +117,7 @@
             android:layout_marginTop="10dp"/>
     </RelativeLayout>
 
-    <RadioGroup
-        android:id="@+id/roleGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        >
 
-        <RadioButton
-            android:id="@+id/admin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
-            android:text="Admin" />
-
-        <RadioButton
-            android:id="@+id/user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="User" />
-    </RadioGroup>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signUpBtn"
@@ -147,7 +125,7 @@
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:text="Sign Up"
+        android:text="Đăng Ký"
         android:textAllCaps="false"
         android:layout_marginTop="30dp"
         android:background="@drawable/roud_back_primary_15"
@@ -163,13 +141,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account?"/>
+            android:text="Đã có tài khoản?"/>
         <TextView
             android:id="@+id/signInBtn"
             android:layout_marginStart="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign In"
+            android:text="Đăng Nhập"
             android:textColor="@color/primary"
             android:textStyle="bold"/>
     </LinearLayout>
