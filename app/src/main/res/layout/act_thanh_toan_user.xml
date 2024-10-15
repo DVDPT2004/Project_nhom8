@@ -6,10 +6,10 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:paddingTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="40dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
         <ListView
             android:id="@+id/lv_donhang"
             android:layout_width="match_parent"
-            android:layout_height="98dp"></ListView>
+            android:layout_height="353dp"></ListView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,54 +47,65 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Phương Thức Thanh Toán"></TextView>
+
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                />
+                android:layout_margin="16dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Họ và tên (*)"></TextView>
+
             <EditText
+                android:id="@+id/et_hoten"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
+
             <TextView
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Số điện thoại"></TextView>
+
             <EditText
+                android:id="@+id/et_sdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Địa chỉ giao hàng"></TextView>
+
             <EditText
+                android:id="@+id/et_diachi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <Button
                 android:id="@+id/btn_huy"
-                android:backgroundTint="#898989"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="20px"
                 android:width="200dp"
-                android:text="Hủy bỏ"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </Button>
+                android:backgroundTint="#898989"
+                android:text="Hủy bỏ"></Button>
+
             <Button
                 android:id="@+id/btn_dathang"
-                android:backgroundTint="#01AED8"
-                android:width="200dp"
-                android:text="Đặt hàng"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </Button>
+                android:layout_height="wrap_content"
+                android:width="200dp"
+                android:backgroundTint="#01AED8"
+                android:text="Đặt hàng"></Button>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
