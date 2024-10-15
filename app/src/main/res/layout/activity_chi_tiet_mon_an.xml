@@ -1,6 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/lavender"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- Nút thoát (Back) ở góc trái -->
+        <ImageButton
+            android:id="@+id/btn_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:contentDescription="Nút thoát"
+            android:src="@android:drawable/ic_menu_revert"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <!-- Tiêu đề ở giữa -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:text="Chi tiết món ăn"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+        <!-- Biểu tượng giỏ hàng ở góc phải -->
+        <ImageButton
+            android:id="@+id/cart_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@null"
+            android:contentDescription="Giỏ hàng"
+            android:src="@drawable/cart_icon"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/mota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mô tả món ăn"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="70dp"
+        />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mô tả món ăn..."
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/mota" />
+
+    <!-- Món ăn -->
+    <TextView
+        android:id="@+id/txtmotamonan"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:textSize="17dp"
+        android:textColor="@android:color/black"
+        android:layout_below="@id/description"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Các hình ảnh khác -->
+    <TextView
+        android:id="@+id/other_images_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Một số hình ảnh khác"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@id/txtmotamonan"
+        android:layout_marginBottom="8dp" />
+
+    <GridView
+        android:id="@+id/grHinhanhkhac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:layout_margin="16dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:clipToPadding="false"
+        android:layout_below="@id/other_images_title"
+        android:scrollbars="vertical"
+        />
+
+    <!-- Nút thêm vào giỏ hàng -->
+    <Button
+        android:id="@+id/btnaddcard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/holo_green_dark"
+        android:text="Thêm vào giỏ hàng"
+        app:backgroundTint="@null"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        />
+
+    <View
+        android:id="@+id/view_mo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:alpha="0.5"
+        android:visibility="gone" /> <!-- Ẩn ban đầu -->
+
+    <LinearLayout
+        android:id="@+id/layoutMonAn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@android:color/white"
+        android:layout_gravity="bottom"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageMonAn"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/doan1"
+                android:scaleType="centerCrop" /> <!-- Hình ảnh món ăn -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="16dp">
+
+                <TextView
+                    android:id="@+id/txtTenMonAn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bò cuốn phở mai"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtGia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="213 000 VNĐ"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/holo_red_dark" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp">
+
+                    <Button
+                        android:id="@+id/btnGiam"
+                        android:layout_width="60dp"
+                        android:layout_height="40dp"
+                        android:text="-"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:id="@+id/txtSoLuong"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:padding="16dp"
+                        android:gravity="center" />
+
+                    <Button
+                        android:id="@+id/btnTang"
+                        android:layout_width="60dp"
+                        android:layout_height="40dp"
+                        android:text="+"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <!-- Nút hủy -->
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:backgroundTint="@null"
+                android:background="@color/black"
+                android:text="Hủy"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:padding="12dp" />
+
+            <!-- Nút thêm vào giỏ hàng -->
+            <Button
+                android:id="@+id/btnAddToCart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:backgroundTint="@null"
+                android:background="@android:color/holo_green_dark"
+                android:text="Thêm vào giỏ hàng"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:padding="12dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</RelativeLayout>
