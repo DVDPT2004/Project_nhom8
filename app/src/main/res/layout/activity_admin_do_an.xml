@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/admin_food"
-    tools:context="Admin.Phuoc.AdminFoodFragment">
+    tools:context="Admin.Phuoc.admin_home.AdminFoodFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:text="Đồ ăn"
+                    android:text="Các món ăn"
                     android:textSize="25sp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -35,25 +35,22 @@
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingTop="10dp"
+                android:paddingHorizontal="10dp"
                 android:gravity="center"
                 >
                 <EditText
-                    android:layout_width="0dp"
+                    android:id="@+id/admin_text_search_item"
+                    android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Tên..."
+                    android:hint="Tìm kiếm món ăn..."
                     android:textColorHint="@android:color/darker_gray"
-                    android:textSize="20sp"
-                    android:layout_weight="1"
+                    android:textSize="18sp"
                     android:paddingHorizontal="10dp"
                     android:background="@drawable/border_background2"
-                    android:layout_marginEnd="10dp"/>
-                <Button
-                    android:id="@+id/admin_search_item"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Tìm"
-                    android:layout_weight="0.25"/>
+                    android:drawableStart="@drawable/baseline_search_24"
+                    />
+
             </LinearLayout>
 
             <!-- Replace ListView with RecyclerView -->
@@ -73,7 +70,7 @@
         android:layout_marginBottom="50dp"
         android:src="@drawable/baseline_add_24"
         android:background="@drawable/circle_background"
-        android:padding="12dp"
+        android:padding="8dp"
         android:contentDescription="Mở menu nhanh"
         android:clickable="true"
         android:focusable="true"
