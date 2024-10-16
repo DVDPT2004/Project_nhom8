@@ -1,6 +1,5 @@
 package User.Viet.activity_phanhoi;
 
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import Database.MainData.MainData;
 import User.Viet.activity_chitietmonan.ChiTietMonAn;
 
 public class PhanHoi extends AppCompatActivity {
@@ -36,7 +37,7 @@ public class PhanHoi extends AppCompatActivity {
     private GridView gridView;
     private ArrayList<Bitmap> imageBitmaps = new ArrayList<>();
     private ImageAdapterAnhPhanHoi imageAdapter;
-    private PhanHoiDatabase phanHoiDatabase;
+    private MainData phanHoiDatabase;
 
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int GALLERY_REQUEST_CODE = 200;
@@ -62,7 +63,7 @@ public class PhanHoi extends AppCompatActivity {
         gridView.setAdapter(imageAdapter);
 
         // Khởi tạo cơ sở dữ liệu
-        phanHoiDatabase = new PhanHoiDatabase(this);
+        phanHoiDatabase = new MainData(this,"mainData.sqlite",null,1);
 
         // Xử lý sự kiện khi nhấn vào nút chụp ảnh
         imagemayanh.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +75,6 @@ public class PhanHoi extends AppCompatActivity {
         });
 
         // Xử lý sự kiện khi nhấn vào nút chọn ảnh từ thư viện
-        // Xử lý sự kiện khi nhấn vào nút chọn ảnh hoặc video từ thư viện
         imagefile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +86,6 @@ public class PhanHoi extends AppCompatActivity {
                 startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
             }
         });
-
 
         // Xử lý sự kiện khi bấm nút Gửi phản hồi
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +142,6 @@ public class PhanHoi extends AppCompatActivity {
         return db.insert("PhanHoi", null, values);
     }
 
-
     // Phương thức để lưu ảnh vào cơ sở dữ liệu
     private byte[] saveImageToDatabase(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -175,7 +173,7 @@ public class PhanHoi extends AppCompatActivity {
                     // Kiểm tra số lượng ảnh đã chọn
                     if (imageBitmaps.size() + count > 3) {
                         Toast.makeText(this, "Bạn chỉ có thể chọn tối đa 3 ảnh", Toast.LENGTH_SHORT).show();
-                        return; // Không thêm ảnh nếu vượt quá 4 ảnh
+                        return; // Không thêm ảnh nếu vượt quá 3 ảnh
                     }
 
                     for (int i = 0; i < count; i++) {
@@ -214,14 +212,13 @@ public class PhanHoi extends AppCompatActivity {
         }
     }
 
-
     // Phương thức để khôi phục thông tin nhập vào
     private void resetForm() {
         edtHoTen.setText("");
         edtSoDienThoai.setText("");
         edtEmail.setText("");
         edtPhanHoi.setText("");
-        imageBitmaps.clear();
-        imageAdapter.notifyDataSetChanged();
+        imageBitmaps.clear(); // Xóa tất cả hình ảnh đã chọn
+        imageAdapter.notifyDataSetChanged(); // Cập nhật GridView
     }
 }

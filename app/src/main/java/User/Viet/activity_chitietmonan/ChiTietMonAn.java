@@ -30,7 +30,8 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import User.Viet.activity_phanhoi.PhanHoiDatabase;
+import Database.MainData.MainData;
+import User.Viet.Modal.Feedback;
 import User.Viet.activity_trangchu.Trangchu;
 
 public class ChiTietMonAn extends AppCompatActivity {
@@ -90,8 +91,8 @@ public class ChiTietMonAn extends AppCompatActivity {
         lvFeedback=findViewById(R.id.listViewFeedback);
         adapterfeedback = new FeedbackAdapter(this, feedbacksList);
         lvFeedback.setAdapter(adapterfeedback);
-        PhanHoiDatabase phanHoiDatabase = new PhanHoiDatabase(ChiTietMonAn.this);
-        Cursor cursor = phanHoiDatabase.rawQuery("SELECT * FROM PHANHOI");
+        MainData phanHoiDatabase = new MainData(this,"mainData.sqlite",null,1);
+        Cursor cursor = phanHoiDatabase.SelectData("SELECT * FROM PhanHoi");
         while (cursor.moveToNext()) {
             feedbacksList.add(new Feedback(
                     cursor.getString(8), // Tên người dùng

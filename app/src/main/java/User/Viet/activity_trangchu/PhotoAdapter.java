@@ -14,6 +14,8 @@ import com.example.project_nhom8.R;
 
 import java.util.List;
 
+import User.Viet.Modal.Photo;
+
 public class PhotoAdapter extends PagerAdapter {
     private Context mContext;
     private List<Photo> mListPhoto;

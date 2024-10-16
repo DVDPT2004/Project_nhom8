@@ -1,4 +1,4 @@
-package User.Viet.activity_trangchu;
+package User.Viet.Modal;
 
 public class ThucDon {
     private int avatar;       // Hình ảnh món ăn

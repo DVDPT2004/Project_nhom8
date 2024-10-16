@@ -1,4 +1,4 @@
-package User.Viet.activity_trangchu;
+package User.Viet.Modal;
 
 public class Photo {
     private int resourceId;
