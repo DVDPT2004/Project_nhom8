@@ -73,7 +73,7 @@ public class ResetPassword extends AppCompatActivity {
                 conPassword.setSelection(conPassword.length());
             }
         });
-        db = new MainData(this);
+        db = new MainData(this,"mainData.sqlite",null,1);
         userRepository = new UserRepository(db,this);
         String email = getIntent().getStringExtra("email");
         newPasswordBtn.setOnClickListener(new View.OnClickListener() {
