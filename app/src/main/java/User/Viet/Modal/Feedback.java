@@ -1,4 +1,4 @@
-package User.Viet.activity_chitietmonan;
+package User.Viet.Modal;
 
 public class Feedback {
     private String userName;

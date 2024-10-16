@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -17,6 +16,8 @@ import com.example.project_nhom8.R;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+
+import User.Viet.Modal.ThucDon;
 
 public class ThucDonAdapter extends BaseAdapter {
     private Context context;

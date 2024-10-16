@@ -27,9 +27,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import User.Viet.activity_chitietmonan.ChiTietMonAn;
-import User.Viet.activity_trangchu.Photo;
+import User.Viet.Modal.Photo;
 import User.Viet.activity_trangchu.PhotoAdapter;
-import User.Viet.activity_trangchu.ThucDon;
+import User.Viet.Modal.ThucDon;
 import User.Viet.activity_trangchu.ThucDonAdapter;
 import me.relex.circleindicator.CircleIndicator;
 

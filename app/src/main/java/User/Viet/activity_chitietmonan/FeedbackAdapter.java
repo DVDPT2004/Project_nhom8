@@ -10,10 +10,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.project_nhom8.R;
 
 import java.util.List;
+
+import User.Viet.Modal.Feedback;
 
 public class FeedbackAdapter extends BaseAdapter {
     private Context context;
