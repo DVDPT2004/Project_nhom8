@@ -30,9 +30,7 @@
             android:layout_width="136dp"
             android:layout_height="wrap_content"
             android:text="Họ tên:"
-            android:textColor="#414141">
-
-        </TextView>
+            android:textColor="#414141" />
 
         <TextView
             android:id="@+id/txt_hoten"
@@ -111,6 +109,29 @@
             android:layout_width="214dp"
             android:layout_height="wrap_content"
             android:text="placehoder" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="Tình trạng đơn hàng"
+            android:textColor="#414141">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/txt_tinhtrang"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:text="placehoder" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy đơn hàng"></Button>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
