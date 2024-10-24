@@ -12,6 +12,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import com.example.project_nhom8.R;
+
+import Admin.Phuoc.MainActivityAdmin;
 import Dangky_nhap.Model.UserRepository;
 import Dangky_nhap.Model.Userr;
 import Database.MainData.MainData;
@@ -98,8 +100,8 @@ public class Login extends AppCompatActivity{
     // Điều hướng tới trang chủ
     private void navigateToHomePage(String email) {
         Intent intent;
-        if ("Admin".equalsIgnoreCase(email)) {
-            intent = new Intent(Login.this,ActivityMenuAdmin.class);
+        if ("admin123@gmail.com".equalsIgnoreCase(email)) {
+            intent = new Intent(Login.this, MainActivityAdmin.class);
         } else {
             intent = new Intent(Login.this, GiaoDienDauFragment.class);
         }
