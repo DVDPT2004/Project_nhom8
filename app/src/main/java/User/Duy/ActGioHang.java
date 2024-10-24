@@ -2,6 +2,7 @@ package User.Duy;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -31,8 +32,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project_nhom8.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import Database.MainData.MainData;
 
 public class ActGioHang extends AppCompatActivity {
     GridView gvGioHang;
@@ -67,38 +71,46 @@ public class ActGioHang extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        adapter = new GioHangAdapter(list,  R.layout.act_list_gio_hang_user,this);
-//        adapter.setOnDataChangedListener(new GioHangAdapter.OnDataChangedListener() {
-//            @Override
-//            public void onDataChanged() {
-//                updateTotalAmount();
-//            }
-//        });
-    }
 
+    }
+    public String formatCurrency(int amount) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(amount) + " VNĐ";
+    }
 
     private void updateTotalAmount() {
-        Log.d("ActGioHang", "updateTotalAmount called");
-        long total = tongTien(list);
-        txtTongTien.setText(String.valueOf(total) + " VND");
-        Log.d("ActGioHang", "Total amount: " + total);
+        int total = tongTien(list);
+        txtTongTien.setText(formatCurrency(total));
     }
-    public long tongTien(List<GioHang> list){
-        long tien = 0;
+    public int tongTien(List<GioHang> list){
+        int tien = 0;
         for(int i = 0; i < list.size();i++){
             tien += list.get(i).getGia() * list.get(i).getSoLuong();
         }
         return tien;
     }
-     private void initData(){
+    private void initData(){
+        DBGioHangManager dbgiohang = new DBGioHangManager(this);
+//         for (int i = 0; i < 10; i++) {
+//             String sql = "insert into giohang values ('"+i+"', '1')";
+//             dbgiohang.execSQL(sql);
+//             list.add(new GioHang(1, "SP" + i, 123, 2, R.drawable.banhmi));
+//         }
+        MainData mainData = new MainData(this);
 
-//        for(int i = 0; i < 10; i++){
-//            list.add(new GioHang(1, "SP" + i, 123, 2, R.drawable.ff));
-//        }
-//        adapter = new GioHangAdapter(list,  R.layout.act_list_gio_hang_user,this);
-//        gvGioHang.setAdapter(adapter);
-//        txtTongTien.setText(String.valueOf(tongTien(list)));
-//         updateTotalAmount();
+        GioHang giohang = new GioHang(this);
+        list = giohang.getAll();
+        adapter = new GioHangAdapter(list, R.layout.act_list_gio_hang_user, this);
+        gvGioHang.setAdapter(adapter);
+        updateTotalAmount();
+
+        // Thiết lập listener để cập nhật tổng tiền khi có thay đổi
+        adapter.setOnDataChangedListener(new GioHangAdapter.OnDataChangedListener() {
+            @Override
+            public void onDataChanged() {
+                updateTotalAmount();
+            }
+        });
     }
 
 }
