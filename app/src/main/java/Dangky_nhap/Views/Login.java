@@ -15,6 +15,7 @@ import com.example.project_nhom8.R;
 import Dangky_nhap.Model.UserRepository;
 import Dangky_nhap.Model.Userr;
 import Database.MainData.MainData;
+import User.Viet.Fragment.GiaoDienDauFragment;
 
 public class Login extends AppCompatActivity{
     private boolean passwordShowing = false;// Biến cờ để theo dõi trạng thái hiển thị mật khẩu
@@ -98,9 +99,9 @@ public class Login extends AppCompatActivity{
     private void navigateToHomePage(String email) {
         Intent intent;
         if ("Admin".equalsIgnoreCase(email)) {
-            intent = new Intent(Login.this, Profile_admin.class);
+            intent = new Intent(Login.this,ActivityMenuAdmin.class);
         } else {
-            intent = new Intent(Login.this, Profile_User.class);
+            intent = new Intent(Login.this, GiaoDienDauFragment.class);
         }
         startActivity(intent);
         finish();
