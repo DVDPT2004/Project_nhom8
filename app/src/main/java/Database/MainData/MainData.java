@@ -18,7 +18,8 @@ private static final int DATABASE_VERSION = 1;
 //  vd :
 private static final String CREATE_TABLE_Urer = "CREATE TABLE User (user_id INTEGER PRIMARY KEY AUTOINCREMENT , full_name TEXT , email TEXT UNIQUE , password TEXT , role  TEXT)";
 
-private static final String CREATE_TABLE_SanPham = "CREATE TABLE SanPham (maSanPham INTEGER PRIMARY KEY AUTOINCREMENT, tenSanPham NVARCHAR(100), madanhmuc INT, gia INT, giadagiam INT, tinhTrang NVARCHAR(20), discount INT, maPhanHoi INT, anhSanPham TEXT, anhMota1 TEXT, anhMota2 TEXT, anhMota3 TEXT, anhMota4 TEXT, moTaSanPham TEXT)";
+private static final String CREATE_TABLE_SanPham = "CREATE TABLE SanPham (maSanPham INTEGER PRIMARY KEY AUTOINCREMENT, tenSanPham NVARCHAR(100), tendanhmuc TEXT, gia INT, giadagiam INT, tinhTrang NVARCHAR(20), discount INT, maPhanHoi INT, anhSanPham TEXT, anhMota1 TEXT, anhMota2 TEXT, anhMota3 TEXT, anhMota4 TEXT, moTaSanPham TEXT)";
+
 private static final String CREATE_TABLE_Danhmuc ="CREATE TABLE Danhmuc (maDanhMuc INTEGER PRIMARY KEY AUTOINCREMENT, tenDanhMuc NVARCHAR(50))";
 
 private static final String CREATE_TABLE_DonHang ="CREATE TABLE DonHang (maDonHang INTEGER PRIMARY KEY AUTOINCREMENT, ngayGioDatHang DATETIME, ThanhTien INT, user_id INT, noiGiaoHang TEXT, soDienThoai NVARCHAR(15), phuongThucThanhToan NVARCHAR(20), tenKH NVARCHAR(50),tinhTrangDonHang nvarchar(20))";
