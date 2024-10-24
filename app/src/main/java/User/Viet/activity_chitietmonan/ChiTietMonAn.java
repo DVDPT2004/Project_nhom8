@@ -31,7 +31,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import Database.MainData.MainData;
+import User.Duy.ActGioHang;
+import User.Viet.Fragment.CartFragment;
 import User.Viet.Modal.Feedback;
+import User.Viet.activity_phanhoi.PhanHoi;
 import User.Viet.activity_trangchu.Trangchu;
 
 public class ChiTietMonAn extends AppCompatActivity {
@@ -83,6 +86,16 @@ public class ChiTietMonAn extends AppCompatActivity {
         imageMonAn = findViewById(R.id.imageMonAn);
         txtTenMonAn = findViewById(R.id.txtTenMonAn);
         txtGia = findViewById(R.id.txtGia);
+        cartIcon=findViewById(R.id.cart_icon);
+
+        cartIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChiTietMonAn.this, CartFragment.class);
+                startActivity(intent);
+            }
+        });
+
 
         // Cập nhật giá trị ban đầu cho txtSoLuong
         txtSoLuong.setText(String.valueOf(soLuong));

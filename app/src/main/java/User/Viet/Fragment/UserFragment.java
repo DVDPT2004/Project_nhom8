@@ -13,6 +13,6 @@ public class UserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate layout cho fragment này
-        return inflater.inflate(R.layout.activity_phanhoi, container, false);
+        return inflater.inflate(R.layout.activity_profile_user, container, false);
     }
 }

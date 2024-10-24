@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <!-- Hình ảnh avatar -->
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/userfeedback" />
+
+    <!-- Thông tin người gửi và thời gian -->
+    <LinearLayout
+        android:layout_width="293dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="8dp">
+
+        <!-- Tên người dùng -->
+        <TextView
+            android:id="@+id/txtUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="lavistudio.vn"
+            android:textSize="20sp"
+            android:textStyle="bold" /> <!-- Thêm thuộc tính ellipsize -->
+
+        <!-- Nội dung phản hồi -->
+        <TextView
+            android:id="@+id/txtFeedbackContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="Đánh giá để nhận Sho..."
+            android:textColor="@android:color/black"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <!-- Thời gian -->
+    <TextView
+        android:id="@+id/txttime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thứ 6"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray" />
+
+</LinearLayout>
