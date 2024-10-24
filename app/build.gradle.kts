@@ -56,5 +56,6 @@ dependencies {
     implementation ("com.google.android.material:material:1.9.0")
 //Doanh
     implementation("com.github.PhilJay:MPAndroidChart:v3.0.2")
-
+// Phuoc
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
 }
