@@ -45,7 +45,13 @@ public class Profile_User extends AppCompatActivity {
         getEmail = userRepository.getLoggedInUserEmail();
         email.setText(getEmail);
 
-
+        history_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Profile_User.this,historyOrder.class);
+                startActivity(intent);
+            }
+        });
         change_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

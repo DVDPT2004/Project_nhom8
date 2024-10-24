@@ -44,6 +44,9 @@ public class UserRepository {
 
     // Đăng nhập người dùng
     public Userr loginUser(String email, String password) {
+        if (email.equals("admin123@gmail.com") && password.equals("admin123")) {
+            return new Userr("Admin", email, "admin123", "Admin"); // Trả về tài khoản admin cứng
+        }
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         Cursor cursor = null;
         try {
@@ -71,8 +74,6 @@ public class UserRepository {
 
         return rows >0;
     }
-
-
     // Lưu trạng thái đăng nhập vào SharedPreferences
     public void saveLoginInfo(String email) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
