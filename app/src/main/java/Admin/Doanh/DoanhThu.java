@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,8 +34,13 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import Dangky_nhap.Views.Profile_admin;
+import User.Viet.activity_chitietmonan.ChiTietMonAn;
+import User.Viet.activity_trangchu.Trangchu;
+
 public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedListener {
     private CombinedChart mChart;
+    ImageButton btn_adminAc1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,7 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
         mChart.setDrawBarShadow(false);
         mChart.setHighlightFullBarEnabled(false);
         mChart.setOnChartValueSelectedListener(this);
+
 
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setDrawGridLines(false);
@@ -101,6 +108,15 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
                 // Chuyển sang StatisticsActivity khi nhấn vào nút
                 Intent intent = new Intent(DoanhThu.this, Thongke.class);
                 startActivity(intent);
+            }
+        });
+        ImageButton btn_adminAc1 =  findViewById(R.id.btn_adminAc);
+        btn_adminAc1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DoanhThu.this, Profile_admin.class);
+                startActivity(intent);
+
             }
         });
     }
