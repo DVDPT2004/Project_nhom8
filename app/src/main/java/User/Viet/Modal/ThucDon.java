@@ -1,75 +1,75 @@
 package User.Viet.Modal;
 
 public class ThucDon {
-    private int avatar;       // Hình ảnh món ăn
-    private float giachinh;   // Giá chính
-    private int phantram;     // Phần trăm giảm giá
-    private String tenmonan;  // Tên món ăn
-    private String motamonan;
-    private int anhmota1;
-    private int anhmota2;
-    private int anhmota3;
-    private int anhmota4;
-    private int madanhmuc;
-    private String tinhtrang;
+    private String avatar, anhmota1, anhmota2, anhmota3, anhmota4;
+    private String tinhtrang, tenmonan, motamonan, tenDanhMuc;
+    private float giachinh;
+    private int phantram;
 
-    public String getTinhtrang() {
-        return tinhtrang;
-    }
-
-    public void setTinhtrang(String tinhtrang) {
-        this.tinhtrang = tinhtrang;
-    }
-
-
-
-    // Constructor với các tham số tương ứng
-
-
-    public ThucDon(int anhmota1, int anhmota2, int anhmota3, int anhmota4, int avatar,String tinhtrang, float giachinh, String tenmonan, int phantram, String motamonan,int madanhmuc) {
+    public ThucDon(String avatar, String anhmota1, String anhmota2, String anhmota3, String anhmota4, String tinhtrang, float giachinh, String tenmonan, int phantram, String motamonan, String tenDanhMuc) {
+        this.avatar = avatar;
         this.anhmota1 = anhmota1;
         this.anhmota2 = anhmota2;
         this.anhmota3 = anhmota3;
         this.anhmota4 = anhmota4;
-        this.avatar = avatar;
-        this.tinhtrang=tinhtrang;
+        this.tinhtrang = tinhtrang;
         this.giachinh = giachinh;
         this.motamonan = motamonan;
         this.phantram = phantram;
         this.tenmonan = tenmonan;
-        this.madanhmuc=madanhmuc;
+        this.tenDanhMuc = tenDanhMuc; // Thêm tên danh mục
     }
 
-    public int getAnhmota1() {
+    public String getTenDanhMuc() {
+        return tenDanhMuc;
+    }
+
+    public String getAnhmota1() {
         return anhmota1;
     }
 
-    public void setAnhmota1(int anhmota1) {
+    public void setAnhmota1(String anhmota1) {
         this.anhmota1 = anhmota1;
     }
 
-    public int getAnhmota2() {
+    public String getAnhmota2() {
         return anhmota2;
     }
 
-    public void setAnhmota2(int anhmota2) {
+    public void setAnhmota2(String anhmota2) {
         this.anhmota2 = anhmota2;
     }
 
-    public int getAnhmota3() {
+    public String getAnhmota3() {
         return anhmota3;
     }
 
-    public void setAnhmota3(int anhmota3) {
+    public void setAnhmota3(String anhmota3) {
         this.anhmota3 = anhmota3;
     }
 
-    public int getAnhmota4() {
+    public String getAnhmota4() {
         return anhmota4;
     }
 
-    public void setAnhmota4(int anhmota4) {
+    public void setAnhmota4(String anhmota4) {
         this.anhmota4 = anhmota4;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public float getGiachinh() {
+        return giachinh;
+    }
+
+    public void setGiachinh(float giachinh) {
+        this.giachinh = giachinh;
     }
 
     public String getMotamonan() {
@@ -80,34 +80,37 @@ public class ThucDon {
         this.motamonan = motamonan;
     }
 
-    // Getter cho các thuộc tính
-    public int getAvatar() {
-        return avatar;
-    }
-
-    public float getGiachinh() {
-        return giachinh;
-    }
-
     public int getPhantram() {
         return phantram;
+    }
+
+    public void setPhantram(int phantram) {
+        this.phantram = phantram;
+    }
+
+    public void setTenDanhMuc(String tenDanhMuc) {
+        this.tenDanhMuc = tenDanhMuc;
     }
 
     public String getTenmonan() {
         return tenmonan;
     }
 
-    // Phương thức tính giá sau giảm
+    public void setTenmonan(String tenmonan) {
+        this.tenmonan = tenmonan;
+    }
+
+    public String getTinhtrang() {
+        return tinhtrang;
+    }
+
+    public void setTinhtrang(String tinhtrang) {
+        this.tinhtrang = tinhtrang;
+    }
     public float giaGiam() {
         return giachinh * (1 - (phantram / 100.0f)); // Giá sau giảm
     }
-
-    public int getMadanhmuc() {
-        return madanhmuc;
-    }
-
-    public void setMadanhmuc(int madanhmuc) {
-        this.madanhmuc = madanhmuc;
-    }
 }
+
+
 

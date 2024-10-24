@@ -63,7 +63,7 @@ public class PhanHoi extends AppCompatActivity {
         gridView.setAdapter(imageAdapter);
 
         // Khởi tạo cơ sở dữ liệu
-        phanHoiDatabase = new MainData(this,"mainData.sqlite",null,1);
+        phanHoiDatabase = new MainData(PhanHoi.this,"mainData.sqlite",null,1);
 
         // Xử lý sự kiện khi nhấn vào nút chụp ảnh
         imagemayanh.setOnClickListener(new View.OnClickListener() {

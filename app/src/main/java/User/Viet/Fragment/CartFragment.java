@@ -13,6 +13,6 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate layout cho fragment này
-        return inflater.inflate(R.layout.activity_chi_tiet_mon_an, container, false);
+        return inflater.inflate(R.layout.act_gio_hang_user, container, false);
     }
 }

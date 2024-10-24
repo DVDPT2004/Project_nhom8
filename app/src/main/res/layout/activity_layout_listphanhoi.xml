@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Thanh tiêu đề -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/title"
+        android:layout_height="60dp"
+        android:background="@color/lavender"
+        android:gravity="center"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="20dp"
+            android:textColor="@android:color/white"
+            android:text="Liên hệ" />
+    </LinearLayout>
+
+    <!-- ListView phản hồi - Phần trên, chiếm 1 nửa màn hình -->
+    <ListView
+        android:id="@+id/listViewContacts"
+        android:layout_width="0dp"
+        android:layout_height="270dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.5"/>
+
+    <!-- Thông tin khách hàng (Phía bên phải) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/customer_info_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_nguyenquocviet"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="8dp">
+
+
+
+        <!-- Số điện thoại -->
+        <TextView
+            android:id="@+id/customer_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại: 0986589568"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+
+            android:layout_marginTop="4dp"
+            tools:ignore="MissingConstraints" />
+
+        <!-- Địa chỉ nhận -->
+        <TextView
+            android:id="@+id/customer_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ nhận: Hoan Kiem, Ha Noi"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            app:layout_constraintTop_toBottomOf="@id/customer_phone"
+            android:layout_marginTop="4dp"
+            tools:ignore="MissingConstraints" />
+
+        <!-- Thực đơn -->
+        <TextView
+            android:id="@+id/order_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thực đơn: \n - Rau muống xào tỏi (180 000 VND) - Số lượng: 2 \n - Bò cuộn phô mai (213 000 VND) - Số lượng: 3"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            app:layout_constraintTop_toBottomOf="@id/customer_address"
+            android:layout_marginTop="4dp"
+            tools:ignore="MissingConstraints" />
+
+        <!-- Ngày đặt hàng -->
+        <TextView
+            android:id="@+id/order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày đặt hàng: 25-05-2023, 08:42 PM"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            app:layout_constraintTop_toBottomOf="@id/order_menu"
+            android:layout_marginTop="4dp"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Thêm TextView "Nguyễn Quốc Việt" phía dưới ListView -->
+    <TextView
+        android:id="@+id/tv_nguyenquocviet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nguyễn Quốc Việt"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/listViewContacts"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Khu vực hiển thị câu trả lời - Phần dưới -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/messageArea"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/customer_info_area"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="8dp">
+
+        <!-- Thời gian và tin nhắn 1 (Căn bên phải) -->
+        <TextView
+            android:id="@+id/message_time_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:23 20/10/2024"
+            android:textSize="10sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/message_text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chat_bubble_background"
+            android:text="Món ăn bạn làm không được ngon lắm"
+            android:textColor="@color/black"
+            android:padding="8dp"
+            android:gravity="end"
+            app:layout_constraintTop_toBottomOf="@id/message_time_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Thời gian và tin nhắn 2 (Căn bên trái) -->
+        <TextView
+            android:id="@+id/message_time_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:23 20/10/2024"
+            android:textSize="10sp"
+            app:layout_constraintTop_toBottomOf="@id/message_text_1"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:id="@+id/message_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chat_bubble_background"
+            android:text="Cảm ơn bạn đã phản hồi với chúng tôi"
+            android:textColor="@color/black"
+            android:padding="8dp"
+            android:gravity="start"
+            app:layout_constraintTop_toBottomOf="@id/message_time_2"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="8dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

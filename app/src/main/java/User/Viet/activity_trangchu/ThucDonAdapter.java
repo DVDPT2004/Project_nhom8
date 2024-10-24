@@ -1,7 +1,9 @@
 package User.Viet.activity_trangchu;
 
-
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +11,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
-
 import com.example.project_nhom8.R;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -59,39 +61,34 @@ public class ThucDonAdapter extends BaseAdapter {
         TextView txtgiagiam = convertView.findViewById(R.id.txtgiagiam);
 
         ThucDon thucDon = thucDonList.get(position);
-        imageView.setImageResource(thucDon.getAvatar());
+
+        // Sử dụng Uri để lấy ảnh từ đường dẫn
+        String imageUriString = thucDonList.get(position).getAvatar();
+        if (imageUriString != null && !imageUriString.isEmpty()) {
+            Uri imageUri = Uri.parse(imageUriString);
+            try {
+                InputStream inputStream = context.getContentResolver().openInputStream(imageUri); // Sử dụng context
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                imageView.setImageBitmap(bitmap);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                imageView.setImageResource(R.drawable.doan1); // Hình ảnh mặc định nếu không tìm thấy
+            }
+        } else {
+            imageView.setImageResource(R.drawable.doan1); // Hình ảnh mặc định
+        }
+
+
         txtname.setText(thucDon.getTenmonan());
 
         // Định dạng và gán giá
         NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
-        txtgiachinh.setText(formatter.format(thucDon.getGiachinh()) + " VNĐ");
-        txtgiagiam.setText(formatter.format(thucDon.giaGiam()) + " VNĐ");
-        txtphantram.setText("Giảm " + thucDon.getPhantram() + "%"); // Hiển thị phần trăm
+        txtgiachinh.setText(formatter.format(thucDon.getGiachinh()) + " đ");
+        txtgiagiam.setText(formatter.format(thucDon.giaGiam()) + " đ");
 
-        // Kiểm tra tình trạng sản phẩm
-        if ("Hết".equals(thucDon.getTinhtrang())) {
-            // Làm mờ sản phẩm
-            convertView.setAlpha(0.5f);
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.black)); // Thay đổi thành màu sắc bạn muốn
-
-            // Thiết lập sự kiện nhấn
-            convertView.setOnClickListener(v -> {
-                // Hiện thông báo
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Thông báo")
-                        .setMessage("Món này đã hết. Vui lòng chọn món khác.")
-                        .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
-                        .setCancelable(false); // Không cho phép đóng bằng cách nhấn ra ngoài
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            });
-        } else {
-            // Đặt lại độ mờ và màu nền
-            convertView.setAlpha(1f);
-            convertView.setBackgroundColor(context.getResources().getColor(android.R.color.transparent)); // Màu nền trong suốt
-        }
+        txtphantram.setText(thucDon.getPhantram() + "%");
 
         return convertView;
     }
 }
-
