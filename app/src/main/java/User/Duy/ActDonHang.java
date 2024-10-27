@@ -61,7 +61,7 @@ public class ActDonHang extends AppCompatActivity {
     }
     private void initData(){
         MainData mainData = new MainData(this);
-        Cursor cs = mainData.SelectData("select * from DonHang where maDonHang = 7");
+        Cursor cs = mainData.SelectData("select * from DonHang where maDonHang = 2");
         if(cs != null){
             while(cs.moveToNext()){
 
@@ -85,13 +85,14 @@ public class ActDonHang extends AppCompatActivity {
                     thucdon += cs1.getString(0) + "- số lượng : " + cs1.getString(1) + "\n";
                 }
                 txt_thucdon.setText(thucdon);
-
-                if(Objects.equals(tinhtrang, "cho xac nhan")){
+                // dang chuan bi
+                if(Objects.equals(tinhtrang, "0")){
                     btn_huy.setVisibility(View.VISIBLE);
                     btn_xacnhan.setVisibility(View.INVISIBLE);
                     Toast.makeText(this, "dsadas", Toast.LENGTH_SHORT).show();
                 }
-                if(Objects.equals(tinhtrang, "da giao hang")){
+                // giao hang thanh cong
+                if(Objects.equals(tinhtrang, "2")){
                     btn_xacnhan.setVisibility(View.VISIBLE);
                     btn_huy.setVisibility(View.INVISIBLE);
                 }
@@ -100,7 +101,8 @@ public class ActDonHang extends AppCompatActivity {
         btn_huy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sql = "update DonHang set tinhTrangDonHang = 'Huy'";
+                // huy don hang
+                String sql = "update DonHang set tinhTrangDonHang = '3'";
                 mainData.ExecuteSQL(sql);
                 Toast.makeText(ActDonHang.this, "Hủy Thành Công", Toast.LENGTH_SHORT).show();
             }
@@ -108,7 +110,8 @@ public class ActDonHang extends AppCompatActivity {
         btn_xacnhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sql = "update DonHang set tinhTrangDonHang = 'Da giao hang'";
+                // giao hang thanh cong
+                String sql = "update DonHang set tinhTrangDonHang = '2'";
                 mainData.ExecuteSQL(sql);
                 Toast.makeText(ActDonHang.this, "Xacs nhaạn thành công ", Toast.LENGTH_SHORT).show();
             }
