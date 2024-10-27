@@ -3,6 +3,7 @@ package User.Duy.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,8 @@ public class ChiTietDonHangAdapter extends RecyclerView.Adapter<ChiTietDonHangAd
 
 
 
+
+
     }
 
     @Override
@@ -50,12 +53,14 @@ public class ChiTietDonHangAdapter extends RecyclerView.Adapter<ChiTietDonHangAd
         TextView textMaDonHang;
         TextView textMaSanPham;
         TextView textSoLuong;
+        Button phanHoi;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textMaDonHang = itemView.findViewById(R.id.textMaDonHang);
             textMaSanPham = itemView.findViewById(R.id.textMaSanPham);
             textSoLuong = itemView.findViewById(R.id.textSoLuong);
+            phanHoi = itemView.findViewById(R.id.user_phan_hoi);
         }
     }
 

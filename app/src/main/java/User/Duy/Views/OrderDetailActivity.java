@@ -1,5 +1,6 @@
 package User.Duy.Views;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import java.util.Locale;
 
 import Database.MainData.MainData;
 import User.Duy.Modal.DonHang;
+import User.Viet.activity_phanhoi.PhanHoi;
 
 public class OrderDetailActivity extends AppCompatActivity {
     private TextView txtMaDonHang;
@@ -27,7 +29,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     private TextView txtTongTien;
     private TextView txtPhuongThucThanhToan;
     private Button btnCancel;
-    private  Button btnConfirm;
+    private  Button btnPhanHoi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtTongTien = findViewById(R.id.txt_tongtien);
         txtPhuongThucThanhToan = findViewById(R.id.txt_pttt);
         btnCancel = findViewById(R.id.btnCancel);
-
+        btnPhanHoi = findViewById(R.id.user_phan_hoi);
         // Lấy thông tin đơn hàng từ Intent
         DonHang donHang = (DonHang) getIntent().getSerializableExtra("DON_HANG");
 
@@ -74,6 +76,10 @@ public class OrderDetailActivity extends AppCompatActivity {
             btnCancel.setVisibility(View.INVISIBLE);
             txtTinhTrang.setText(getTinhTrang(3).toString());
         });
+        btnPhanHoi.setOnClickListener(view -> {
+            Intent intent = new Intent(OrderDetailActivity.this, PhanHoi.class);
+            startActivity(intent);
+        });
     }
     private String getTinhTrang(int trangthai_int){
         String trangthai_string = "";
@@ -87,6 +93,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         }
         else if(trangthai_int == 2){
             trangthai_string = "giao hàng thành công";
+            btnPhanHoi.setVisibility(View.VISIBLE);
         }
         else if(trangthai_int == 3){
             trangthai_string = "hủy đơn hàng";

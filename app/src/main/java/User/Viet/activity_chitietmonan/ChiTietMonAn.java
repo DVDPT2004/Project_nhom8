@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
+import Dangky_nhap.Model.UserRepository;
 import User.Duy.DBGioHangManager;
 
 import android.widget.Button;
@@ -237,14 +238,21 @@ public class ChiTietMonAn extends AppCompatActivity {
                         viewMo.setVisibility(View.GONE); // Ẩn lớp làm mờ
                         btnAddCard.setBackgroundColor(ContextCompat.getColor(ChiTietMonAn.this, R.color.darker_gray));
                         btnAddCard.setText("Đã thêm vào giỏ hàng"); // Cập nhật chữ
-                        DBGioHangManager dbGioHangManager = new DBGioHangManager(ChiTietMonAn.this);
-                        String sql = "INSERT INTO giohang (id_sp, soluong) VALUES (" + maSanPham + ", " + soLuong + ")";
+                        MainData db = new MainData(ChiTietMonAn.this);
+                        db.getReadableDatabase();
+                        db.getWritableDatabase();
+                        UserRepository userRepository = new UserRepository(db, ChiTietMonAn.this);
+                        String email = userRepository.getLoggedInUserEmail();
+                        int user_id = userRepository.getUserIdByEmail(email);
+
+                        String sql = "INSERT INTO GIOHANG (maSanPham, soLuong ,id_user ) VALUES (" + maSanPham + ", " + soLuong + "," + user_id + ")";
                         try{
-                            dbGioHangManager.execSQL(sql);
+                            db.ExecuteSQL(sql);
                         }catch(SQLiteConstraintException e){
 
                             Toast.makeText(ChiTietMonAn.this, "Sản phẩm đã tồn tại trong giỏ hàng.", Toast.LENGTH_SHORT).show(); // Hiển thị thông báo lên màn hình
                         }
+                        db.close();
                         btnAddCard.setEnabled(false); // Vô hiệu hóa nút nếu không muốn nhấn lại
                     }
                 });

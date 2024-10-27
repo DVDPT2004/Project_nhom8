@@ -18,6 +18,7 @@ import Dangky_nhap.Model.UserRepository;
 import Dangky_nhap.Model.Userr;
 import Database.MainData.MainData;
 import User.Viet.Fragment.GiaoDienDauFragment;
+import User.Viet.activity_trangchu.MenuUser;
 
 public class Login extends AppCompatActivity{
     private boolean passwordShowing = false;// Biến cờ để theo dõi trạng thái hiển thị mật khẩu
@@ -107,7 +108,7 @@ public class Login extends AppCompatActivity{
         if ("Admin".equalsIgnoreCase(role)) {
             intent = new Intent(Login.this, MainActivityAdmin.class);
         } else {
-            intent = new Intent(Login.this, Profile_User.class);
+            intent = new Intent(Login.this, MenuUser.class);
         }
         startActivity(intent);
         finish();
