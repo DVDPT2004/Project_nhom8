@@ -12,10 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.project_nhom8.R;
 import com.github.mikephil.charting.charts.CombinedChart;
-import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.CombinedData;
@@ -23,9 +20,6 @@ import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -35,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Dangky_nhap.Views.Profile_admin;
-import User.Viet.activity_chitietmonan.ChiTietMonAn;
-import User.Viet.activity_trangchu.Trangchu;
 
 public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedListener {
     private CombinedChart mChart;

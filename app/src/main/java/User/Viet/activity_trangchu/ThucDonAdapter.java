@@ -15,9 +15,8 @@ import com.example.project_nhom8.R;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.text.NumberFormat;
+import java.text.DecimalFormat;
 import java.util.List;
-import java.util.Locale;
 
 import User.Viet.Modal.ThucDon;
 
@@ -63,32 +62,36 @@ public class ThucDonAdapter extends BaseAdapter {
         ThucDon thucDon = thucDonList.get(position);
 
         // Sử dụng Uri để lấy ảnh từ đường dẫn
-        String imageUriString = thucDonList.get(position).getAvatar();
-        if (imageUriString != null && !imageUriString.isEmpty()) {
-            Uri imageUri = Uri.parse(imageUriString);
-            try {
-                InputStream inputStream = context.getContentResolver().openInputStream(imageUri); // Sử dụng context
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                imageView.setImageBitmap(bitmap);
+        String imageUriString = thucDon.getAvatar(); // Lấy chuỗi Uri từ database
 
+        if (imageUriString != null && !imageUriString.isEmpty()) {
+            Uri imageUri = Uri.parse(imageUriString); // Chuyển đổi chuỗi sang Uri
+            try {
+                InputStream imageStream = context.getContentResolver().openInputStream(imageUri);
+                Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+                imageView.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                imageView.setImageResource(R.drawable.doan1); // Hình ảnh mặc định nếu không tìm thấy
             }
         } else {
-            imageView.setImageResource(R.drawable.doan1); // Hình ảnh mặc định
+            imageView.setImageResource(R.drawable.doan1); // Hình ảnh mặc định nếu không có
         }
-
 
         txtname.setText(thucDon.getTenmonan());
 
         // Định dạng và gán giá
-        NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
-        txtgiachinh.setText(formatter.format(thucDon.getGiachinh()) + " đ");
-        txtgiagiam.setText(formatter.format(thucDon.giaGiam()) + " đ");
-
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+        decimalFormat.setDecimalSeparatorAlwaysShown(false);
+        txtgiachinh.setText(decimalFormat.format(thucDon.getGiachinh()) + " VND");
+        txtgiagiam.setText(decimalFormat.format(thucDon.giaGiam()) + " VND");
         txtphantram.setText(thucDon.getPhantram() + "%");
 
         return convertView;
+    }
+
+    public void updateList(List<ThucDon> newList) {
+        thucDonList.clear();
+        thucDonList.addAll(newList);
+        notifyDataSetChanged(); // Thông báo cho adapter để cập nhật UI
     }
 }

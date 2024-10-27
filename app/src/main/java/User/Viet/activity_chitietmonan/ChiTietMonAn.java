@@ -5,8 +5,13 @@ import android.content.Intent;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+
+import User.Duy.DBGioHangManager;
+
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -14,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,17 +31,13 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.project_nhom8.R;
 
 
-
-import java.text.NumberFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import Database.MainData.MainData;
-import User.Duy.ActGioHang;
 import User.Viet.Fragment.CartFragment;
 import User.Viet.Modal.Feedback;
-import User.Viet.activity_phanhoi.PhanHoi;
-import User.Viet.activity_trangchu.Trangchu;
+import User.Viet.activity_trangchu.MenuUser;
 
 public class ChiTietMonAn extends AppCompatActivity {
 
@@ -65,6 +67,7 @@ public class ChiTietMonAn extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
 
         // Ánh xạ các view từ layout
         btnExit = findViewById(R.id.btn_exit);
@@ -105,15 +108,15 @@ public class ChiTietMonAn extends AppCompatActivity {
         adapterfeedback = new FeedbackAdapter(this, feedbacksList);
         lvFeedback.setAdapter(adapterfeedback);
         MainData phanHoiDatabase = new MainData(this,"mainData.sqlite",null,1);
-        Cursor cursor = phanHoiDatabase.SelectData("SELECT * FROM PhanHoi");
+        Cursor cursor = phanHoiDatabase.SelectData("SELECT * FROM PhanHoi WHERE user_id = 2");
         while (cursor.moveToNext()) {
             feedbacksList.add(new Feedback(
-                    cursor.getString(8), // Tên người dùng
+                    cursor.getString(9), // Tên người dùng
                     cursor.getString(2), // Ngày phản hồi
                     cursor.getString(3), // Nội dung phản hồi
-                    cursor.getBlob(4),   // Hình ảnh 1 (BLOB)
-                    cursor.getBlob(5),   // Hình ảnh 2 (BLOB)
-                    cursor.getBlob(6)
+                    cursor.getBlob(5),   // Hình ảnh 1 (BLOB)
+                    cursor.getBlob(6),   // Hình ảnh 2 (BLOB)
+                    cursor.getBlob(7)
 
             ));
         }
@@ -124,34 +127,60 @@ public class ChiTietMonAn extends AppCompatActivity {
 
         // Nhận dữ liệu từ Intent
         Intent intent = getIntent();
+        int maSanPham = intent.getIntExtra("maSanPham", 0);
         String tenMonan = intent.getStringExtra("tenmonan");
         String motaMonAn = intent.getStringExtra("motamonan");
-        int hinhanh = intent.getIntExtra("hinhanh", 0);
-        int hinhanh1 = intent.getIntExtra("hinhanh1", 0);
-        int hinhanh2 = intent.getIntExtra("hinhanh2", 0);
-        int hinhanh3 = intent.getIntExtra("hinhanh3", 0);
-        int hinhanh4 = intent.getIntExtra("hinhanh4", 0);
+        String hinhanh = intent.getStringExtra("hinhanh");
+        String hinhanh1 = intent.getStringExtra("hinhanh1");
+        String hinhanh2 = intent.getStringExtra("hinhanh2");
+        String hinhanh3 = intent.getStringExtra("hinhanh3");
+        String hinhanh4 = intent.getStringExtra("hinhanh4");
         float giaGiam = intent.getFloatExtra("giaGiam", 0);
 
-        NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
-        // Hiển thị thông tin món ăn
+        DBGioHangManager dbGioHangManager = new DBGioHangManager(ChiTietMonAn.this);
+
+// Kiểm tra xem sản phẩm đã có trong giỏ hàng hay chưa
+        Cursor cursorCheck = dbGioHangManager.selectData("SELECT * FROM giohang WHERE id_sp = " + maSanPham);
+        if (cursorCheck != null && cursorCheck.getCount() > 0) {
+            // Nếu sản phẩm đã tồn tại trong giỏ hàng, cập nhật giao diện nút
+            btnAddCard.setBackgroundColor(ContextCompat.getColor(ChiTietMonAn.this, R.color.darker_gray));
+            btnAddCard.setText("Đã thêm vào giỏ hàng");
+            btnAddCard.setEnabled(false); // Vô hiệu hóa nút
+        }
+        if (cursorCheck != null) {
+            cursorCheck.close(); // Đóng Cursor sau khi kiểm tra
+        }
+
+// Định dạng số
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+
+        decimalFormat.setDecimalSeparatorAlwaysShown(false);
+
+// Hiển thị thông tin món ăn
         txtmotamonan.setText(motaMonAn);
-        txtGia.setText(formatter.format(giaGiam) + " VNĐ");
+        txtGia.setText(decimalFormat.format(giaGiam) + " VNĐ");
         txtTenMonAn.setText(tenMonan);
-        imageMonAn.setImageResource(hinhanh);
 
+// Thiết lập hình ảnh chính
+        if (hinhanh != null && !hinhanh.isEmpty()) {
+            imageMonAn.setImageURI(Uri.parse(hinhanh)); // Thiết lập hình ảnh chính
+        } else {
+            imageMonAn.setImageResource(R.drawable.doan1); // Hình ảnh mặc định
+        }
 
-        // Tạo mảng chứa các hình ảnh
-        int[] images = {hinhanh1, hinhanh2, hinhanh3, hinhanh4};
+// Tạo mảng hình ảnh cho GridView
+        String[] images = new String[] { hinhanh1, hinhanh2, hinhanh3, hinhanh4 };
 
-        // Thiết lập adapter cho GridView
+// Thiết lập ImageAdapter cho GridView
         ImageAdapter adapter = new ImageAdapter(this, images);
         grHinhanhkhac.setAdapter(adapter);
+
+
 
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChiTietMonAn.this, Trangchu.class);
+                Intent intent = new Intent(ChiTietMonAn.this, MenuUser.class);
                 startActivity(intent);
 
             }
@@ -206,8 +235,16 @@ public class ChiTietMonAn extends AppCompatActivity {
                         // Nếu xác nhận, thay đổi màu và chữ của nút
                         layoutMonAn.setVisibility(View.GONE); // Ẩn giao diện món ăn
                         viewMo.setVisibility(View.GONE); // Ẩn lớp làm mờ
-                        btnAddCard.setBackgroundColor(ContextCompat.getColor(ChiTietMonAn.this, R.color.black));
+                        btnAddCard.setBackgroundColor(ContextCompat.getColor(ChiTietMonAn.this, R.color.darker_gray));
                         btnAddCard.setText("Đã thêm vào giỏ hàng"); // Cập nhật chữ
+                        DBGioHangManager dbGioHangManager = new DBGioHangManager(ChiTietMonAn.this);
+                        String sql = "INSERT INTO giohang (id_sp, soluong) VALUES (" + maSanPham + ", " + soLuong + ")";
+                        try{
+                            dbGioHangManager.execSQL(sql);
+                        }catch(SQLiteConstraintException e){
+
+                            Toast.makeText(ChiTietMonAn.this, "Sản phẩm đã tồn tại trong giỏ hàng.", Toast.LENGTH_SHORT).show(); // Hiển thị thông báo lên màn hình
+                        }
                         btnAddCard.setEnabled(false); // Vô hiệu hóa nút nếu không muốn nhấn lại
                     }
                 });

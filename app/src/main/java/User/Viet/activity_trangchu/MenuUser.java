@@ -1,4 +1,4 @@
-package User.Viet.Fragment;
+package User.Viet.activity_trangchu;
 
 import android.os.Bundle;
 
@@ -10,6 +10,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.project_nhom8.R;
 import com.example.project_nhom8.databinding.ActivityLayoutUserBinding;
+
+import User.Viet.Fragment.CartFragment;
+import User.Viet.Fragment.FeedbackFragment;
+import User.Viet.Fragment.GiaoDienDauFragment;
+import User.Viet.Fragment.LienHeFragment;
+import User.Viet.Fragment.UserFragment;
 
 
 //import com.example.appdatdoan.
