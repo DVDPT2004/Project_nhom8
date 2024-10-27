@@ -12,8 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project_nhom8"
         tools:targetApi="31">
+
+<!--        Tue         -->
         <activity
-            android:name=".MainActivity"
+            android:name="Dangky_nhap.Views.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +23,92 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="Dangky_nhap.Views.Update_password"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="Dangky_nhap.Views.ResetPassword"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="Dangky_nhap.Views.Register"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="Dangky_nhap.Views.Profile_admin"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="Dangky_nhap.Views.Profile_User"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="Dangky_nhap.Views.OTPVerification"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="Dangky_nhap.Views.OtpForgotPassWord"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="Dangky_nhap.Views.Login"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name="Dangky_nhap.Views.ForgotPasswordActivity"
+            android:exported="true">
+        </activity>
+<!--        Tue end       -->
+
+
+<!--        Doanh       -->
+<!--        <activity android:name=".MainActivity">-->
+<!--        </activity>-->
+<!--        Doanh  end     -->
+
+
+<!--        Phuoc       -->
+        <activity android:name="Admin.Phuoc.MainActivityAdmin">
+        </activity>
+
+        <activity android:name="Admin.Phuoc.admin_home.activity_food.AdminAddItemActivity">
+        </activity>
+
+        <activity android:name="Admin.Phuoc.admin_home.activity_food.AdminEditItemActivity">
+        </activity>
+
+        <activity android:name="Admin.Phuoc.admin_feedback.activity_feedback.AdminFeedbackDetailActivity">
+        </activity>
+<!--        Phuoc end      -->
+
+<!--        Viet        -->
+        <activity
+            android:name="User.Viet.activity_chitietmonan.ChiTietMonAn"
+            android:exported="true" />
+        <activity
+            android:name="User.Viet.activity_trangchu.MenuUser"
+            android:exported="true"/>
+        <activity
+            android:name="User.Viet.activity_phanhoi.PhanHoi"
+            android:exported="true"/>
+<!--        Viet end       -->
+
+<!--        Duy         -->
+        <activity android:name="User.Duy.ActThanhToan"
+            android:exported="true">
+        </activity>
+        <activity android:name="User.Duy.ActGioHang"
+            android:exported="true">
+        </activity>
+        <activity android:name="User.Duy.Views.OrderDetailActivity" >
+        </activity>
+        <activity android:name="User.Duy.Views.OrderHistoryActivity" >
+        </activity>
+<!--        Duy         -->
+
+
     </application>
 
 </manifest>
