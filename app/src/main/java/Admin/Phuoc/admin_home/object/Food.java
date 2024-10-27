@@ -127,6 +127,7 @@ public class Food implements Parcelable {
     }
 
     // Thực hiện Parcelable
+//    Việc triển khai Parcelable cho phép đối tượng Food được truyền giữa các Activity/Fragment một cách hiệu quả.
     protected Food(Parcel in) {
         idFood = in.readInt();
 

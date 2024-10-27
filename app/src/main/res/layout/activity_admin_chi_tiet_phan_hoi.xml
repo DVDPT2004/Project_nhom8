@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/admin_food"
+    tools:context="Admin.Phuoc.admin_feedback.activity_feedback.AdminFeedbackFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="top"
+                    android:background="@color/lavender"
+                    android:gravity="center|bottom"
+                    android:paddingBottom="10dp"
+                    android:text="Chi tiết phản hồi khách hàng"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/admin_feedback_detail_back"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/baseline_backspace_24"
+                    android:layout_gravity="center|bottom|left"
+                    android:paddingBottom="10dp"
+                    android:layout_marginStart="5dp"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:background="@drawable/border_background3"
+                android:layout_margin="5dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/userfeedback"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center_vertical"
+                        android:contentDescription="Avatar của người dùng"
+                        android:background="@android:color/darker_gray"
+                        android:padding="4dp"
+                        android:clipToOutline="true" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/admin_feedback_detail_nameUser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tên người dùng"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black" />
+
+                        <TextView
+                            android:id="@+id/admin_feedback_detail_timeFeedback"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ngày gửi phản hồi"
+                            android:textColor="@android:color/darker_gray" />
+                    </LinearLayout>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nội dung:"
+                    android:layout_marginTop="8dp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/admin_feedback_detail_contentUserFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nội dung phản hồi của người dùng sẽ hiển thị ở đây. Nội dung có thể dài ngắn tùy thuộc vào phản hồi của người dùng."
+                    android:textColor="@android:color/black" />
+
+                <!-- Hình ảnh media -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp">
+
+                    <ImageView
+                        android:id="@+id/admin_feedback_detail_media1"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="Media 1"
+                        android:adjustViewBounds="true"/>
+
+                    <ImageView
+                        android:id="@+id/admin_feedback_detail_media2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="Media 2"
+                        android:adjustViewBounds="true"/>
+
+                    <ImageView
+                        android:id="@+id/admin_feedback_detail_media3"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="Media 3"
+                        android:adjustViewBounds="true"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Phản hồi khách hàng"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/admin_feedback_detail_contentAdminFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nhập nội dung phản hồi..."
+                    android:background="@drawable/border_background"
+                    android:textSize="15dp"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginTop="5dp"/>
+                <Button
+                    android:id="@+id/admin_feedback_detail_buttonResponse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gửi phản hồi"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="5dp"
+                    />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

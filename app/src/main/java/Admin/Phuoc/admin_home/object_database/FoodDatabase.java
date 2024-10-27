@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -61,7 +62,6 @@ public class FoodDatabase {
             // Kiểm tra xem có dữ liệu không
             if (cursor.moveToFirst()) {
                 do {
-                    // Lấy dữ liệu từ từng cột của bảng SanPham
                     int id = cursor.getInt(cursor.getColumnIndexOrThrow("maSanPham"));
                     String tenSanPham = cursor.getString(cursor.getColumnIndexOrThrow("tenSanPham"));
                     String madanhmuc = cursor.getString(cursor.getColumnIndexOrThrow("tendanhmuc"));
@@ -72,7 +72,7 @@ public class FoodDatabase {
                     String anhSanPham = cursor.getString(cursor.getColumnIndexOrThrow("anhSanPham"));
                     String moTaSanPham = cursor.getString(cursor.getColumnIndexOrThrow("moTaSanPham"));
                     ArrayList<Uri> anhMota = new ArrayList<>();
-                    for (int i = 1; i <= 3; i++) { // Giả sử có tối đa 3 ảnh mô tả
+                    for (int i = 1; i <= 4; i++) { // Giả sử có tối đa 4 ảnh mô tả
                         int columnIndex = cursor.getColumnIndex("anhMota" + i);
                         if (columnIndex != -1) {
                             String anhMotaUri = cursor.getString(columnIndex);
@@ -118,21 +118,17 @@ public class FoodDatabase {
         values.put("discount", updatedFood.getDiscount());
         values.put("anhSanPham", updatedFood.getImageMain().toString());
         values.put("moTaSanPham", updatedFood.getDescription());
-
         ArrayList<Uri> anhMota = updatedFood.getImageSubs();
         Log.d("anhMota.size(): ",""+anhMota.size());
 
-        // Kiểm tra danh sách ảnh mô tả
         if (anhMota.size() != 0) {
             for (int i = 0; i < anhMota.size(); i++) {
                 values.put("anhMota" + (i + 1), anhMota.get(i).toString());  // Cập nhật ảnh mô tả không rỗng
             }
-            // Nếu danh sách ảnh mô tả ít hơn 4, các cột dư thừa sẽ được đặt thành null
             for (int i = anhMota.size(); i < 4; i++) {
                 values.putNull("anhMota" + (i + 1));
             }
         } else {
-            // Đặt giá trị null cho tất cả các cột anhMota nếu danh sách rỗng
             values.putNull("anhMota1");
             values.putNull("anhMota2");
             values.putNull("anhMota3");
@@ -142,7 +138,7 @@ public class FoodDatabase {
             int rowsAffected = db.update("SanPham", values, "maSanPham = ?", new String[]{String.valueOf(foodId)});
             return rowsAffected > 0; // Trả về true nếu cập nhật thành công
         } finally {
-            db.close(); // Đóng kết nối
+            db.close();
         }
     }
 }

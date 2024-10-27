@@ -28,12 +28,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.project_nhom8.R;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import Admin.Phuoc.admin_home.activity_food.AdminEditItemActivity;
-import Admin.Phuoc.admin_home.object.Food;
 import Admin.Phuoc.admin_home.object_database.FoodDatabase;
+import Admin.Phuoc.admin_home.object.Food;
 import Database.MainData.MainData;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
@@ -54,15 +56,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(layout, parent, false);
+        View view = inflater.inflate(layout, parent,
+                false);
         return new FoodViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
         Food food = foodList.get(position);
+        NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+
         Glide.with(context)
-                .load(food.getImageMain())  // Uri của ảnh
+                .load(food.getImageMain())
                 .into(holder.imageFood);
 
         holder.nameFood.setText(food.getNameFood());
@@ -70,7 +75,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             holder.price.setPaintFlags(holder.price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // tạo gạch ngang cho gias gốc
             holder.price.setTextColor(context.getResources().getColor(R.color.darker_gray));
             holder.price.setTypeface(holder.price.getTypeface(), Typeface.NORMAL); // Đặt kiểu chữ là bình thường
-            holder.priceCurrent.setText(String.valueOf(food.getPricecurrent()) + " VND");
+            holder.priceCurrent.setText(formatter.format(food.getPricecurrent()) + " VND");
             holder.discount.setText("Giảm " + String.valueOf(food.getDiscount()) + "%");
             // Cài đặt màu sắc mặc định cho TextView
             holder.discount.setTextColor(Color.parseColor("#ff0000"));
@@ -85,7 +90,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             holder.price.setTypeface(holder.price.getTypeface(), Typeface.BOLD); // Đặt kiểu chữ là đậm
             holder.discount.setText("");
         }
-        holder.price.setText(String.valueOf(food.getPrice()) + " VND");
+        holder.price.setText(formatter.format(food.getPrice()) + " VND");
         holder.category.setText(food.getCategory());
         holder.status.setText(food.getStatus());
         if(food.getStatus().equals("Hết")){
@@ -166,7 +171,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         confirmButton.setOnClickListener(v -> {
             // Xóa item khỏi danh sách
             Food food = foodList.get(position);
-//            String foodName = food.getNameFood();
             int foodId = food.getIdFood();
             db = new MainData(context,"mainData.sqlite",null,1);
             foodDatabase = new FoodDatabase(db);
