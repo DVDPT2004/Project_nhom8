@@ -18,7 +18,7 @@ public class ItemPhanHoi extends AppCompatActivity {
         setContentView(R.layout.activity_layout_listphanhoi);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        GiaoDienDauFragment trangchuFragment = new GiaoDienDauFragment();
+        FeedbackFragment trangchuFragment = new FeedbackFragment();
         fragmentTransaction.replace(R.id.bottomNavigationView, trangchuFragment);
         fragmentTransaction.commit();
     }

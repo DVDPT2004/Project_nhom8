@@ -70,9 +70,14 @@ public class PhanHoi extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+                if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+                } else {
+                    Toast.makeText(getApplicationContext(), "No camera app found", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 
         // Xử lý sự kiện khi nhấn vào nút chọn ảnh từ thư viện
         imagefile.setOnClickListener(new View.OnClickListener() {
@@ -130,8 +135,8 @@ public class PhanHoi extends AppCompatActivity {
         ContentValues values = new ContentValues();
         values.put("tenKH", hoTen);
         values.put("soDienThoai", soDienThoai);
-        values.put("NoiDung", phanHoi);
-        values.put("user_id", 1); // Thay đổi giá trị user_id nếu cần
+        values.put("NoiDungKhachPhanHoi", phanHoi);
+        values.put("user_id", 2); // Thay đổi giá trị user_id nếu cần
         values.put("maDonHang", 1); // Thay đổi giá trị maDonHang nếu cần
 
         // Thêm đường dẫn của ảnh vào cơ sở dữ liệu

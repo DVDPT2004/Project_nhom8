@@ -16,7 +16,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.project_nhom8.MainActivity;
 import com.example.project_nhom8.R;
 
 import java.text.DecimalFormat;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Database.MainData.MainData;
-import User.Viet.activity_trangchu.Trangchu;
+import User.Viet.activity_trangchu.MenuUser;
 
 public class ActThanhToan extends AppCompatActivity {
     Spinner spinner;
@@ -83,7 +82,7 @@ public class ActThanhToan extends AppCompatActivity {
                 }
                 else{
                     execDatHang(hoten,sdt,diachi,list,1, pttt);
-                    Intent intent = new Intent(ActThanhToan.this, Trangchu.class);
+                    Intent intent = new Intent(ActThanhToan.this, MenuUser.class);
                     startActivity(intent);
                 }
             }

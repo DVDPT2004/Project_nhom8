@@ -23,7 +23,7 @@ private static final String CREATE_TABLE_SanPham = "CREATE TABLE SanPham (maSanP
 private static final String CREATE_TABLE_Danhmuc ="CREATE TABLE Danhmuc (maDanhMuc INTEGER PRIMARY KEY AUTOINCREMENT, tenDanhMuc NVARCHAR(50))";
 
 private static final String CREATE_TABLE_DonHang ="CREATE TABLE DonHang (maDonHang INTEGER PRIMARY KEY AUTOINCREMENT, ngayGioDatHang DATETIME, ThanhTien INT, user_id INT, noiGiaoHang TEXT, soDienThoai NVARCHAR(15), phuongThucThanhToan NVARCHAR(20), tenKH NVARCHAR(50),tinhTrangDonHang nvarchar(20))";
-private static final String CREATE_TABLE_PhanHoi = "CREATE TABLE PhanHoi (maPhanHoi INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, thoiGianPhanHoi DATETIME DEFAULT CURRENT_TIMESTAMP, NoiDung TEXT, media1 VARCHAR(255), media2 VARCHAR(255), media3 VARCHAR(255), soDienThoai VARCHAR(15), tenKH VARCHAR(255), maDonHang INTEGER)";
+private static final String CREATE_TABLE_PhanHoi = "CREATE TABLE PhanHoi (maPhanHoi INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, thoiGianPhanHoi DATE DEFAULT CURRENT_TIMESTAMP, NoiDungKhachPhanHoi TEXT,NoiDungAdminPhanHoi TEXT, media1 VARCHAR(255), media2 VARCHAR(255), media3 VARCHAR(255), soDienThoai VARCHAR(15), tenKH VARCHAR(255), maDonHang INTEGER, trangThai INTEGER default 0)";
 
 private static final String CREATE_TABLE_chitietDonHang="CREATE TABLE chiTietDonHang (maDonHang INT, maSanPham INT, soLuong INT, PRIMARY KEY (maDonHang, maSanPham))";
     public MainData(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -29,7 +30,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Database.MainData.MainData;
-import User.Viet.Modal.Feedback;
+
 import User.Viet.activity_chitietmonan.ChiTietMonAn;
 import User.Viet.Modal.Photo;
 import User.Viet.activity_trangchu.PhotoAdapter;
@@ -50,6 +51,9 @@ public class GiaoDienDauFragment extends Fragment {
     private ArrayAdapter<String> adapterItems;
     private List<String> danhMucList; // Danh sách danh mục
     private MainData sanphamhienthi;
+    private SearchView searchView;
+    private List<ThucDon> fullFoodList;
+    private List<ThucDon> filteredFoodList;
 
     @Nullable
     @Override
@@ -60,6 +64,7 @@ public class GiaoDienDauFragment extends Fragment {
         circleIndicator = view.findViewById(R.id.circle_indicator);
         gridView = view.findViewById(R.id.grThucDon);
         autoCompleteTextView = view.findViewById(R.id.txtdanhmuc);
+        searchView = view.findViewById(R.id.search_view);
 
         sanphamhienthi = new MainData(getContext(), "mainData.sqlite", null, 1);
         danhMucList = new ArrayList<>(); // Khởi tạo danh sách danh mục
@@ -89,9 +94,69 @@ public class GiaoDienDauFragment extends Fragment {
         circleIndicator.setBackgroundResource(R.drawable.indicator_drawable);
         AutoSlideImages();
 
+        fullFoodList = new ArrayList<>();
+        filteredFoodList = new ArrayList<>();
         initMainDishData(""); // Hiển thị dữ liệu mặc định
+        setupSearchView();
 
         return view;
+    }
+
+    private void setupSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterFoodList(newText); // Lọc danh sách món ăn khi người dùng nhập vào ô tìm kiếm
+                return true;
+            }
+        });
+    }
+
+    // Phương thức lọc danh sách món ăn
+    private void filterFoodList(String query) {
+        filteredFoodList.clear();
+        Set<String> addedFoods = new HashSet<>(); // Sử dụng HashSet để theo dõi món ăn đã thêm
+
+        if (query.isEmpty()) {
+            // Khi ô tìm kiếm trống, chỉ hiển thị món ăn theo danh mục đã chọn
+            // Nếu không có danh mục nào được chọn, có thể hiển thị toàn bộ danh sách
+            if (autoCompleteTextView.getText().toString().isEmpty()) {
+                filteredFoodList.addAll(fullFoodList); // Hiển thị tất cả nếu không có danh mục nào
+            } else {
+                // Lấy danh mục đã chọn
+                String selectedDanhMuc = autoCompleteTextView.getText().toString();
+                for (ThucDon food : fullFoodList) {
+                    if (food.getTenDanhMuc().equalsIgnoreCase(selectedDanhMuc) &&
+                            !addedFoods.contains(food.getTenmonan())) {
+                        filteredFoodList.add(food);
+                        addedFoods.add(food.getTenmonan());
+                    }
+                }
+            }
+        } else {
+            for (ThucDon food : fullFoodList) {
+                // Lọc theo từ khóa tìm kiếm
+                if (food.getTenmonan().toLowerCase().contains(query.toLowerCase()) &&
+                        !addedFoods.contains(food.getTenmonan())) {
+                    filteredFoodList.add(food);
+                    addedFoods.add(food.getTenmonan());
+                }
+            }
+        }
+
+        thucDonAdapter.updateList(filteredFoodList); // Cập nhật adapter với danh sách đã lọc
+    }
+
+
+    public void updateList(List<ThucDon> newList) {
+        this.fullFoodList.clear();
+        this.fullFoodList.addAll(newList);
+        thucDonAdapter.notifyDataSetChanged();
     }
 
     private void getDanhMuc() {
@@ -119,19 +184,22 @@ public class GiaoDienDauFragment extends Fragment {
         }
 
         while (cursor.moveToNext()) {
-            listmonan.add(new ThucDon(
-                    cursor.getString(7),
+            ThucDon thucDon = new ThucDon(
                     cursor.getString(8),
                     cursor.getString(9),
                     cursor.getString(10),
                     cursor.getString(11),
                     cursor.getString(12),
-                    cursor.getFloat(4),
+                    cursor.getString(5),
+                    cursor.getFloat(3),
                     cursor.getString(1),
                     cursor.getInt(6),
                     cursor.getString(13),
-                    cursor.getString(3)
-            ));
+                    cursor.getString(3),
+                    cursor.getInt(0)
+            );
+            listmonan.add(thucDon);
+            fullFoodList.add(thucDon); // Lưu trữ danh sách đầy đủ
         }
         cursor.close(); // Đóng con trỏ
         thucDonAdapter.notifyDataSetChanged();
@@ -141,7 +209,7 @@ public class GiaoDienDauFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getContext(), ChiTietMonAn.class);
                 ThucDon selectedMonAn = (ThucDon) thucDonAdapter.getItem(i);
-
+                intent.putExtra("maSanPham",selectedMonAn.getMaSanPham());
                 intent.putExtra("tenmonan", selectedMonAn.getTenmonan());
                 intent.putExtra("motamonan", selectedMonAn.getMotamonan());
                 intent.putExtra("hinhanh", selectedMonAn.getAvatar());
@@ -182,7 +250,7 @@ public class GiaoDienDauFragment extends Fragment {
                         }
                     });
                 }
-            }, 3000, 3000); // Tự động slide mỗi 3 giây
+            }, 2000, 2000); // Chuyển hình mỗi 2 giây
         }
     }
 
@@ -190,8 +258,7 @@ public class GiaoDienDauFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if (mTimer != null) {
-            mTimer.cancel();
-            mTimer = null; // Dừng timer khi fragment bị hủy
+            mTimer.cancel(); // Hủy Timer khi fragment bị hủy
         }
     }
 }
