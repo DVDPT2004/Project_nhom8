@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="Mã Đơn Hàng:"
+            android:textColor="#414141">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/txt_madonhang"
+            android:layout_width="214dp"
+            android:layout_height="wrap_content"
+            android:text="placehoder" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="Họ tên:"
+            android:textColor="#414141" />
+
+        <TextView
+            android:id="@+id/txt_hoten"
+            android:layout_width="214dp"
+            android:layout_height="wrap_content"
+            android:text="placehoder" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại:"
+            android:textColor="#414141">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/txt_sdt"
+            android:layout_width="214dp"
+            android:layout_height="wrap_content"
+            android:text="placehoder" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ nhận"
+            android:textColor="#414141">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/txt_diachinhan"
+            android:layout_width="214dp"
+            android:layout_height="wrap_content"
+            android:text="placehoder" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="Thực đơn:"
+            android:textColor="#414141">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/txt_thucdon"
+            android:layout_width="258dp"
+            android:layout_height="272dp"
+            android:text="placehoder" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="Ngày đặt hàng"
+            android:textColor="#414141">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/txt_ngaydathang"
+            android:layout_width="214dp"
+            android:layout_height="wrap_content"
+            android:text="placehoder" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="Tình trạng đơn hàng"
+            android:textColor="#414141">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/txt_tinhtrang"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:text="placehoder" />
+        <Button
+            android:visibility="invisible"
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy đơn hàng"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@android:color/holo_red_light"
+            android:text="Tổng tiền:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/txt_tongtien"
+            android:textSize="24dp"
+            android:layout_width="279dp"
+            android:layout_height="wrap_content"
+            android:text="0 VNĐ"
+            android:textColor="@android:color/holo_red_light">
+
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="17dp"
+            android:paddingRight="20dp"
+            android:textColor="@android:color/holo_red_light"
+            android:text="Thanh toán: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/txt_pttt"
+            android:textSize="18dp"
+            android:layout_width="279dp"
+            android:layout_height="wrap_content"
+            android:text="0 VNĐ"
+            >
+
+        </TextView>
+    </LinearLayout>
+    <TextView
+        android:visibility="invisible"
+        android:layout_marginTop="10dp"
+        android:padding="20dp"
+        android:textColor="@color/white"
+        android:background="#FF3515"
+        android:text="Đã Hoàn Thành"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </TextView>
+</LinearLayout>

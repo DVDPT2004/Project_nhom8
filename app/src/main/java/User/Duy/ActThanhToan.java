@@ -16,14 +16,17 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.project_nhom8.MainActivity;
 import com.example.project_nhom8.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import Dangky_nhap.Model.UserRepository;
 import Database.MainData.MainData;
-import User.Viet.activity_trangchu.MenuUser;
+import User.Duy.Views.OrderHistoryActivity;
+//import User.Viet.activity_trangchu.Trangchu;
 
 public class ActThanhToan extends AppCompatActivity {
     Spinner spinner;
@@ -36,6 +39,8 @@ public class ActThanhToan extends AppCompatActivity {
     List<GioHang> list;
     ArrayAdapter<String> itemApapter;
     TextView txt_tongtienthanhtoan;
+    private UserRepository  userRepository;
+    private MainData db;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +72,14 @@ public class ActThanhToan extends AppCompatActivity {
                 finish();
             }
         });
+        db = new MainData(this);
+        db.getReadableDatabase();
+        db.getWritableDatabase();
+        userRepository = new UserRepository(db, this);
+        String email = userRepository.getLoggedInUserEmail();
+        int user_id = userRepository.getUserIdByEmail(email);
+        db.close();
+        Toast.makeText(this, String.valueOf(user_id), Toast.LENGTH_SHORT).show();
         btn_dathang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +87,7 @@ public class ActThanhToan extends AppCompatActivity {
                 String sdt = et_sdt.getText().toString().trim();
                 String diachi = et_diachi.getText().toString().trim();
                 String pttt = spinner.getSelectedItem().toString().trim();
+
                 if(hoten.isEmpty() || diachi.isEmpty() || sdt.isEmpty() ){
                     Toast.makeText(ActThanhToan.this, "Bạn phải nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 }
@@ -81,8 +95,8 @@ public class ActThanhToan extends AppCompatActivity {
                     Toast.makeText(ActThanhToan.this, "Bạn phải nhập số điện thoại hợp lệ", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    execDatHang(hoten,sdt,diachi,list,1, pttt);
-                    Intent intent = new Intent(ActThanhToan.this, MenuUser.class);
+                    execDatHang(hoten,sdt,diachi,list,user_id, pttt);
+                    Intent intent = new Intent(ActThanhToan.this, OrderHistoryActivity.class);
                     startActivity(intent);
                 }
             }
@@ -105,8 +119,10 @@ public class ActThanhToan extends AppCompatActivity {
     private void execDatHang(String hoten, String sdt, String diachi, List<GioHang> list, int user_id, String pttt){
         int tongtien = tongTien(list);
         String sql = "insert into DonHang (ngayGioDatHang,ThanhTien , user_id , noiGiaoHang ,phuongThucThanhToan , tenKH ,tinhTrangDonHang, soDienThoai ) values";
-        sql += "(datetime('now'), '" +tongtien+ "', '"+user_id+"', '"+diachi+"', '"+pttt+"', '"+hoten + "', 'cho xac nhan', '"+sdt+"' )";
+        sql += "(datetime('now'), '" +tongtien+ "', '"+user_id+"', '"+diachi+"', '"+pttt+"', '"+hoten + "',0 , '"+sdt+"' )";
         MainData mainData = new MainData(this);
+        mainData.getWritableDatabase();
+        mainData.getReadableDatabase();
         mainData.ExecuteSQL(sql);
         Cursor c = mainData.SelectData("SELECT last_insert_rowid()");
         if(c != null){
@@ -117,10 +133,10 @@ public class ActThanhToan extends AppCompatActivity {
                     mainData.ExecuteSQL(sql_gh);
                 }
             }
+            mainData.ExecuteSQL("Delete from GIOHANG where id_user = " +user_id);
             Toast.makeText(ActThanhToan.this, "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
-            DBGioHangManager dbGioHangManager = new DBGioHangManager(this);
-            dbGioHangManager.execSQL("delete from giohang");
         }
+        mainData.close();
     }
     public int tongTien(List<GioHang> list){
         int tien = 0;

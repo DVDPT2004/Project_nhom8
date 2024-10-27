@@ -21,10 +21,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.project_nhom8.R;
 
 import java.text.DecimalFormat;
 import java.util.List;
+
+import Dangky_nhap.Model.UserRepository;
+import Database.MainData.MainData;
+
 public class GioHangAdapter extends BaseAdapter {
     Context context;
     int layout;
@@ -85,14 +90,22 @@ public class GioHangAdapter extends BaseAdapter {
         TextView txt_idsp = convertView.findViewById(R.id.txt_idsp);
 
         View finalConvertView = convertView;
+        MainData db = new MainData(layoutInflater.getContext(), "mainData.sqlite",null , 1);
+        db.getReadableDatabase();
+        UserRepository userRepository = new UserRepository(db, layoutInflater.getContext());
+        String email = userRepository.getLoggedInUserEmail();
+        int user_id = userRepository.getUserIdByEmail(email);
+        db.close();
         et_soluong.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 // khi nguoi dung bam enter thi se chay vao ham nay
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     String sl = et_soluong.getText().toString();
-                    String sql = "update giohang set soluong = " + sl + " where id_sp = " + txt_idsp.getText().toString();
-                    execSQLGioHang(sql);
+                    db.getReadableDatabase();
+                    String sql = "update GIOHANG set soLuong = " + sl + " where maSanPham = " + txt_idsp.getText().toString() + "and id_user = " + user_id;
+                    db.ExecuteSQL(sql);
+                    db.close();
                     return true;
                 }
                 return false;
@@ -149,10 +162,10 @@ public class GioHangAdapter extends BaseAdapter {
                 sl--;
                 et_soluong.setText(String.valueOf(sl));
                 list.get(pos).setSoLuong(sl);
-
-                String sql = "update giohang set soluong = " + sl + " where id_sp = " + txt_idsp.getText().toString();
-                execSQLGioHang(sql);
-
+                db.getReadableDatabase();
+                String sql = "update GIOHANG set soLuong = " + sl + " where maSanPham = " + txt_idsp.getText().toString() + " and id_user = " + user_id;
+                db.ExecuteSQL(sql);
+                db.close();
                 notifyDataSetChanged();
                 notifyDataChanged();
             }
@@ -167,9 +180,11 @@ public class GioHangAdapter extends BaseAdapter {
                 sl++;
                 et_soluong.setText(String.valueOf(sl));
                 list.get(pos).setSoLuong(sl);
-                String sql = "update giohang set soluong = " + sl + " where id_sp = " + txt_idsp.getText().toString();
-                // Toast.makeText(finalConvertView.getContext(), sql, Toast.LENGTH_LONG).show();
-                execSQLGioHang(sql);
+                db.getReadableDatabase();
+                String sql = "update GIOHANG set soLuong = " + sl + " where maSanPham = " + txt_idsp.getText().toString() + " and id_user = " + user_id;
+                db.ExecuteSQL(sql);
+                db.close();
+                Toast.makeText(finalConvertView.getContext(), sql, Toast.LENGTH_LONG).show();
                 notifyDataSetChanged();
                 notifyDataChanged();
             }
@@ -182,9 +197,12 @@ public class GioHangAdapter extends BaseAdapter {
             builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    db.getReadableDatabase();
+                    String sql = "delete from GIOHANG where maSanPham = " + txt_idsp.getText().toString() + " and id_user = " + user_id;
+                    db.ExecuteSQL(sql);
+                    db.close();
                     list.remove(pos);
-                    String sql = "delete from giohang where id_sp = " + txt_idsp.getText().toString();
-                    execSQLGioHang(sql);
+                    Toast.makeText(finalConvertView.getContext(), sql, Toast.LENGTH_SHORT).show();
                     notifyDataSetChanged();
                     notifyDataChanged();
                 }
@@ -198,16 +216,23 @@ public class GioHangAdapter extends BaseAdapter {
         });
 
         GioHang giohang = list.get(pos);
-        imgSanPham.setImageResource(giohang.getAnhsp());
+//        if (giohang.getAnhsp() != null) {
+//            imgSanPham.setImageURI(giohang.getAnhsp());
+//        } else {
+//            imgSanPham.setImageResource(R.drawable.banhmi); // Ảnh mặc định nếu URI trống
+//        }
+//        if (giohang.getAnhsp() != null) {
+//            Glide.with(context)
+//                    .load(giohang.getAnhsp()) // URL hoặc URI của ảnh
+//                    .into(imgSanPham);
+//        } else {
+//            imgSanPham.setImageResource(R.drawable.banhmi); // Ảnh mặc định nếu URI trống
+//        }
         txt_tensp.setText(giohang.getTensp().toString());
         et_soluong.setText(String.valueOf(giohang.getSoLuong()));
         txt_gia.setText(formatCurrency(giohang.getGia()));
         txt_idsp.setText(String.valueOf(giohang.getIdSanPham()));
         return convertView;
-    }
-    private void execSQLGioHang(String sql){
-        DBGioHangManager dbGioHangManager = new DBGioHangManager(context);
-        dbGioHangManager.execSQL(sql);
     }
     public String formatCurrency(int amount) {
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
