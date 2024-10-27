@@ -63,7 +63,9 @@ public class Login extends AppCompatActivity{
             }
         });
         if(userRepository.isLoggedIn()){
-            navigateToHomePage(userRepository.getLoggedInUserEmail());
+            String email = userRepository.getLoggedInUserEmail();
+            int userId = userRepository.getUserIdByEmail(email);
+            navigateToHomePage(userId);
         }
 
         forgotPasswordBtn.setOnClickListener(new View.OnClickListener() {
@@ -82,8 +84,9 @@ public class Login extends AppCompatActivity{
 
 
                 if(user !=null){
-                    userRepository.saveLoginInfo(email);  // Lưu trạng thái đăng nhập
-                    navigateToHomePage(user.getEmail());  // Chuyển tới trang chủ
+                    userRepository.saveLoginInfo(email,user.getRole());  // Lưu trạng thái đăng nhập
+                    int userId = userRepository.getUserIdByEmail(email);
+                    navigateToHomePage(userId);  // Chuyển tới trang chủ
                 }
                 else{
                     Toast.makeText(Login.this, "Sai email hoặc mật khẩu!", Toast.LENGTH_LONG).show();
@@ -98,12 +101,13 @@ public class Login extends AppCompatActivity{
         });
     }
     // Điều hướng tới trang chủ
-    private void navigateToHomePage(String email) {
+    private void navigateToHomePage(int userId) {
+        String role = userRepository.getLoggedInUserRole();
         Intent intent;
-        if ("admin123@gmail.com".equalsIgnoreCase(email)) {
+        if ("Admin".equalsIgnoreCase(role)) {
             intent = new Intent(Login.this, MainActivityAdmin.class);
         } else {
-            intent = new Intent(Login.this, GiaoDienDauFragment.class);
+            intent = new Intent(Login.this, Profile_User.class);
         }
         startActivity(intent);
         finish();

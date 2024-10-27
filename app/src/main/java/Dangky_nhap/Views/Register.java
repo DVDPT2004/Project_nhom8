@@ -2,6 +2,7 @@ package Dangky_nhap.Views;
 
 import static Dangky_nhap.Model.OtpGenerator.generateOtp;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -28,14 +29,14 @@ import Dangky_nhap.Model.Userr;
 import Database.MainData.MainData;
 
 public class Register extends AppCompatActivity {
-    private static  final  String role = "User";
+    private   String role = "User";
     private boolean passwordShowing = false;
     private boolean conPasswordShowing = false;
 
     private EditText full_name,email,password,conPassword;
     private ImageView passwordIcon,conPasswordIcon;
     private AppCompatButton signUpBtn;
-    private TextView signInBtn;
+    private TextView signInBtn,signUp;
     private RadioGroup roleGroup;
     private MainData db;
     private UserRepository userRepository;
@@ -55,8 +56,10 @@ public class Register extends AppCompatActivity {
         conPassword = findViewById(R.id.conPasswordET);
         passwordIcon = findViewById(R.id.passwordIcon);
         conPasswordIcon = findViewById(R.id.conPasswordIcon);
+        signUp = findViewById(R.id.signUp);
         signUpBtn = findViewById(R.id.signUpBtn);
         signInBtn = findViewById(R.id.signInBtn);
+
         //roleGroup = findViewById(R.id.roleGroup);
 
         passwordIcon.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +96,12 @@ public class Register extends AppCompatActivity {
         db = new MainData(this,"mainData.sqlite",null,1);
 
         userRepository = new UserRepository(db,this);
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSignUpDialog();
+            }
+        });
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,7 +109,7 @@ public class Register extends AppCompatActivity {
                 String mail = email.getText().toString();
                 String pass = password.getText().toString();
                 String conPass = conPassword.getText().toString();
-                String role = ((RadioButton) findViewById(roleGroup.getCheckedRadioButtonId())).getText().toString();
+                // String role = ((RadioButton) findViewById(roleGroup.getCheckedRadioButtonId())).getText().toString();
 
                 // Kiểm tra các trường dữ liệu
                 if (name.isEmpty()) {
@@ -152,7 +161,6 @@ public class Register extends AppCompatActivity {
 
 
             }
-
         });
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,7 +169,40 @@ public class Register extends AppCompatActivity {
 
             }
         });
-
     }
+    private void showSignUpDialog() {
+        // Tạo dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.activity_dialog_check);
 
+        // Lấy các nút từ dialog
+        AppCompatButton confirmButton = dialog.findViewById(R.id.btnConfirm);
+        AppCompatButton cancelButton = dialog.findViewById(R.id.btnCancel);
+        EditText passwordEditText = dialog.findViewById(R.id.pass_check); // Lấy EditText nhập mật khẩu
+//        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(700, 500); // Đặt chiều rộng là 800 pixels và chiều cao là 600 pixels
+
+        // Xử lý sự kiện cho nút "Xác nhận"
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String enteredPassword = passwordEditText.getText().toString(); // Lấy mật khẩu người dùng nhập vào
+                // Kiểm tra mật khẩu (Giả sử mật khẩu admin là "admin123" - thay đổi theo yêu cầu thực tế)
+                if (enteredPassword.equals("admin123")) {
+                    role = "Admin";
+                    Toast.makeText(Register.this, "Đăng ký thành công vs role là admin!", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+            }
+        });
+        // Xử lý sự kiện cho nút "Thoát"
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss(); // Đóng dialog
+            }
+        });
+        // Hiển thị dialog
+        dialog.show();
+    }
 }

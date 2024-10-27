@@ -5,17 +5,14 @@ public class Userr {
     private  String email;
     private  String password;
     private  String role;
-
     public Userr() {
     }
-
     public Userr(String fullName, String email, String password, String role) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.role = role;
     }
-
     public String getFullName() {
         return fullName;
     }

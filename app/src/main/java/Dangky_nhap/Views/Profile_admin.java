@@ -14,11 +14,17 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.project_nhom8.R;
 
 import Admin.Doanh.DoanhThu;
+import Dangky_nhap.Model.UserRepository;
+import Database.MainData.MainData;
 
 public class Profile_admin extends AppCompatActivity {
-    private TextView baoCao,logout;
+    private TextView logout,email;
+    private UserRepository userRepository;
+    private MainData db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = new MainData(this, "mainData.sqlite", null, 1);
+        userRepository = new UserRepository(db, this); // Khởi tạo UserRepository
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile_admin);
@@ -27,20 +33,16 @@ public class Profile_admin extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        baoCao = findViewById(R.id.revenueReport);
         logout = findViewById(R.id.logout);
-
-        baoCao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Profile_admin.this, DoanhThu.class);
-                startActivity(intent);
-            }
-        });
+        email = findViewById(R.id.email);
+        String Email= userRepository.getLoggedInUserEmail();
+        email.setText(Email);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Profile_admin.this,Login.class);
+                userRepository.logout();
+                Intent intent = new Intent(Profile_admin.this, Login.class);
+                startActivity(intent);
             }
         });
     }
