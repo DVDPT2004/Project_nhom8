@@ -1,5 +1,8 @@
 package Admin.Phuoc.admin_home.object;
 
+import Admin.Phuoc.admin_home.object_database.FoodDatabase;
+import Database.MainData.MainData;
+
 public class Category {
     private int idCategory;
     private String nameCategory;

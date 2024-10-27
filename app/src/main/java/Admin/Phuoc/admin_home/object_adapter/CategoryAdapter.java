@@ -14,11 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project_nhom8.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import Admin.Phuoc.admin_home.activity_food.AdminAddItemActivity;
 import Admin.Phuoc.admin_home.activity_food.AdminEditItemActivity;
 import Admin.Phuoc.admin_home.object.Category;
+import Admin.Phuoc.admin_home.object.Food;
 import Admin.Phuoc.admin_home.object_database.CategoryDatabase;
+import Admin.Phuoc.admin_home.object_database.FoodDatabase;
 import Database.MainData.MainData;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {

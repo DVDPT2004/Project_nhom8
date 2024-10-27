@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,10 +39,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import Admin.Phuoc.admin_home.object.Category;
 import Admin.Phuoc.admin_home.object.Food;
 import Admin.Phuoc.admin_home.object_adapter.CategoryAdapter;
+import Admin.Phuoc.admin_home.object_adapter.FoodAdapter;
 import Admin.Phuoc.admin_home.object_database.CategoryDatabase;
 import Admin.Phuoc.admin_home.object_database.FoodDatabase;
 import Database.MainData.MainData;
@@ -219,13 +222,13 @@ public class AdminAddItemActivity extends AppCompatActivity {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {     // kiem tra xem co chon duoc anh khong
                         ClipData clipData = result.getData().getClipData();
                         if (clipData != null) {
-                            for (int i = 0; i < clipData.getItemCount() && selectedImageUris.size() < 3; i++) {
+                            for (int i = 0; i < clipData.getItemCount() && selectedImageUris.size() < 4; i++) {
                                 Uri imageUri = clipData.getItemAt(i).getUri();
                                 selectedImageUris.add(imageUri);
                             }
-                        } else if(selectedImageUris.size() < 3) {
+                        } else if(selectedImageUris.size() < 4) {
                             Uri imageUri = result.getData().getData();
-                            if (imageUri != null && selectedImageUris.size() < 3) {
+                            if (imageUri != null && selectedImageUris.size() < 4) {
                                 selectedImageUris.add(imageUri);
                             }
                         }
@@ -239,7 +242,7 @@ public class AdminAddItemActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.setType("image/*");
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            imageSubsidiaryLauncher.launch(Intent.createChooser(intent, "Chọn tối đa 3 ảnh"));
+            imageSubsidiaryLauncher.launch(Intent.createChooser(intent, "Chọn tối đa 4 ảnh"));
         });
     }
 
