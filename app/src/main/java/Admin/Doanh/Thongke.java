@@ -77,7 +77,7 @@ public class Thongke extends AppCompatActivity {
         canceledDataSet.setColor(0xFFFF0000); // Màu đỏ0xFFFF0000
 
         // Tạo BarData từ các BarDataSet
-        if(successfulOrders.size()  >canceledOrders.size()){
+        if(successfulOrders.size()  > canceledOrders.size()){
            data = new BarData(successfulDataSet, canceledDataSet);
         }else{
 
