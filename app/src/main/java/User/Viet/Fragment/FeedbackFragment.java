@@ -80,35 +80,44 @@ public class FeedbackFragment extends Fragment {
         database.getWritableDatabase();
         UserRepository userRepository = new UserRepository(database, getContext());
 
-// Lấy email người dùng đã đăng nhập và `user_id`
+        // Lấy email người dùng đã đăng nhập và `user_id`
         String email = userRepository.getLoggedInUserEmail();
         int user_id = userRepository.getUserIdByEmail(email);
 
-// Truy vấn với điều kiện user_id đã lấy được
-        Cursor cursor = database.SelectData("SELECT * FROM PhanHoi WHERE user_id = " + user_id + " ORDER BY thoiGianPhanHoi DESC");
+        // Truy vấn kết hợp với bảng DonHang để lấy mã đơn hàng và thời gian đặt hàng
+        Cursor cursor = database.SelectData("SELECT PhanHoi.*, DonHang.maDonHang, DonHang.ngayGioDatHang " +
+                "FROM PhanHoi " +
+                "JOIN DonHang ON PhanHoi.user_id = DonHang.user_id " +
+                "WHERE PhanHoi.user_id = " + user_id + " " +
+                "ORDER BY PhanHoi.thoiGianPhanHoi DESC");
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                String tenKH = cursor.getString(9);
+                String tenKH = cursor.getString(9); // Cột tên khách hàng từ PhanHoi
                 String thoiGianPhanHoi = cursor.getString(2);
                 String noiDungKhachPhanHoi = cursor.getString(3);
                 String noiDungAdminPhanHoi = cursor.getString(4);
 
+                // Lấy mã đơn hàng và thời gian đặt hàng
+                int maDonHang = cursor.getInt(0); // Cột maDonHang từ DonHang
+                String ngayGioDatHang = cursor.getString(1); // Cột ngayGioDatHang từ DonHang
+
                 // Thêm phản hồi vào danh sách
-                feedbackList.add(new ItemFeedback(tenKH, thoiGianPhanHoi, noiDungKhachPhanHoi));
+                feedbackList.add(new ItemFeedback(tenKH, thoiGianPhanHoi, noiDungKhachPhanHoi, maDonHang, ngayGioDatHang));
 
                 // Lấy hình ảnh từ cơ sở dữ liệu dưới dạng byte[]
                 byte[] image1 = cursor.getBlob(5); // Thay đổi chỉ số tương ứng với cột ảnh 1
                 byte[] image2 = cursor.getBlob(6); // Thay đổi chỉ số tương ứng với cột ảnh 2
                 byte[] image3 = cursor.getBlob(7); // Thay đổi chỉ số tương ứng với cột ảnh 3
 
-                feedbackImages.add(new Feedback(noiDungAdminPhanHoi,tenKH, thoiGianPhanHoi, noiDungKhachPhanHoi, image1, image2, image3)); // Thêm ảnh vào danh sách
+                feedbackImages.add(new Feedback(noiDungAdminPhanHoi, tenKH, thoiGianPhanHoi, noiDungKhachPhanHoi, image1, image2, image3));
             }
             cursor.close(); // Đóng con trỏ sau khi sử dụng
         } else {
             Toast.makeText(getContext(), "Không có phản hồi nào", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     // Hàm hiển thị chi tiết phản hồi trong một Dialog
     private void showFeedbackDetails(Context context, ItemFeedback feedback, Feedback feedbackImages) {
@@ -120,7 +129,9 @@ public class FeedbackFragment extends Fragment {
         // Tạo TextView để hiển thị chi tiết phản hồi
         TextView textViewDetails = new TextView(context);
         textViewDetails.setText(
-                "Người gửi: " + feedback.getUserName() + "\n" +
+                "Mã đơn hàng:"+feedback.getMaDonHang()+"\n"+
+                        "Thời gian đặt hàng:"+feedback.getNgayGioDatHang()+"\n"+
+                        "Người gửi: " + feedback.getUserName() + "\n" +
                         "Thời gian phản hồi: " + feedback.getFeedbackTime() + "\n" +
                         "Nội dung phản hồi: " + feedback.getFeedbackContent() + "\n" +
                         "Ảnh phản hồi: ");
