@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="16sp"
-        android:textColor="#CC000000"
+        android:textColor="#FDBA38"
         android:text="Test@mail.com"
         android:textStyle="bold"
         />
@@ -119,7 +119,7 @@
         android:background="@drawable/roud_back_primary_15"
         android:text="Tiếp Tục"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
+        android:textColor="#FDBA38"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -141,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gửi Lại Mã"
-            android:textColor="@color/primary"
+            android:textColor="#FDBA38"
             android:textStyle="bold"/>
     </LinearLayout>
 

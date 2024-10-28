@@ -35,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:text="Tên sản phẩm"
                 android:textSize="18dp"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold"
+                android:textColor="#FDBA38"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -46,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0 VNĐ"
-                    android:textColor="#ff6351">
+                    android:textColor="#FDBA38">
 
                 </TextView>
 
@@ -96,7 +97,8 @@
             android:layout_height="wrap_content"
             android:text="Xóa"
             android:layout_margin="20dp"
-            ></Button>
+            android:textColor="#FDBA38"
+            />
 
 
     </LinearLayout>

@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:id="@+id/frame_layout"
         android:paddingBottom="80dp"
+
         />
 
     <!-- BottomAppBar nằm dưới cùng của màn hình -->
@@ -21,9 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/white"
-
-
+        android:background="#404040"
         >
 
         <!-- BottomNavigationView để hiển thị menu -->
@@ -33,9 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             app:labelVisibilityMode="labeled"
-            android:background="@android:color/transparent"
+            android:background="#FDBA38"
             app:menu="@menu/bottom_menu_admin"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            />
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <!-- FloatingActionButton được neo vào BottomAppBar -->

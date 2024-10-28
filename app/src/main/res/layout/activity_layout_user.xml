@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="vertical"
-        android:background="@color/white">
+        android:background="#404040">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
@@ -37,7 +37,9 @@
             android:layout_height="wrap_content"
             app:labelVisibilityMode="labeled"
             app:itemIconSize="32dp"
-            app:menu="@menu/bottom_menu_user" />
+            app:menu="@menu/bottom_menu_user"
+            android:background="#FDBA38"
+            />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

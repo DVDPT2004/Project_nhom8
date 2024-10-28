@@ -29,7 +29,7 @@
             android:orientation="vertical"
             android:padding="16dp"
             android:gravity="center"
-            android:background="@color/white">
+            android:background="#404040">
 
             <ImageView
                 android:layout_width="80dp"
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="tin@gmail.com"
-                android:textColor="@color/black"
+                android:textColor="#FDBA38"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:gravity="center"

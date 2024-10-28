@@ -32,7 +32,8 @@
         android:layout_height="wrap_content"
         android:text="Thêm"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:textColor="#FDBA38"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_category"

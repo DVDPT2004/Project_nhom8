@@ -131,7 +131,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hủy đơn hàng"></Button>
+            android:text="Hủy đơn hàng"
+            android:textColor="#FDBA38"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -139,7 +140,7 @@
         <TextView
             android:textSize="20dp"
             android:paddingRight="20dp"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="#FDBA38"
             android:text="Tổng tiền:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -148,11 +149,11 @@
 
         <TextView
             android:id="@+id/txt_tongtien"
-            android:textSize="24dp"
+            android:textSize="20dp"
             android:layout_width="279dp"
             android:layout_height="wrap_content"
             android:text="0 VNĐ"
-            android:textColor="@android:color/holo_red_light">
+            android:textColor="#FDBA38">
 
         </TextView>
     </LinearLayout>
@@ -160,9 +161,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:textSize="17dp"
+            android:textSize="20dp"
             android:paddingRight="20dp"
-            android:textColor="@android:color/holo_red_light"
+            android:textColor="#FDBA38"
             android:text="Thanh toán: "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -171,10 +172,11 @@
 
         <TextView
             android:id="@+id/txt_pttt"
-            android:textSize="18dp"
+            android:textSize="20dp"
             android:layout_width="279dp"
             android:layout_height="wrap_content"
             android:text="0 VNĐ"
+            android:textColor="#FDBA38"
             >
 
         </TextView>

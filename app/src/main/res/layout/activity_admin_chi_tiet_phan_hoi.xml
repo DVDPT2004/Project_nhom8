@@ -184,6 +184,7 @@
                     android:text="Gửi phản hồi"
                     android:layout_gravity="right"
                     android:layout_marginTop="5dp"
+                    android:textColor="#FDBA38"
                     />
             </LinearLayout>
 
