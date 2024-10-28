@@ -24,6 +24,7 @@ import com.example.project_nhom8.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import Dangky_nhap.Model.UserRepository;
 import Database.MainData.MainData;
 import User.Viet.Modal.Feedback;
 import User.Viet.Modal.ItemFeedback;
@@ -74,7 +75,18 @@ public class FeedbackFragment extends Fragment {
 
     // Hàm tải dữ liệu từ bảng PhanHoi
     private void loadFeedbackData() {
-        Cursor cursor = database.SelectData("SELECT * FROM PhanHoi order by thoiGianPhanHoi DESC");
+        // Khởi tạo cơ sở dữ liệu và truy vấn
+        database.getReadableDatabase();
+        database.getWritableDatabase();
+        UserRepository userRepository = new UserRepository(database, getContext());
+
+// Lấy email người dùng đã đăng nhập và `user_id`
+        String email = userRepository.getLoggedInUserEmail();
+        int user_id = userRepository.getUserIdByEmail(email);
+
+// Truy vấn với điều kiện user_id đã lấy được
+        Cursor cursor = database.SelectData("SELECT * FROM PhanHoi WHERE user_id = " + user_id + " ORDER BY thoiGianPhanHoi DESC");
+
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 String tenKH = cursor.getString(9);

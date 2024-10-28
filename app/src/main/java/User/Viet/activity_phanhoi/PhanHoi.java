@@ -45,6 +45,7 @@ public class PhanHoi extends AppCompatActivity {
     private GridView gridView;
     private ArrayList<Bitmap> imageBitmaps = new ArrayList<>();
     private ImageAdapterAnhPhanHoi imageAdapter;
+    private int maDonHang;
     private MainData phanHoiDatabase;
 
     private static final int CAMERA_REQUEST_CODE = 100;
@@ -145,7 +146,8 @@ public class PhanHoi extends AppCompatActivity {
         // Lưu thời gian đã định dạng vào cơ sở dữ liệu
         values.put("thoiGianPhanHoi", currentTime);
         values.put("user_id", user_id);
-        values.put("maDonHang", 1);
+        maDonHang = getIntent().getIntExtra("maDonHang", -1);
+        values.put("maDonHang", maDonHang);
         for (int i = 0; i < imageBitmaps.size(); i++) {
             values.put("media" + (i + 1), saveImageToDatabase(imageBitmaps.get(i)));
         }
