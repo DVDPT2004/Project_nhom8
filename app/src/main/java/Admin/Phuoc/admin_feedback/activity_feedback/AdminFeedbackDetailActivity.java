@@ -22,7 +22,7 @@ import Admin.Phuoc.admin_feedback.object_database.FeedbackDatabase;
 import Database.MainData.MainData;
 
 public class AdminFeedbackDetailActivity extends AppCompatActivity {
-    private TextView nameUserFeedback,timeFeedback,contentUserFeedback;
+    private TextView nameUserFeedback,timeFeedback,contentUserFeedback, idOrder;
     private ImageView media1,media2,media3,buttonBack;
     private EditText contentAdminFeedback;
     private Button buttonResponse;
@@ -56,7 +56,7 @@ public class AdminFeedbackDetailActivity extends AppCompatActivity {
         contentAdminFeedback = findViewById(R.id.admin_feedback_detail_contentAdminFeedback);
         buttonResponse = findViewById(R.id.admin_feedback_detail_buttonResponse);
         buttonBack = findViewById(R.id.admin_feedback_detail_back);
-
+        idOrder = findViewById(R.id.admin_feedback_id);
         contentAdminFeedback.requestFocus();
     }
 
@@ -70,6 +70,7 @@ public class AdminFeedbackDetailActivity extends AppCompatActivity {
         intentMedia1 = intentFeedback.getByteArrayExtra("feedback_media1");
         intentMedia2 = intentFeedback.getByteArrayExtra("feedback_media2");
         intentMedia3 = intentFeedback.getByteArrayExtra("feedback_media3");
+        int idorder = intentFeedback.getIntExtra("feedback_idOrder",-1);
         int intentStatusFeedback = intentFeedback.getIntExtra("feedback_statusFeedback",0);
         String intentContentAdminFeedback = intentFeedback.getStringExtra("feedback_contentAdminFeedback");
 
@@ -77,6 +78,7 @@ public class AdminFeedbackDetailActivity extends AppCompatActivity {
         nameUserFeedback.setText(intentNameUserFeedback);
         timeFeedback.setText("Thời gian phản hồi: " + intentTimeFeedback);
         contentUserFeedback.setText(intentContentUserFeedback);
+        idOrder.setText(String.valueOf(idorder));
 
         if (intentMedia1 != null && intentMedia1.length > 0) {
             Bitmap bitmap1 = BitmapFactory.decodeByteArray(intentMedia1, 0, intentMedia1.length);
@@ -107,7 +109,7 @@ public class AdminFeedbackDetailActivity extends AppCompatActivity {
             if(!contentAdminFeedback.getText().toString().trim().isEmpty()){
                 db = new MainData(this,"mainData.sqlite",null,1);
                 feedbackDatabase = new FeedbackDatabase(db);
-                Feedback updateResponse = new Feedback(contentAdminFeedback.getText().toString().trim(),1,"DATETIME(CURRENT_TIMESTAMP, '+7 hours')",nameUserFeedback.getText().toString().trim(),intentIdFeedback,intentContentUserFeedback,null,null,null);
+                Feedback updateResponse = new Feedback(null,contentAdminFeedback.getText().toString().trim(),1,"DATETIME(CURRENT_TIMESTAMP, '+7 hours')",nameUserFeedback.getText().toString().trim(),intentIdFeedback,intentContentUserFeedback,null,null,null);
                 if(feedbackDatabase.updateResponse(intentIdFeedback,updateResponse)){
                     Toast.makeText(AdminFeedbackDetailActivity.this, "Phản hồi thành công!", Toast.LENGTH_SHORT).show();
                     finish();
