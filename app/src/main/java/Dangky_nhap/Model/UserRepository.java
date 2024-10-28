@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import Database.MainData.MainData;
 
 public class UserRepository {
@@ -16,7 +19,21 @@ public class UserRepository {
         sharedPreferences = context.getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
 
     }
-
+    // Hàm mã hóa mật khẩu bằng SHA-256
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = digest.digest(password.getBytes());
+            StringBuilder stringBuilder = new StringBuilder();
+            for (byte b : hashedBytes) {
+                stringBuilder.append(String.format("%02x", b));
+            }
+            return stringBuilder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     // Kiểm tra xem email đã tồn tại chưa
     public boolean isEmailExists(String email) {
@@ -43,7 +60,7 @@ public class UserRepository {
         ContentValues values = new ContentValues();
         values.put("full_name", user.getFullName());
         values.put("email", user.getEmail());
-        values.put("password", user.getPassword());
+        values.put("password", hashPassword(user.getPassword()));
         values.put("role", user.getRole());
 
         try {
@@ -60,12 +77,13 @@ public class UserRepository {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         Cursor cursor = null;
         try {
-            cursor = db.rawQuery("SELECT * FROM User WHERE email = ? AND password = ?", new String[]{email, password});
+            String hashedPassword = hashPassword(password);
+            cursor = db.rawQuery("SELECT * FROM User WHERE email = ? AND password = ?", new String[]{email,hashedPassword});
             if (cursor.moveToFirst()) {
                 int userId = cursor.getInt(cursor.getColumnIndexOrThrow("user_id")); // Lấy user_id
                 String fullName = cursor.getString(cursor.getColumnIndexOrThrow("full_name"));
                 String role = cursor.getString(cursor.getColumnIndexOrThrow("role"));
-                return new Userr(fullName, email, password, role); // Trả về người dùng
+                return new Userr(fullName, email, hashedPassword, role); // Trả về người dùng
             }
 
 
@@ -80,7 +98,7 @@ public class UserRepository {
     public boolean updatePassword(String email,String newPassword){
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("password",newPassword);
+        values.put("password",hashPassword(newPassword));
         //cap nhat
         int rows =db.update("User",values,"email = ?",new String[]{email});
         db.close();;

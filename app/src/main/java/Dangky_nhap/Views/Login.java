@@ -83,7 +83,6 @@ public class Login extends AppCompatActivity{
                 String password = passwordET.getText().toString();
                 Userr user = userRepository.loginUser(email,password);
 
-
                 if(user !=null){
                     userRepository.saveLoginInfo(email,user.getRole());  // Lưu trạng thái đăng nhập
                     int userId = userRepository.getUserIdByEmail(email);
