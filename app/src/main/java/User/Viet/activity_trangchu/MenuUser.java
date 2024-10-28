@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.project_nhom8.R;
 import com.example.project_nhom8.databinding.ActivityLayoutUserBinding;
 
+import User.Duy.ActGioHang;
 import User.Viet.Fragment.CartFragment;
 import User.Viet.Fragment.FeedbackFragment;
 import User.Viet.Fragment.GiaoDienDauFragment;
@@ -38,7 +39,7 @@ public class MenuUser extends AppCompatActivity {
         if (selectedItemId1 == R.id.action_feedback) {
             replaceFragment(new FeedbackFragment());
         } else if (selectedItemId == R.id.action_cart) {
-            replaceFragment(new CartFragment());
+            replaceFragment(new ActGioHang());
         } else {
             replaceFragment(new GiaoDienDauFragment());
         }

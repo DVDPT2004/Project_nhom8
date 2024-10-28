@@ -3,6 +3,7 @@ package User.Duy.Views;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -82,17 +83,21 @@ public class OrderDetailActivity extends AppCompatActivity {
         });
         btnPhanHoi.setOnClickListener(view -> {
             int maDonHang = donHang.getMaDonHang();
-            String sql = "Select count(*) from PhanHoi where maDonHang <> " +maDonHang;
+            String sql = "Select count(*) from PhanHoi where maDonHang = " +maDonHang;
             MainData mainData = new MainData(this);
             mainData.getWritableDatabase();
             Cursor cs = mainData.SelectData(sql);
+
             while(cs.moveToNext()){
-                if(cs.getInt(0) == 0){
-                    Intent intent = new Intent(OrderDetailActivity.this, PhanHoi.class);
-                    intent.putExtra("maDonHang", maDonHang);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(OrderDetailActivity.this,"đơn hàng đã được phản hồi",Toast.LENGTH_SHORT).show();
+                if(cs.isFirst()){
+                    if(cs.getInt(0) == 0){
+                        Log.e("checkphanhoi", String.valueOf(cs.getInt(0)));
+                        Intent intent = new Intent(OrderDetailActivity.this, PhanHoi.class);
+                        intent.putExtra("maDonHang", maDonHang);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(OrderDetailActivity.this,"đơn hàng đã được phản hồi",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
             mainData.close();
