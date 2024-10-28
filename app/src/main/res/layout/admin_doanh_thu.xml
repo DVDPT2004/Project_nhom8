@@ -7,23 +7,27 @@
     android:orientation="vertical"
     android:weightSum="4">
 
-<!--Nút home-->
-    <ImageButton
-        android:id="@+id/btn_adminAc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:background="@null"
-        android:contentDescription="Nút thoát"
-        android:src="@android:drawable/ic_menu_revert"
-        tools:ignore="TouchTargetSizeCheck" />
+
+
     <!--Ngày-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:weightSum="2"
         android:layout_weight="2">
+
+        <!--Nút home-->
+        <ImageButton
+            android:id="@+id/btn_adminAc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:contentDescription="Nút thoát"
+            android:src="@android:drawable/ic_menu_revert"
+            tools:ignore="TouchTargetSizeCheck" />
 
 
         <!--Ngay bat dau-->
@@ -90,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/text_donhang"
                 android:textSize="20dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
@@ -106,18 +111,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/text_doanhthu"
                 android:textSize="20dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/but_thongke"
-            android:hint=" QUA THỐNG KÊ THEO THÁNG"
-            android:textColorHint="@color/white"
-            android:layout_marginTop="20dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </Button>
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+
+            <Button
+
+                android:id="@+id/but_thongke"
+                android:hint=" QUA THỐNG KÊ THEO THÁNG"
+                android:textColorHint="@color/white"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </Button>
+
+            <Button
+
+                android:id="@+id/but_hienthi"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Hiển thị"
+                android:textColorHint="@color/white">
+
+            </Button>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

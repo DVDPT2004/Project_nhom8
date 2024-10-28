@@ -38,9 +38,17 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import Admin.Phuoc.admin_order.object_database.OrderDatabase;
+import Database.MainData.MainData;
+
 public class Thongke extends AppCompatActivity {
+    private OrderDatabase orderDatabase;
+    private MainData db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = new MainData(Thongke.this,"mainData.sqlite",null,1);
+        orderDatabase = new OrderDatabase(db);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_thongke);
 
@@ -49,39 +57,23 @@ public class Thongke extends AppCompatActivity {
 
         // Tạo danh sách BarEntry cho đơn hàng thành công và bị hủy theo từng tháng
         ArrayList<BarEntry> successfulOrders = new ArrayList<>();
-        successfulOrders.add(new BarEntry(0, 70f));  // Đơn hàng thành công tháng 1
-        successfulOrders.add(new BarEntry(1, 80f));  // Đơn hàng thành công tháng 2
-        successfulOrders.add(new BarEntry(2, 90f));  // Đơn hàng thành công tháng 3
-        successfulOrders.add(new BarEntry(3, 100f)); // Đơn hàng thành công tháng 4
-        successfulOrders.add(new BarEntry(4, 110f)); // Đơn hàng thành công tháng 5
-        successfulOrders.add(new BarEntry(5, 120f)); // Đơn hàng thành công tháng 6
-        successfulOrders.add(new BarEntry(6, 130f)); // Đơn hàng thành công tháng 7
-        successfulOrders.add(new BarEntry(7, 140f)); // Đơn hàng thành công tháng 8
-        successfulOrders.add(new BarEntry(8, 150f)); // Đơn hàng thành công tháng 9
-        successfulOrders.add(new BarEntry(9, 160f)); // Đơn hàng thành công tháng 10
-        successfulOrders.add(new BarEntry(10, 170f)); // Đơn hàng thành công tháng 11
-        successfulOrders.add(new BarEntry(11, 180f)); // Đơn hàng thành công tháng 12
+        for (int month = 0; month < 12; month++) {
+            int successfulOrderCount = orderDatabase.DemSoDonTheoThang_ThanhCong(String.valueOf(month + 1)) ;
+            successfulOrders.add(new BarEntry(month, successfulOrderCount));
+        }
 
         ArrayList<BarEntry> canceledOrders = new ArrayList<>();
-        canceledOrders.add(new BarEntry(0, 5f));   // Đơn hàng bị hủy tháng 1
-        canceledOrders.add(new BarEntry(1, 6f));   // Đơn hàng bị hủy tháng 2
-        canceledOrders.add(new BarEntry(2, 7f));   // Đơn hàng bị hủy tháng 3
-        canceledOrders.add(new BarEntry(3, 8f));   // Đơn hàng bị hủy tháng 4
-        canceledOrders.add(new BarEntry(4, 9f));   // Đơn hàng bị hủy tháng 5
-        canceledOrders.add(new BarEntry(5, 10f));  // Đơn hàng bị hủy tháng 6
-        canceledOrders.add(new BarEntry(6, 11f));  // Đơn hàng bị hủy tháng 7
-        canceledOrders.add(new BarEntry(7, 12f));  // Đơn hàng bị hủy tháng 8
-        canceledOrders.add(new BarEntry(8, 13f));  // Đơn hàng bị hủy tháng 9
-        canceledOrders.add(new BarEntry(9, 14f));  // Đơn hàng bị hủy tháng 10
-        canceledOrders.add(new BarEntry(10, 15f)); // Đơn hàng bị hủy tháng 11
-        canceledOrders.add(new BarEntry(11, 16f)); // Đơn hàng bị hủy tháng 12
 
+        for (int month = 0; month < 12; month++) {
+            int canceledOrderCount = orderDatabase.DemSoDonTheoThang_Thatbai(String.valueOf(month + 1)) ;
+            canceledOrders.add(new BarEntry(month, canceledOrderCount));
+        }
         // Tạo BarDataSet cho đơn hàng thành công và bị hủy
         BarDataSet successfulDataSet = new BarDataSet(successfulOrders, "Đơn hàng thành công");
-        successfulDataSet.setColor(0xFF4CAF50); // Màu xanh lá cây
+        successfulDataSet.setColor(0xFFFF0000); // Màu xanh lá cây
 
         BarDataSet canceledDataSet = new BarDataSet(canceledOrders, "Đơn hàng bị hủy");
-        canceledDataSet.setColor(0xFFFF0000); // Màu đỏ
+        canceledDataSet.setColor(0xFF4CAF50); // Màu đỏ
 
         // Tạo BarData từ các BarDataSet
         BarData data = new BarData(successfulDataSet, canceledDataSet);

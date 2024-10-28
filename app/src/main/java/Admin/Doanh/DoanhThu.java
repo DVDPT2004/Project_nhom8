@@ -1,10 +1,14 @@
 package Admin.Doanh;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,19 +29,120 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+import Admin.Phuoc.admin_order.object_database.OrderDatabase;
 import Dangky_nhap.Views.Profile_admin;
+import Database.MainData.MainData;
 
 public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedListener {
+    private static List<String> xLabel = new ArrayList<>();
+    private static ArrayList<Entry> entries = new ArrayList<>();
     private CombinedChart mChart;
-    ImageButton btn_adminAc1;
-
+    private  EditText edtDateStart, edtDateEnd;
+    private   TextView text_donhang,text_doanhthu;
+    private    int totalDonhang=0 ;
+    private    int totalDoanhthu=0;
+    private    int totalRevenue = 0 ;
+    private ArrayList<Integer> dsTongtien = new ArrayList<>();
+    private OrderDatabase orderDatabase;
+    private MainData db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_doanh_thu);
+
+
+
+//        Xử lý button
+
+//        Ngày start
+        edtDateStart = findViewById(R.id.edtDateStart);
+        edtDateStart.setOnClickListener(v -> {
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(DoanhThu.this,
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        // Lưu ý: Month trả về từ 0-11 nên cần +1
+                        String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                        edtDateStart.setText(selectedDate);
+                    }, year, month, day);
+            datePickerDialog.show();
+        });
+
+//      Ngày end
+        edtDateEnd = findViewById(R.id.edtDateEnd);
+        edtDateEnd.setOnClickListener(v -> {
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(DoanhThu.this,
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        // Lưu ý: Month trả về từ 0-11 nên cần +1
+                        String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                        edtDateEnd.setText(selectedDate);
+                    }, year, month, day);
+            datePickerDialog.show();
+        });
+
+
+
+        Button btnThongKe = findViewById(R.id.but_thongke);
+
+        btnThongKe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Chuyển sang StatisticsActivity khi nhấn vào nút
+                Intent intent = new Intent(DoanhThu.this, Thongke.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton btn_adminAc1 =  findViewById(R.id.btn_adminAc);
+        btn_adminAc1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DoanhThu.this, Profile_admin.class);
+                startActivity(intent);
+
+            }
+        });
+
+        Button btnHienThi = findViewById(R.id.but_hienthi);
+        btnHienThi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                entries.clear();
+                setDateRangeToXLabel();
+            }
+        });
+
+
+//        Hết xử lý button
+
+
+//        Xử lý textview
+        text_doanhthu = findViewById(R.id.text_doanhthu);
+        text_donhang = findViewById(R.id.text_donhang);
+        text_doanhthu.setText(String.valueOf(totalDoanhthu) + " VND");
+        text_donhang.setText(String.valueOf(totalDonhang));
+
+//        Hết xử lý texview
+
 
         mChart = (CombinedChart) findViewById(R.id.combinedChart);
         mChart.getDescription().setEnabled(false);
@@ -55,8 +160,6 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
         leftAxis.setAxisMinimum(0f);
-
-        final List<String> xLabel = new ArrayList<>();
         xLabel.add("Jan");
         xLabel.add("Feb");
         xLabel.add("Mar");
@@ -92,26 +195,10 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
         mChart.setData(data);
         mChart.invalidate();
 
-        Button btnThongKe = findViewById(R.id.but_thongke);
 
-        btnThongKe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Chuyển sang StatisticsActivity khi nhấn vào nút
-                Intent intent = new Intent(DoanhThu.this, Thongke.class);
-                startActivity(intent);
-            }
-        });
-        ImageButton btn_adminAc1 =  findViewById(R.id.btn_adminAc);
-        btn_adminAc1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DoanhThu.this, Profile_admin.class);
-                startActivity(intent);
 
-            }
-        });
     }
+
 
 
     @Override
@@ -129,30 +216,109 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
 
     }
 
-    private static DataSet dataChart() {
+    private void setDateRangeToXLabel() {
 
-        LineData d = new LineData();
-        int[] data = new int[] { 1, 2, 2, 1, 1, 1, 2, 1, 1, 2, 1, 9 };
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-        ArrayList<Entry> entries = new ArrayList<Entry>();
 
-        for (int index = 0; index < 12; index++) {
-            entries.add(new Entry(index, data[index]));
+        try {
+            // Lấy giá trị ngày bắt đầu và kết thúc từ EditText
+            Date startDate = dateFormat.parse(edtDateStart.getText().toString());
+            Date endDate = dateFormat.parse(edtDateEnd.getText().toString());
+
+            // Kiểm tra xem ngày kết thúc có sau ngày bắt đầu không
+            if (startDate != null && endDate != null && !startDate.after(endDate)) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(startDate);
+                xLabel.clear();
+                // Thêm các ngày dạng chuỗi vào mảng xLabel cho đến khi đạt đến ngày kết thúc
+                while (!calendar.getTime().after(endDate)) {
+//                    Kết nối db order
+                    db = new MainData(DoanhThu.this,"mainData.sqlite",null,1);
+                    orderDatabase = new OrderDatabase(db);
+                    String dateString = dateFormat.format(calendar.getTime()); // Định dạng thành chuỗi
+                    totalRevenue = orderDatabase.selectTongTien(dateString); // Tính tổng tiền
+                    Log.d("Tongtien", "setDateRangeToXLabel: "+totalRevenue);
+                    dsTongtien.add(totalRevenue); // thiết lập danh sach them truc oy
+                    // tong text doanh thu
+                    totalDoanhthu +=totalRevenue;
+// tong text đơn
+                    totalDonhang += orderDatabase.DemSoDon(dateString);
+                    xLabel.add(dateString); // Thêm chuỗi vào xLabel
+                    calendar.add(Calendar.DAY_OF_MONTH, 1); // Tăng ngày lên 1
+                }
+
+                //        Xử lý textview
+                NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+
+                text_doanhthu.setText(formatter.format(totalDoanhthu) + " VND");
+                text_donhang.setText(String.valueOf(totalDonhang));
+
+//        Hết xử lý texview
+
+            } else {
+                Toast.makeText(this, "Vui lòng chọn khoảng ngày hợp lệ", Toast.LENGTH_SHORT).show();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Chọn ngày hợp lệ", Toast.LENGTH_SHORT).show();
+
         }
 
-        LineDataSet set = new LineDataSet(entries, "Request Ots approved");
+        XAxis xAxis = mChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setAxisMinimum(0f);
+        xAxis.setGranularity(1f);
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return xLabel.get((int) value % xLabel.size());
+            }
+        });
+
+        CombinedData data = new CombinedData();
+        LineData lineDatas = new LineData();
+        lineDatas.addDataSet((ILineDataSet) dataChart());
+
+        data.setData(lineDatas);
+
+        xAxis.setAxisMaximum(data.getXMax() + 0.25f);
+        mChart.setData(data);
+        mChart.invalidate();
+    }
+
+    private  DataSet dataChart() {
+
+        LineData d = new LineData();
+//        int[] data = new int[] { 1, 2, 2, 1, 1, 1, 2, 1, 1, 2, 1, 9 };
+        ArrayList<Integer> data = dsTongtien;
+        ArrayList<Entry> entries = new ArrayList<Entry>();
+
+        //   Các điểm trên đồ thị
+        for (int index = 0; index < xLabel.size(); index++) {
+            if (index < data.size()) {
+                // Nếu index không vượt quá chiều dài của mảng data, lấy giá trị từ data
+                entries.add(new Entry(index, data.get(index)));
+            } else {
+                // Nếu index vượt quá chiều dài của mảng data, thêm giá trị 0
+                entries.add(new Entry(index, 0));
+            }
+        }
+
+        LineDataSet set = new LineDataSet(entries, "Doanh thu theo ngay"); //  Là danh sách các Entry mà bạn đã tạo ra trước đó, đại diện cho dữ liệu bạn muốn vẽ.
         set.setColor(Color.GREEN);
         set.setLineWidth(2.5f);
         set.setCircleColor(Color.GREEN);
         set.setCircleRadius(5f);
         set.setFillColor(Color.GREEN);
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER); //Chọn chế độ hiển thị đường (Cubic Bezier, trong trường hợp này, tạo ra các đường cong mượt mà).
         set.setDrawValues(true);
         set.setValueTextSize(10f);
         set.setValueTextColor(Color.GREEN);
+        set.setAxisDependency(YAxis.AxisDependency.LEFT); //Xác định rằng dữ liệu này sẽ được vẽ trên trục Y bên trái.
 
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        d.addDataSet(set);
+
+//                            d.addDataSet(set); // thiết lập gia tri cho ILineDataSet
 
         return set;
     }

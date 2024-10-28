@@ -109,4 +109,115 @@ public class OrderDatabase {
 
         return ngayGioDatHang; // Trả về mặc định nếu không xác định được
     }
+
+    public int selectTongTien(String thoiGian){
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        int tongTien = 0;
+        Cursor cursor = null;
+
+        try {
+            // Chuyển đổi định dạng từ dd/MM/yyyy sang yyyy-MM-dd
+            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = outputFormat.format(inputFormat.parse(thoiGian)); // Ngày định dạng mới
+
+            // Thực hiện truy vấn với ngày đã định dạng
+            cursor = db.rawQuery("SELECT SUM(ThanhTien) FROM DonHang WHERE tinhTrangDonHang = 2 AND DATE(ngayGioDatHang) = ?", new String[]{formattedDate});
+
+            if (cursor.moveToFirst()) {
+                tongTien = cursor.getInt(0); // Lấy giá trị của SUM(ThanhTien)
+            }
+        } catch (ParseException e) {
+            Log.e("Error", "Date format error", e);
+        } catch (Exception e) {
+            Log.e("Error", "Error while fetching feedback", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return tongTien;
+    }
+
+
+    public int DemSoDon(String thoiGian){
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        int soDon = 0;
+        Cursor cursor = null;
+
+        try {
+            // Chuyển đổi định dạng từ dd/MM/yyyy sang yyyy-MM-dd
+            SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = outputFormat.format(inputFormat.parse(thoiGian)); // Ngày định dạng mới
+
+            // Thực hiện truy vấn với ngày đã định dạng
+            cursor = db.rawQuery("SELECT Count(*) FROM DonHang WHERE tinhTrangDonHang = 2 AND DATE(ngayGioDatHang) = ?", new String[]{formattedDate});
+
+            if (cursor.moveToFirst()) {
+                soDon = cursor.getInt(0); // Lấy giá trị của SUM(ThanhTien)
+            }
+        } catch (ParseException e) {
+            Log.e("Error", "Date format error", e);
+        } catch (Exception e) {
+            Log.e("Error", "Error while fetching feedback", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return soDon;
+    }
+
+    public int DemSoDonTheoThang_ThanhCong(String thoiGian){
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        int soDon = 0;
+        Cursor cursor = null;
+
+        try {
+
+
+            // Thực hiện truy vấn với ngày đã định dạng
+            cursor = db.rawQuery("SELECT Count(*) FROM DonHang WHERE tinhTrangDonHang = 2 AND strftime('%m', ngayGioDatHang) = ?", new String[]{thoiGian});
+
+            if (cursor.moveToFirst()) {
+                soDon = cursor.getInt(0); // Lấy giá trị của SUM(ThanhTien)
+            }
+        } catch (Exception e) {
+            Log.e("Error", "Error while fetching feedback", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return soDon;
+    }
+
+    public int DemSoDonTheoThang_Thatbai(String thoiGian){
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        int soDon = 0;
+        Cursor cursor = null;
+
+        try {
+
+
+            // Thực hiện truy vấn với ngày đã định dạng
+            cursor = db.rawQuery("SELECT Count(*) FROM DonHang WHERE tinhTrangDonHang = 3 AND strftime('%m', ngayGioDatHang) = ?", new String[]{thoiGian});
+
+            if (cursor.moveToFirst()) {
+                soDon = cursor.getInt(0); // Lấy giá trị của SUM(ThanhTien)
+            }
+        } catch (Exception e) {
+            Log.e("Error", "Error while fetching feedback", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return soDon;
+    }
 }
