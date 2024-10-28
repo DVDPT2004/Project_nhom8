@@ -17,32 +17,6 @@ public class UserRepository {
 
     }
 
-    // Đăng ký người dùng
-//    public boolean registerUser(Userr user) {
-//        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//
-//        values.put("full_name", user.getFullName());
-//        values.put("email", user.getEmail());
-//        values.put("password", user.getPassword());
-//        values.put("role", user.getRole());
-//        // Kiểm tra email có tồn tại không
-//        Cursor cursor = null;
-//        try {
-//            cursor = db.rawQuery("SELECT * FROM User WHERE email = ?", new String[]{user.getEmail()});
-//            if (cursor.getCount() > 0) {
-//                return false; // Email đã tồn tại
-//            }
-//            long result = db.insert("User", null, values);
-//            return result != -1; // Trả về true nếu đăng ký thành công
-//        } finally {
-//            if (cursor != null) {
-//                cursor.close();
-//            }
-//            db.close();
-//        }
-//    }
-// Kiểm tra xem email đã tồn tại chưa
 
     // Kiểm tra xem email đã tồn tại chưa
     public boolean isEmailExists(String email) {
