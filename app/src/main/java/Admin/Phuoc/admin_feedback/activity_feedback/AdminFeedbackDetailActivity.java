@@ -109,7 +109,7 @@ public class AdminFeedbackDetailActivity extends AppCompatActivity {
             if(!contentAdminFeedback.getText().toString().trim().isEmpty()){
                 db = new MainData(this,"mainData.sqlite",null,1);
                 feedbackDatabase = new FeedbackDatabase(db);
-                Feedback updateResponse = new Feedback(null,contentAdminFeedback.getText().toString().trim(),1,"DATETIME(CURRENT_TIMESTAMP, '+7 hours')",nameUserFeedback.getText().toString().trim(),intentIdFeedback,intentContentUserFeedback,null,null,null);
+                Feedback updateResponse = new Feedback(contentAdminFeedback.getText().toString().trim(),1,"DATETIME(CURRENT_TIMESTAMP, '+7 hours')",nameUserFeedback.getText().toString().trim(),intentIdFeedback,intentContentUserFeedback,null,null,null);
                 if(feedbackDatabase.updateResponse(intentIdFeedback,updateResponse)){
                     Toast.makeText(AdminFeedbackDetailActivity.this, "Phản hồi thành công!", Toast.LENGTH_SHORT).show();
                     finish();
