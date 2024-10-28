@@ -15,6 +15,7 @@ import Database.MainData.MainData;
 public class FoodDatabase {
 
     private MainData databaseHelper;
+
     public FoodDatabase(MainData databaseHelper) {
         this.databaseHelper = databaseHelper;
     }
@@ -58,7 +59,7 @@ public class FoodDatabase {
         Cursor cursor = null;
         try {
             // Truy vấn tất cả các dòng từ bảng SanPham
-            cursor = db.rawQuery("SELECT * FROM SanPham", null);
+            cursor = db.rawQuery("SELECT * FROM SanPham order by tinhTrang ASC , tenSanPham DESC", null);
             // Kiểm tra xem có dữ liệu không
             if (cursor.moveToFirst()) {
                 do {
@@ -136,13 +137,13 @@ public class FoodDatabase {
         return foodList;
     }
 
-    public boolean deleteFood(int foodId){
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();  // ghi vao dâatabase
-        String whereClause = "maSanPham = ?";
-        String[] whereArgs = { String.valueOf(foodId) };
+    public boolean updateStatusFood(int foodId){
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("tinhTrang","Hết");
         try {
-            int deletedRows = db.delete("SanPham", whereClause, whereArgs); // Thực hiện câu lệnh xóa
-            return deletedRows > 0; // Trả về true nếu xóa thành công
+            int rowsAffected = db.update("SanPham", values, "maSanPham = ?",new String[]{String.valueOf(foodId)}); // Thực hiện câu lệnh xóa
+            return rowsAffected > 0; // Trả về true nếu xóa thành công
         } finally {
             db.close(); // Đóng kết nối
         }
@@ -183,4 +184,5 @@ public class FoodDatabase {
             db.close();
         }
     }
+
 }

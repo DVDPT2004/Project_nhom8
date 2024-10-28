@@ -57,31 +57,30 @@ public class AdminEditItemActivity extends AppCompatActivity {
     private EditText nameEditText, descriptionEditText, priceEditText, discountEditText;
     private Spinner categorySpinner, statusSpinner;
     private ImageView editImageViewMain, backButton;
-    private Button editButton,buttonChooseImage, imageSubsidiaryButton;
-    private Button adminAddCategoryButton;
-    List<String> category,status;
+    private Button editButton,buttonChooseImage, imageSubsidiaryButton, adminAddCategoryButton;
     private Uri imageMain; // URI của hình ảnh chính
-    ArrayList<Category> categorylist;
-    ArrayList<String> categorylistStr = new ArrayList<>();
     private CategoryDatabase categoryDatabase;
     private FoodDatabase foodDatabase;
     private MainData db;
-    ArrayAdapter<String> adapter;
-    ArrayAdapter<String> adapter2;
     private CategoryAdapter categoryAdapter;
     private ArrayList<Food> foodList;
     private int foodId;
+    ArrayAdapter<String> adapter, adapter2;
+    ArrayList<Category> categorylist;
+    ArrayList<String> categorylistStr = new ArrayList<>();
+    List<String> status;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_sua_do_an);
 
-        initializeViews();
+        initializeViews();  // khoi tao
 
         setupBackButton();  // quay trở lai trang truoc do
 
-        setupCategorySpinner();
+        setupCategorySpinner();  // khoi tao danh muc
 
-        setupStatusSpinner();
+        setupStatusSpinner();  // khoi tao trang thai
 
         Intent intentEdit = getIntent();
         foodId = intentEdit.getIntExtra("food_id",0);
@@ -106,13 +105,13 @@ public class AdminEditItemActivity extends AppCompatActivity {
         int foodStatusPosition = adapter2.getPosition(foodStatus);
         statusSpinner.setSelection(foodStatusPosition);
 
-
         // Thiết lập hình ảnh chính
         if (foodImageMain != null) {
             Glide.with(AdminEditItemActivity.this)
                     .load(foodImageMain)  // Uri của ảnh
                     .into(editImageViewMain);
         }
+
         gridLayout.removeAllViews(); // Xóa tất cả các view hiện có
         for (Uri uri : imageSubsList) {
             ImageView imageView = new ImageView(this);
@@ -133,7 +132,7 @@ public class AdminEditItemActivity extends AppCompatActivity {
                 showAddCategoryPopup()
         );
 
-        checkNameExists();
+        checkNameExists(); // kiem tra ten mon an trung
 
         // Thiết lập sự kiện cho nút chọn ảnh chính
         setupImageMainButton();

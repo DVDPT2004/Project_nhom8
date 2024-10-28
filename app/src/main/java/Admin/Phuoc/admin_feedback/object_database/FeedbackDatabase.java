@@ -143,7 +143,6 @@ public class FeedbackDatabase {
         try {
             // Chuyển đổi từ chuỗi sang Date
             Date date = originalFormat.parse(thoigianphanhoi);
-
             // Lấy thời gian hiện tại
             Calendar currentCalendar = Calendar.getInstance();
             Calendar feedbackCalendar = Calendar.getInstance();

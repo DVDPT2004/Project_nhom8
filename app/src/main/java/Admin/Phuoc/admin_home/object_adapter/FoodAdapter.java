@@ -136,7 +136,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     private void confirmDeletePopup(View view, int position) {
         // Inflate layout popup
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.activity_admin_xac_nhan_xoa, null);
+        View popupView = inflater.inflate(R.layout.activity_admin_xac_nhan_an, null);
         // Tạo PopupWindow
         final PopupWindow popupWindow = new PopupWindow(popupView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -174,18 +174,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             int foodId = food.getIdFood();
             db = new MainData(context,"mainData.sqlite",null,1);
             foodDatabase = new FoodDatabase(db);
-            if(foodDatabase.deleteFood(foodId)){
-                Toast.makeText(context, "Món ăn đã được xóa", Toast.LENGTH_SHORT).show();
+            if(foodDatabase.updateStatusFood(foodId)){
+                Toast.makeText(context, "Món ăn đã được ẩn", Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(context, "Món ăn đã chưa được xóa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Món ăn đang ở trạng thái còn.\n Không được xóa!", Toast.LENGTH_SHORT).show();
             }
-            foodList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, foodList.size());
+            foodList.clear();
+            foodList = foodDatabase.selectFood();
+            updateList(foodList);
             // Đóng popup
             popupWindow.dismiss();
-            // Thông báo món ăn đã được xóa
-
         });
     }
 
@@ -193,6 +193,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     public int getItemCount() {
         return foodList.size();
     }
+
     public void updateList(List<Food> newList) {
         foodList = newList;
         notifyDataSetChanged();  // Thông báo cho adapter để làm mới RecyclerView
@@ -220,4 +221,5 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
         }
     }
+
 }

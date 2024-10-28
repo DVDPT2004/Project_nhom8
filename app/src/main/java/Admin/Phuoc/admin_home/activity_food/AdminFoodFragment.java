@@ -60,6 +60,7 @@ public class AdminFoodFragment extends Fragment {
         setupSearchItem(rootView);      // Thiết lập ô tìm kiếm món ăn
         return rootView;
     }
+
     public void onResume() {     // Thực hiện cập nhật dữ liệu hoặc bất kỳ hành động nào khi Activity quay lại
         super.onResume();
         db = new MainData(getContext(),"mainData.sqlite",null,1);
@@ -73,12 +74,6 @@ public class AdminFoodFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView_item);
         // Sử dụng LinearLayoutManager để hiển thị theo chiều dọc
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        Collections.sort(foodList, new Comparator<Food>() {
-            @Override
-            public int compare(Food p1, Food p2) {
-                return p1.getNameFood().compareTo(p2.getNameFood());  // Sắp xếp tăng dần theo tên
-            }
-        });
         // Khởi tạo adapter và gán cho RecyclerView
         foodAdapter = new FoodAdapter(getActivity(), R.layout.activity_admin_item_do_an, foodList);
         recyclerView.setAdapter(foodAdapter);
@@ -92,6 +87,7 @@ public class AdminFoodFragment extends Fragment {
             startActivityForResult(intent, REQUEST_CODE_ADD_PRODUCT);   // Bắt đầu Activity với mã yêu cầu
         });
     }
+
     private void filterFoodList(String query) {
         List<Food> filteredList = new ArrayList<>();
         for (Food food : foodList) {
@@ -137,4 +133,6 @@ public class AdminFoodFragment extends Fragment {
             foodAdapter.notifyDataSetChanged();  // nhac recyclerView cap nhat lai danh sach cac mon an
         }
     }
+
+
 }

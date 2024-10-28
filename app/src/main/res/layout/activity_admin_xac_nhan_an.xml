@@ -10,14 +10,14 @@
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="@drawable/baseline_restore_from_trash_24"
+        android:background="@drawable/baseline_hide_source_24"
         android:layout_gravity="center"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bạn có chắc chắn muốn xóa sản phẩm này"
+        android:text="Bạn có chắc chắn muốn ẩn sản phẩm này"
         android:textSize="18sp"
         android:textColor="@color/black"
         android:gravity="center"

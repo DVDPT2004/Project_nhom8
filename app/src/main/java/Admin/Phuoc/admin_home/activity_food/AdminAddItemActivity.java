@@ -53,20 +53,18 @@ public class AdminAddItemActivity extends AppCompatActivity {
 
     private GridLayout gridLayout;
     private CategoryAdapter categoryAdapter;
-    private ActivityResultLauncher<Intent> imageMainLauncher; // Trình khởi tạo cho ảnh chính
-    private ActivityResultLauncher<Intent> imageSubsidiaryLauncher; // Trình khởi tạo cho ảnh phụ
-    private ArrayList<Uri> selectedImageUris = new ArrayList<>(); // Danh sách các URI ảnh phụ đã chọn
+    private ActivityResultLauncher<Intent> imageMainLauncher;               // Trình khởi tạo cho ảnh chính
+    private ActivityResultLauncher<Intent> imageSubsidiaryLauncher;         // Trình khởi tạo cho ảnh phụ
+    private ArrayList<Uri> selectedImageUris = new ArrayList<>();           // Danh sách các URI ảnh phụ đã chọn
     private EditText nameEditText, descriptionEditText, priceEditText, discountEditText; // Các trường nhập liệu
-    private Spinner categorySpinner, statusSpinner; // Spinner cho danh mục món ăn
-    private ImageView imageViewMain; // Hình ảnh chính của món ăn
-    private Button addButton; // Nút thêm món ăn
-    private Button adminAddCategoryButton; // Nút thêm danh mục mới
+    private Spinner categorySpinner, statusSpinner;                         // Spinner cho danh mục món ăn
+    private ImageView imageViewMain;                                        // Hình ảnh chính của món ăn
+    private Button addButton, adminAddCategoryButton;                       // Nút thêm món ăn  // Nút thêm danh mục mới
     private ArrayList<Food> foodList;
-    private Uri imageMain; // URI của hình ảnh chính
+    private Uri imageMain;                                                  // URI của hình ảnh chính
     ArrayList<String> status;
     ArrayList<Category> categorylist;
     ArrayList<String> categorylistStr = new ArrayList<>();
-
     private MainData db;
     private FoodDatabase foodDatabase;
     private CategoryDatabase categoryDatabase;
@@ -115,8 +113,6 @@ public class AdminAddItemActivity extends AppCompatActivity {
         gridLayout = findViewById(R.id.listView_image_sub);
         statusSpinner = findViewById(R.id.admin_status_add_item);
     }
-
-
 
     public void setupCategorySpinner() {
         // Thiết lập danh sách danh mục món ăn
@@ -445,4 +441,5 @@ public class AdminAddItemActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }
