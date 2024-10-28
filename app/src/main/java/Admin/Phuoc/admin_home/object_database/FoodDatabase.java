@@ -94,6 +94,48 @@ public class FoodDatabase {
         return foodList;
     }
 
+    public ArrayList<Food> selectFoodExcept(int foodId){
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        ArrayList<Food> foodList = new ArrayList<>();
+        Cursor cursor = null;
+        try {
+            // Truy vấn tất cả các dòng từ bảng SanPham
+            cursor = db.rawQuery("SELECT * FROM SanPham where maSanPham <> " + foodId, null);
+            // Kiểm tra xem có dữ liệu không
+            if (cursor.moveToFirst()) {
+                do {
+                    int id = cursor.getInt(cursor.getColumnIndexOrThrow("maSanPham"));
+                    String tenSanPham = cursor.getString(cursor.getColumnIndexOrThrow("tenSanPham"));
+                    String madanhmuc = cursor.getString(cursor.getColumnIndexOrThrow("tendanhmuc"));
+                    long gia = cursor.getLong(cursor.getColumnIndexOrThrow("gia"));
+                    long giadagiam = cursor.getLong(cursor.getColumnIndexOrThrow("giadagiam"));
+                    String tinhTrang = cursor.getString(cursor.getColumnIndexOrThrow("tinhTrang"));
+                    int discount = cursor.getInt(cursor.getColumnIndexOrThrow("discount"));
+                    String anhSanPham = cursor.getString(cursor.getColumnIndexOrThrow("anhSanPham"));
+                    String moTaSanPham = cursor.getString(cursor.getColumnIndexOrThrow("moTaSanPham"));
+                    ArrayList<Uri> anhMota = new ArrayList<>();
+                    for (int i = 1; i <= 4; i++) { // Giả sử có tối đa 4 ảnh mô tả
+                        int columnIndex = cursor.getColumnIndex("anhMota" + i);
+                        if (columnIndex != -1) {
+                            String anhMotaUri = cursor.getString(columnIndex);
+                            if (anhMotaUri != null) {
+                                anhMota.add(Uri.parse(anhMotaUri));
+                            }
+                        }
+                    }
+                    Food food1 = new Food(id,madanhmuc, tinhTrang, gia, giadagiam, tenSanPham, Uri.parse(anhSanPham), moTaSanPham, discount, anhMota);
+                    foodList.add(food1);
+                } while (cursor.moveToNext());
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return foodList;
+    }
+
     public boolean deleteFood(int foodId){
         SQLiteDatabase db = databaseHelper.getWritableDatabase();  // ghi vao dâatabase
         String whereClause = "maSanPham = ?";

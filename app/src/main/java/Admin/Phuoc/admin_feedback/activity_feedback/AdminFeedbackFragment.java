@@ -37,7 +37,7 @@ public class AdminFeedbackFragment extends Fragment {
         db = new MainData(getContext(),"mainData.sqlite",null,1);
         feedbackDatabase = new FeedbackDatabase(db);
         feedbackArrayList = new ArrayList<>();
-        feedbackArrayList = feedbackDatabase.selectFeedbackResponse();
+        feedbackArrayList = feedbackDatabase.selectFeedbackNoResponse();
     }
 
     @Override

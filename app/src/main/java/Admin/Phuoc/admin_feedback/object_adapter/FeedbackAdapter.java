@@ -2,6 +2,7 @@ package Admin.Phuoc.admin_feedback.object_adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,9 +57,10 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
             intent.putExtra("feedback_nameUserFeedback",feedbackItem.getTenKhachPhanHoi());
             intent.putExtra("feedback_timeFeedback",feedbackItem.getThoiGianPhanHoi());
             intent.putExtra("feedback_contentUserFeedback",feedbackItem.getNoiDungKhachPhanHoi());
-            intent.putExtra("feedback_media1",feedbackItem.getMedia1());
-            intent.putExtra("feedback_media2",feedbackItem.getMedia2());
-            intent.putExtra("feedback_media3",feedbackItem.getMedia3());
+            intent.putExtra("feedback_media1", feedbackItem.getMedia1() != null ? feedbackItem.getMedia1() : new byte[0]);
+            intent.putExtra("feedback_media2", feedbackItem.getMedia2() != null ? feedbackItem.getMedia2() : new byte[0]);
+            intent.putExtra("feedback_media3", feedbackItem.getMedia3() != null ? feedbackItem.getMedia3() : new byte[0]);
+//            Log.d("feedback_media3", "feedback_media3: ");
             intent.putExtra("feedback_idFeedback",feedbackItem.getMaPhanhoi());
             intent.putExtra("feedback_statusFeedback",feedbackItem.getTrangThai());
             intent.putExtra("feedback_contentAdminFeedback",feedbackItem.getNoiDungAdminPhanHoi());

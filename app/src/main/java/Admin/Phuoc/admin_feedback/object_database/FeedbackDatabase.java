@@ -34,9 +34,12 @@ public class FeedbackDatabase {
                 String tenkhachphanhoi = cursor.getString(cursor.getColumnIndexOrThrow("tenKH"));
                 int maphanhoi = cursor.getInt(cursor.getColumnIndexOrThrow("maPhanHoi"));
                 String noiDungKhachPhanHoi = cursor.getString(cursor.getColumnIndexOrThrow("NoiDungKhachPhanHoi"));
-                String media1 = cursor.getString(cursor.getColumnIndexOrThrow("media1"));
-                String media2 = cursor.getString(cursor.getColumnIndexOrThrow("media2"));
-                String media3 = cursor.getString(cursor.getColumnIndexOrThrow("media3"));
+//                byte[] media1 = cursor.getBlob(cursor.getColumnIndexOrThrow("media1"));
+//                byte[] media2 = cursor.getBlob(cursor.getColumnIndexOrThrow("media2"));
+//                byte[] media3 = cursor.getBlob(cursor.getColumnIndexOrThrow("media3"));
+                byte[] media1 = cursor.getBlob(5);
+                byte[] media2 = cursor.getBlob(6);
+                byte[] media3 = cursor.getBlob(7);
                 String displayTime = formatFeedbackTime(thoigianphanhoi);
 
                 Feedback feedback1 = new Feedback(noiDungAdminPhanHoi,trangthai,displayTime,tenkhachphanhoi,maphanhoi,noiDungKhachPhanHoi,media1,media2,media3);
@@ -66,9 +69,9 @@ public class FeedbackDatabase {
                 String tenkhachphanhoi = cursor.getString(cursor.getColumnIndexOrThrow("tenKH"));
                 int maphanhoi = cursor.getInt(cursor.getColumnIndexOrThrow("maPhanHoi"));
                 String noiDungKhachPhanHoi = cursor.getString(cursor.getColumnIndexOrThrow("NoiDungKhachPhanHoi"));
-                String media1 = cursor.getString(cursor.getColumnIndexOrThrow("media1"));
-                String media2 = cursor.getString(cursor.getColumnIndexOrThrow("media2"));
-                String media3 = cursor.getString(cursor.getColumnIndexOrThrow("media3"));
+                byte[] media1 = cursor.getBlob(cursor.getColumnIndexOrThrow("media1"));
+                byte[] media2 = cursor.getBlob(cursor.getColumnIndexOrThrow("media2"));
+                byte[] media3 = cursor.getBlob(cursor.getColumnIndexOrThrow("media3"));
                 String displayTime = formatFeedbackTime(thoigianphanhoi);
 
                 Feedback feedback1 = new Feedback(noiDungAdminPhanHoi,trangthai,displayTime,tenkhachphanhoi,maphanhoi,noiDungKhachPhanHoi,media1,media2,media3);
@@ -98,9 +101,9 @@ public class FeedbackDatabase {
                 String tenkhachphanhoi = cursor.getString(cursor.getColumnIndexOrThrow("tenKH"));
                 int maphanhoi = cursor.getInt(cursor.getColumnIndexOrThrow("maPhanHoi"));
                 String noiDungKhachPhanHoi = cursor.getString(cursor.getColumnIndexOrThrow("NoiDungKhachPhanHoi"));
-                String media1 = cursor.getString(cursor.getColumnIndexOrThrow("media1"));
-                String media2 = cursor.getString(cursor.getColumnIndexOrThrow("media2"));
-                String media3 = cursor.getString(cursor.getColumnIndexOrThrow("media3"));
+                byte[] media1 = cursor.getBlob(cursor.getColumnIndexOrThrow("media1"));
+                byte[] media2 = cursor.getBlob(cursor.getColumnIndexOrThrow("media2"));
+                byte[] media3 = cursor.getBlob(cursor.getColumnIndexOrThrow("media3"));
                 String displayTime = formatFeedbackTime(thoigianphanhoi);
 
                 Feedback feedback1 = new Feedback(noiDungAdminPhanHoi,trangthai,displayTime,tenkhachphanhoi,maphanhoi,noiDungKhachPhanHoi,media1,media2,media3);
