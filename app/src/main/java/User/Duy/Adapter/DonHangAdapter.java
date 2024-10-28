@@ -41,7 +41,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.ViewHold
         holder.textMaDonHang.setText("Mã Đơn Hàng: " + donHang.getMaDonHang());
         holder.textNgayGioDatHang.setText("Ngày Giờ Đặt: " + sdf.format(donHang.getNgayGioDatHang()));
         holder.textThanhTien.setText("Thành Tiền: " + donHang.getThanhTien() + " VNĐ");
-        holder.textTinhTrangDonHang.setText("Tình Trạng: " + donHang.getTinhTrangDonHang());
+        holder.textTinhTrangDonHang.setText("Tình Trạng: " + getTinhTrang(donHang.getTinhTrangDonHang()));
 
 
         holder.itemView.setOnClickListener(view -> {
@@ -70,5 +70,21 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.ViewHold
             textTinhTrangDonHang = itemView.findViewById(R.id.textTinhTrangDonHang);
 
         }
+    }
+    private String getTinhTrang(int trangthai_int){
+        String trangthai_string = "";
+        if(trangthai_int == 0){
+            trangthai_string = "chưa chuẩn bị";
+        }
+        else if(trangthai_int == 1){
+            trangthai_string = "đang chuẩn bị";
+        }
+        else if(trangthai_int == 2){
+            trangthai_string = "giao hàng thành công";
+        }
+        else if(trangthai_int == 3){
+            trangthai_string = "hủy đơn hàng";
+        }
+        return trangthai_string;
     }
 }

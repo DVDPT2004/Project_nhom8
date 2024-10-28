@@ -216,18 +216,18 @@ public class GioHangAdapter extends BaseAdapter {
         });
 
         GioHang giohang = list.get(pos);
-//        if (giohang.getAnhsp() != null) {
-//            imgSanPham.setImageURI(giohang.getAnhsp());
-//        } else {
-//            imgSanPham.setImageResource(R.drawable.banhmi); // Ảnh mặc định nếu URI trống
-//        }
-//        if (giohang.getAnhsp() != null) {
-//            Glide.with(context)
-//                    .load(giohang.getAnhsp()) // URL hoặc URI của ảnh
-//                    .into(imgSanPham);
-//        } else {
-//            imgSanPham.setImageResource(R.drawable.banhmi); // Ảnh mặc định nếu URI trống
-//        }
+        if (giohang.getAnhsp() != null) {
+            imgSanPham.setImageURI(giohang.getAnhsp());
+        } else {
+            imgSanPham.setImageResource(R.drawable.banhmi); // Ảnh mặc định nếu URI trống
+        }
+        if (giohang.getAnhsp() != null) {
+            Glide.with(context)
+                    .load(giohang.getAnhsp()) // URL hoặc URI của ảnh
+                    .into(imgSanPham);
+        } else {
+            imgSanPham.setImageResource(R.drawable.banhmi); // Ảnh mặc định nếu URI trống
+        }
         txt_tensp.setText(giohang.getTensp().toString());
         et_soluong.setText(String.valueOf(giohang.getSoLuong()));
         txt_gia.setText(formatCurrency(giohang.getGia()));
