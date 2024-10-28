@@ -43,8 +43,8 @@ import Dangky_nhap.Views.Profile_admin;
 import Database.MainData.MainData;
 
 public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedListener {
-    private static List<String> xLabel = new ArrayList<>();
-    private static ArrayList<Entry> entries = new ArrayList<>();
+    private  List<String> xLabel = new ArrayList<>(); //ox
+    private  ArrayList<Entry> entries = new ArrayList<>(); // điểm tren do thi
     private CombinedChart mChart;
     private  EditText edtDateStart, edtDateEnd;
     private   TextView text_donhang,text_doanhthu;
@@ -289,10 +289,10 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
 
     private  DataSet dataChart() {
 
-        LineData d = new LineData();
+//        LineData d = new LineData();
 //        int[] data = new int[] { 1, 2, 2, 1, 1, 1, 2, 1, 1, 2, 1, 9 };
         ArrayList<Integer> data = dsTongtien;
-        ArrayList<Entry> entries = new ArrayList<Entry>();
+//        ArrayList<Entry> entries = new ArrayList<Entry>();
 
         //   Các điểm trên đồ thị
         for (int index = 0; index < xLabel.size(); index++) {
