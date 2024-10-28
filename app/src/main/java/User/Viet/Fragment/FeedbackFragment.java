@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.project_nhom8.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import Dangky_nhap.Model.UserRepository;
 import Database.MainData.MainData;
@@ -87,9 +93,10 @@ public class FeedbackFragment extends Fragment {
         // Truy vấn kết hợp với bảng DonHang để lấy mã đơn hàng và thời gian đặt hàng
         Cursor cursor = database.SelectData("SELECT PhanHoi.*, DonHang.maDonHang, DonHang.ngayGioDatHang " +
                 "FROM PhanHoi " +
-                "JOIN DonHang ON PhanHoi.user_id = DonHang.user_id " +
+                "JOIN DonHang ON PhanHoi.maDonHang = DonHang.maDonHang " + // Sử dụng maDonHang để JOIN
                 "WHERE PhanHoi.user_id = " + user_id + " " +
                 "ORDER BY PhanHoi.thoiGianPhanHoi DESC");
+
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
@@ -98,9 +105,11 @@ public class FeedbackFragment extends Fragment {
                 String noiDungKhachPhanHoi = cursor.getString(3);
                 String noiDungAdminPhanHoi = cursor.getString(4);
 
+
                 // Lấy mã đơn hàng và thời gian đặt hàng
-                int maDonHang = cursor.getInt(0); // Cột maDonHang từ DonHang
-                String ngayGioDatHang = cursor.getString(1); // Cột ngayGioDatHang từ DonHang
+                int maDonHang = cursor.getInt(10); // Cột maDonHang từ DonHang
+                String ngayGioDatHang = cursor.getString(13);
+                Log.d("LOGG",maDonHang+" "+ngayGioDatHang);// Cột ngayGioDatHang từ DonHang
 
                 // Thêm phản hồi vào danh sách
                 feedbackList.add(new ItemFeedback(tenKH, thoiGianPhanHoi, noiDungKhachPhanHoi, maDonHang, ngayGioDatHang));
