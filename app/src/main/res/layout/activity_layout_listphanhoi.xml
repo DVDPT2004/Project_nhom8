@@ -39,6 +39,7 @@
     <ListView
         android:id="@+id/listViewContacts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="664dp"
+        android:paddingTop="30dp"/>
 
 </LinearLayout>

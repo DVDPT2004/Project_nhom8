@@ -74,12 +74,13 @@ public class FeedbackFragment extends Fragment {
 
     // Hàm tải dữ liệu từ bảng PhanHoi
     private void loadFeedbackData() {
-        Cursor cursor = database.SelectData("SELECT * FROM PhanHoi WHERE user_id = 2");
+        Cursor cursor = database.SelectData("SELECT * FROM PhanHoi order by thoiGianPhanHoi DESC");
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 String tenKH = cursor.getString(9);
                 String thoiGianPhanHoi = cursor.getString(2);
                 String noiDungKhachPhanHoi = cursor.getString(3);
+                String noiDungAdminPhanHoi = cursor.getString(4);
 
                 // Thêm phản hồi vào danh sách
                 feedbackList.add(new ItemFeedback(tenKH, thoiGianPhanHoi, noiDungKhachPhanHoi));
@@ -89,7 +90,7 @@ public class FeedbackFragment extends Fragment {
                 byte[] image2 = cursor.getBlob(6); // Thay đổi chỉ số tương ứng với cột ảnh 2
                 byte[] image3 = cursor.getBlob(7); // Thay đổi chỉ số tương ứng với cột ảnh 3
 
-                feedbackImages.add(new Feedback(tenKH, thoiGianPhanHoi, noiDungKhachPhanHoi, image1, image2, image3)); // Thêm ảnh vào danh sách
+                feedbackImages.add(new Feedback(noiDungAdminPhanHoi,tenKH, thoiGianPhanHoi, noiDungKhachPhanHoi, image1, image2, image3)); // Thêm ảnh vào danh sách
             }
             cursor.close(); // Đóng con trỏ sau khi sử dụng
         } else {
@@ -166,7 +167,7 @@ public class FeedbackFragment extends Fragment {
         layout.addView(imageLayout);
 
         TextView textViewAdminResponse = new TextView(context);
-        textViewAdminResponse.setText("\n\n\n"+"Phản hồi từ admin: " );
+        textViewAdminResponse.setText("\n\n\n"+"Phản hồi từ admin: " + feedbackImages.getNoiDungAdminPhanHoi());
         layout.addView(textViewAdminResponse); // Thêm phản hồi từ admin vào layout
         // Tạo AlertDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

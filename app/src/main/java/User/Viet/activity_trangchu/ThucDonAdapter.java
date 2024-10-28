@@ -60,7 +60,11 @@ public class ThucDonAdapter extends BaseAdapter {
         TextView txtgiagiam = convertView.findViewById(R.id.txtgiagiam);
 
         ThucDon thucDon = thucDonList.get(position);
-
+        if (thucDon.getTinhtrang().equals("Hết")) {
+            convertView.setAlpha(0.3f); // Đặt độ mờ 30%
+        } else {
+            convertView.setAlpha(1.0f); // Đặt độ mờ 100%
+        }
         // Sử dụng Uri để lấy ảnh từ đường dẫn
         String imageUriString = thucDon.getAvatar(); // Lấy chuỗi Uri từ database
 

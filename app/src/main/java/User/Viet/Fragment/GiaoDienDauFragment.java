@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -209,16 +210,29 @@ public class GiaoDienDauFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getContext(), ChiTietMonAn.class);
                 ThucDon selectedMonAn = (ThucDon) thucDonAdapter.getItem(i);
-                intent.putExtra("maSanPham",selectedMonAn.getMaSanPham());
-                intent.putExtra("tenmonan", selectedMonAn.getTenmonan());
-                intent.putExtra("motamonan", selectedMonAn.getMotamonan());
-                intent.putExtra("hinhanh", selectedMonAn.getAvatar());
-                intent.putExtra("hinhanh1", selectedMonAn.getAnhmota1());
-                intent.putExtra("hinhanh2", selectedMonAn.getAnhmota2());
-                intent.putExtra("hinhanh3", selectedMonAn.getAnhmota3());
-                intent.putExtra("hinhanh4", selectedMonAn.getAnhmota4());
-                intent.putExtra("giaGiam", selectedMonAn.giaGiam());
-                startActivity(intent);
+                if (selectedMonAn != null && !selectedMonAn.getTinhtrang().equals("Hết")) {
+                    intent.putExtra("maSanPham", selectedMonAn.getMaSanPham());
+                    intent.putExtra("tenmonan", selectedMonAn.getTenmonan());
+                    intent.putExtra("motamonan", selectedMonAn.getMotamonan());
+                    intent.putExtra("tinhTrang", selectedMonAn.getTinhtrang());
+                    intent.putExtra("hinhanh", selectedMonAn.getAvatar());
+                    intent.putExtra("hinhanh1", selectedMonAn.getAnhmota1());
+                    intent.putExtra("hinhanh2", selectedMonAn.getAnhmota2());
+                    intent.putExtra("hinhanh3", selectedMonAn.getAnhmota3());
+                    intent.putExtra("hinhanh4", selectedMonAn.getAnhmota4());
+                    intent.putExtra("giaGiam", selectedMonAn.giaGiam());
+                    startActivity(intent);
+                } else {
+                    view.setAlpha(0.3f); // Độ mờ cho màu xám
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Thông báo")
+                            .setMessage("Món ăn đã hết, vui lòng chọn món ăn khác.")
+                            .setPositiveButton("OK", null)
+                            .show();
+
+
+
+                }
             }
         });
     }

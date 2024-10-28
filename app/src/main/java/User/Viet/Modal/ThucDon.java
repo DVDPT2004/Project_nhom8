@@ -138,19 +138,7 @@ public class ThucDon {
     public float giaGiam() {
         return giachinh * (1 - (phantram / 100.0f)); // Giá sau giảm
     }
-    public int getAvatar(int idSanPham) {
-        int avatarResId = R.drawable.banhmi; // Hình ảnh mặc định
 
-        MainData mainData = new MainData(context); // Sử dụng context đã truyền vào
-        Cursor cursor = mainData.SelectData("SELECT avatar FROM SanPham WHERE maSanPham = " + idSanPham);
-
-        if (cursor != null && cursor.moveToFirst()) {
-            avatarResId = cursor.getInt(0); // Lấy giá trị ảnh từ cursor
-            cursor.close();
-        }
-
-        return avatarResId;
-    }
 
 }
 

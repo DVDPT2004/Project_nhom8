@@ -16,17 +16,6 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <!-- Nút thoát (Back) ở góc trái -->
-        <ImageButton
-            android:id="@+id/btn_exit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:background="@null"
-            android:contentDescription="Nút thoát"
-            android:src="@android:drawable/ic_menu_revert"
-            tools:ignore="TouchTargetSizeCheck" />
-
         <!-- Tiêu đề ở giữa -->
         <TextView
             android:layout_width="0dp"
