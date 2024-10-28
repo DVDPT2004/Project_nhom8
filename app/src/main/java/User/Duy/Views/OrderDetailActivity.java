@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +32,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     private TextView txtPhuongThucThanhToan;
     private Button btnCancel;
     private  Button btnPhanHoi;
+    private ImageButton btnExit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtPhuongThucThanhToan = findViewById(R.id.txt_pttt);
         btnCancel = findViewById(R.id.btnCancel);
         btnPhanHoi = findViewById(R.id.user_phan_hoi);
+        btnExit = findViewById(R.id.btn_exit);
         // Lấy thông tin đơn hàng từ Intent
         DonHang donHang = (DonHang) getIntent().getSerializableExtra("DON_HANG");
 
@@ -77,8 +81,24 @@ public class OrderDetailActivity extends AppCompatActivity {
             txtTinhTrang.setText(getTinhTrang(3).toString());
         });
         btnPhanHoi.setOnClickListener(view -> {
-            Intent intent = new Intent(OrderDetailActivity.this, PhanHoi.class);
-            startActivity(intent);
+            int maDonHang = donHang.getMaDonHang();
+            String sql = "Select count(*) from PhanHoi where maDonHang <> " +maDonHang;
+            MainData mainData = new MainData(this);
+            mainData.getWritableDatabase();
+            Cursor cs = mainData.SelectData(sql);
+            while(cs.moveToNext()){
+                if(cs.getInt(0) == 0){
+                    Intent intent = new Intent(OrderDetailActivity.this, PhanHoi.class);
+                    intent.putExtra("maDonHang", maDonHang);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(OrderDetailActivity.this,"đơn hàng đã được phản hồi",Toast.LENGTH_SHORT).show();
+                }
+            }
+            mainData.close();
+        });
+        btnExit.setOnClickListener(view -> {
+            finish();
         });
     }
     private String getTinhTrang(int trangthai_int){

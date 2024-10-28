@@ -3,6 +3,7 @@ package User.Duy.Views;
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,8 +24,7 @@ public class OrderHistoryActivity extends AppCompatActivity {
     private DonHangAdapter adapter;
     private List<DonHang> donHangList;
     private MainData db;
-
-
+    private ImageButton btn_exit;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -41,6 +41,11 @@ public class OrderHistoryActivity extends AppCompatActivity {
         donHangList = fetchOrderHistory();
         adapter = new DonHangAdapter(donHangList, this);
         recyclerView.setAdapter(adapter);
+
+        btn_exit = findViewById(R.id.btn_exit);
+        btn_exit.setOnClickListener(view -> {
+            finish();
+        });
     }
     private List<DonHang> fetchOrderHistory() {
         List<DonHang> orders = new ArrayList<>();
