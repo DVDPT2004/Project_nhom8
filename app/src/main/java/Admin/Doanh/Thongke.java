@@ -45,6 +45,7 @@ public class Thongke extends AppCompatActivity {
     private OrderDatabase orderDatabase;
     private MainData db;
     BarData data;
+    Integer demthanhcong = 0, demthatbai =  0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         db = new MainData(Thongke.this,"mainData.sqlite",null,1);
@@ -60,14 +61,16 @@ public class Thongke extends AppCompatActivity {
         ArrayList<BarEntry> successfulOrders = new ArrayList<>();
         for (int month = 0; month < 12; month++) {
             int successfulOrderCount = orderDatabase.DemSoDonTheoThang_ThanhCong(String.valueOf(month + 1)) ;
-            successfulOrders.add(new BarEntry(month, successfulOrderCount));
+            successfulOrders.add(new BarEntry(month, successfulOrderCount)); // gắn month theo nhãn dán getXAxis().setValueFormatter
+            demthanhcong += successfulOrderCount;
         }
 
         ArrayList<BarEntry> canceledOrders = new ArrayList<>();
 
         for (int month = 0; month < 12; month++) {
             int canceledOrderCount = orderDatabase.DemSoDonTheoThang_Thatbai(String.valueOf(month + 1)) ;
-            canceledOrders.add(new BarEntry(month, canceledOrderCount));
+            canceledOrders.add(new BarEntry(month, canceledOrderCount)); // gắn month theo nhãn dán getXAxis().setValueFormatter
+            demthatbai+=canceledOrderCount;
         }
         // Tạo BarDataSet cho đơn hàng thành công và bị hủy
         BarDataSet successfulDataSet = new BarDataSet(successfulOrders, "Đơn hàng thành công");
@@ -77,18 +80,27 @@ public class Thongke extends AppCompatActivity {
         canceledDataSet.setColor(0xFFFF0000); // Màu đỏ0xFFFF0000
 
         // Tạo BarData từ các BarDataSet
-        if(successfulOrders.size()  > canceledOrders.size()){
-           data = new BarData(successfulDataSet, canceledDataSet);
-        }else{
+            if(demthatbai > demthanhcong){
+                data = new BarData(canceledDataSet,successfulDataSet);
+            }else {
+                data = new BarData(successfulDataSet, canceledDataSet);
+            }
 
-            data = new BarData(canceledDataSet,successfulDataSet);
-        }
 
-        data.setValueTextSize(12f); // Thiết lập kích thước chữ cho giá trị trên cột
+
+// Chia hai cot
+//        data.setBarWidth(0.3f); // Độ rộng của mỗi cột
+//
+//        // Nhóm các cột theo tháng
+//        float groupSpace = 0.4f; // Khoảng cách giữa các nhóm (tháng)
+//        float barSpace = 0.05f;  // Khoảng cách giữa các cột trong một nhóm
+//        chart.setData(data);
+//        chart.groupBars(0, groupSpace, barSpace); // Nhóm cột theo tháng
 
         // Thiết lập dữ liệu cho biểu đồ
+        data.setValueTextSize(12f); // Thiết lập kích thước chữ cho giá trị trên cột
         chart.setData(data);
-        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(new String[]{"Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"})); // Định dạng trục x
+        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(new String[]{"Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12",})); // Định dạng trục x
 
         chart.animateY(1000); // Animation cho trục y
 

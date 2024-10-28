@@ -126,7 +126,8 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
         btnHienThi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                entries.clear();
+
+
                 setDateRangeToXLabel();
             }
         });
@@ -160,40 +161,6 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
         leftAxis.setAxisMinimum(0f);
-        xLabel.add("Jan");
-        xLabel.add("Feb");
-        xLabel.add("Mar");
-        xLabel.add("Apr");
-        xLabel.add("May");
-        xLabel.add("Jun");
-        xLabel.add("Jul");
-        xLabel.add("Aug");
-        xLabel.add("Sep");
-        xLabel.add("Oct");
-        xLabel.add("Nov");
-        xLabel.add("Dec");
-
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setAxisMinimum(0f);
-        xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return xLabel.get((int) value % xLabel.size());
-            }
-        });
-
-        CombinedData data = new CombinedData();
-        LineData lineDatas = new LineData();
-        lineDatas.addDataSet((ILineDataSet) dataChart());
-
-        data.setData(lineDatas);
-
-        xAxis.setAxisMaximum(data.getXMax() + 0.25f);
-
-        mChart.setData(data);
-        mChart.invalidate();
 
 
 
@@ -231,6 +198,7 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(startDate);
                 xLabel.clear();
+                dsTongtien.clear();
                 // Thêm các ngày dạng chuỗi vào mảng xLabel cho đến khi đạt đến ngày kết thúc
                 while (!calendar.getTime().after(endDate)) {
 //                    Kết nối db order
@@ -245,6 +213,7 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
 // tong text đơn
                     totalDonhang += orderDatabase.DemSoDon(dateString);
                     xLabel.add(dateString); // Thêm chuỗi vào xLabel
+
                     calendar.add(Calendar.DAY_OF_MONTH, 1); // Tăng ngày lên 1
                 }
 
@@ -253,7 +222,8 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
 
                 text_doanhthu.setText(formatter.format(totalDoanhthu) + " VND");
                 text_donhang.setText(String.valueOf(totalDonhang));
-
+                totalDoanhthu = 0;
+                totalDonhang=0;
 //        Hết xử lý texview
 
             } else {
@@ -288,22 +258,30 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
     }
 
     private  DataSet dataChart() {
+            entries.clear();
 
-//        LineData d = new LineData();
-//        int[] data = new int[] { 1, 2, 2, 1, 1, 1, 2, 1, 1, 2, 1, 9 };
         ArrayList<Integer> data = dsTongtien;
-//        ArrayList<Entry> entries = new ArrayList<Entry>();
 
+        Log.d("daata", "dataChart: "+xLabel.size() +" "+ data.size());
         //   Các điểm trên đồ thị
         for (int index = 0; index < xLabel.size(); index++) {
-            if (index < data.size()) {
-                // Nếu index không vượt quá chiều dài của mảng data, lấy giá trị từ data
-                entries.add(new Entry(index, data.get(index)));
-            } else {
-                // Nếu index vượt quá chiều dài của mảng data, thêm giá trị 0
-                entries.add(new Entry(index, 0));
-            }
+//   test mac dinh         if (index < data.size()) {
+//                // Nếu index không vượt quá chiều dài của mảng data, lấy giá trị từ data
+//                entries.add(new Entry(index, data.get(index)));
+//                Log.d("daata11", "dataChart: "+index);
+//            } else {
+//                // Nếu index vượt quá chiều dài của mảng data, thêm giá trị 0
+//                entries.add(new Entry(index, 0));
+//                Log.d("daata12", "dataChart: "+index);
+//            }
+//            Log.d("daata13", "dataChart: "+index);
+
+
+
+            entries.add(new Entry(index, data.get(index)));
+
         }
+
 
         LineDataSet set = new LineDataSet(entries, "Doanh thu theo ngay"); //  Là danh sách các Entry mà bạn đã tạo ra trước đó, đại diện cho dữ liệu bạn muốn vẽ.
         set.setColor(Color.GREEN);
@@ -318,7 +296,7 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
         set.setAxisDependency(YAxis.AxisDependency.LEFT); //Xác định rằng dữ liệu này sẽ được vẽ trên trục Y bên trái.
 
 
-//                            d.addDataSet(set); // thiết lập gia tri cho ILineDataSet
+
 
         return set;
     }
