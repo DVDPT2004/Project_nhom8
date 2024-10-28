@@ -94,6 +94,7 @@ public class UserRepository {
                 return new Userr(fullName, email, password, role); // Trả về người dùng
             }
 
+
         } finally {
             if (cursor != null) {
                 cursor.close();

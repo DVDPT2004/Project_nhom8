@@ -199,6 +199,7 @@ public class Register extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
         // Xử lý sự kiện cho nút "Thoát"
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
