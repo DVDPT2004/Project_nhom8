@@ -20,7 +20,7 @@
     <GridView
         android:id="@+id/gv_giohang"
         android:layout_width="match_parent"
-        android:layout_height="607dp">
+        android:layout_height="560dp">
 
     </GridView>
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="283dp"
+            android:layout_width="292dp"
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
 
@@ -56,12 +56,11 @@
         </LinearLayout>
 
         <Button
-            android:backgroundTint="#01AED8"
             android:id="@+id/btn_dathang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#01AED8"
             android:text="Đặt hàng"
-            android:textColor="#FFFFFF">
-        </Button>
+            android:textColor="#FFFFFF"></Button>
     </LinearLayout>
 </LinearLayout>
