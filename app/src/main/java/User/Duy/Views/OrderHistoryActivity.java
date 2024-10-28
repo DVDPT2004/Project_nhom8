@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import Dangky_nhap.Model.UserRepository;
 import Database.MainData.MainData;
 import User.Duy.Adapter.DonHangAdapter;
 import User.Duy.Modal.DonHang;
@@ -35,7 +36,6 @@ public class OrderHistoryActivity extends AppCompatActivity {
         // Khởi tạo RecyclerView
         recyclerView = findViewById(R.id.recyc_order);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        db = new MainData(this,"mainData.sqlite",null,1);
 
         // Khởi tạo danh sách và adapter
         donHangList = fetchOrderHistory();
@@ -49,7 +49,12 @@ public class OrderHistoryActivity extends AppCompatActivity {
     }
     private List<DonHang> fetchOrderHistory() {
         List<DonHang> orders = new ArrayList<>();
-        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM DonHang", null);
+        db = new MainData(this,"mainData.sqlite",null,1);
+        UserRepository userRepository = new UserRepository(db, this);
+        String email = userRepository.getLoggedInUserEmail();
+        int user_id = userRepository.getUserIdByEmail(email);
+
+        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM DonHang where user_id = " + user_id, null);
 
         if (cursor.moveToFirst()) {
             do {
