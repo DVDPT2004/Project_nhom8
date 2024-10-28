@@ -46,7 +46,6 @@ public class AdminOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_admin_don_hang, container, false);
         orderSpinner = rootView.findViewById(R.id.admin_order_status);
-
         order = new ArrayList<>();
         order.add("Chưa chuẩn bị");
         order.add("Đang giao hàng");
