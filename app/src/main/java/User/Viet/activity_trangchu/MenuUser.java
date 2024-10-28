@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.project_nhom8.R;
 import com.example.project_nhom8.databinding.ActivityLayoutUserBinding;
 
+import Dangky_nhap.Views.Profile_User;
 import User.Duy.ActGioHang;
 import User.Viet.Fragment.CartFragment;
 import User.Viet.Fragment.FeedbackFragment;
@@ -51,13 +52,13 @@ public class MenuUser extends AppCompatActivity {
             if (item.getItemId() == R.id.action_home) {
                 replaceFragment(new GiaoDienDauFragment());
             } else if (item.getItemId() == R.id.action_cart) {
-                replaceFragment(new CartFragment());
+                replaceFragment(new ActGioHang());
             } else if (item.getItemId() == R.id.action_feedback) {
                 replaceFragment(new FeedbackFragment());
             } else if (item.getItemId() == R.id.action_contact) {
                 replaceFragment(new LienHeFragment());
             } else if (item.getItemId() == R.id.action_user) {
-                replaceFragment(new UserFragment());
+                replaceFragment(new Profile_User());
             } else {
                 return false; // Không có item nào được chọn
             }
