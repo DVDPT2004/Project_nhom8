@@ -44,6 +44,7 @@ import Database.MainData.MainData;
 public class Thongke extends AppCompatActivity {
     private OrderDatabase orderDatabase;
     private MainData db;
+    BarData data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         db = new MainData(Thongke.this,"mainData.sqlite",null,1);
@@ -70,13 +71,19 @@ public class Thongke extends AppCompatActivity {
         }
         // Tạo BarDataSet cho đơn hàng thành công và bị hủy
         BarDataSet successfulDataSet = new BarDataSet(successfulOrders, "Đơn hàng thành công");
-        successfulDataSet.setColor(0xFFFF0000); // Màu xanh lá cây
+        successfulDataSet.setColor(0xFF4CAF50); // Màu xanh lá cây
 
         BarDataSet canceledDataSet = new BarDataSet(canceledOrders, "Đơn hàng bị hủy");
-        canceledDataSet.setColor(0xFF4CAF50); // Màu đỏ
+        canceledDataSet.setColor(0xFFFF0000); // Màu đỏ0xFFFF0000
 
         // Tạo BarData từ các BarDataSet
-        BarData data = new BarData(successfulDataSet, canceledDataSet);
+        if(successfulOrders.size()  >canceledOrders.size()){
+           data = new BarData(successfulDataSet, canceledDataSet);
+        }else{
+
+            data = new BarData(canceledDataSet,successfulDataSet);
+        }
+
         data.setValueTextSize(12f); // Thiết lập kích thước chữ cho giá trị trên cột
 
         // Thiết lập dữ liệu cho biểu đồ
@@ -102,8 +109,7 @@ public class Thongke extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Chuyển sang StatisticsActivity khi nhấn vào nút
-                Intent intent = new Intent(Thongke.this, DoanhThu.class);
-                startActivity(intent);
+              finish();
             }
         });
     }
