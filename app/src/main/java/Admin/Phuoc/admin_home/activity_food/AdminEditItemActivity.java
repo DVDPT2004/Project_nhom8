@@ -9,6 +9,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -121,7 +123,6 @@ public class AdminEditItemActivity extends AppCompatActivity {
                     .into(imageView);
             imageView.setOnClickListener(v -> {
                 selectedImageUris.remove(uri);
-
                 updateImageViews(); // Cập nhật lại danh sách ảnh
             });
             gridLayout.addView(imageView); // Thêm ImageView vào GridLayout
@@ -131,6 +132,8 @@ public class AdminEditItemActivity extends AppCompatActivity {
         adminAddCategoryButton.setOnClickListener(v ->
                 showAddCategoryPopup()
         );
+
+        checkNameExists();
 
         // Thiết lập sự kiện cho nút chọn ảnh chính
         setupImageMainButton();
@@ -142,6 +145,31 @@ public class AdminEditItemActivity extends AppCompatActivity {
         setupButtonUpdate();
 
     }
+
+    private void checkNameExists(){
+        nameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                db = new MainData(AdminEditItemActivity.this,"mainData.sqlite",null,1);
+                foodDatabase = new FoodDatabase(db);
+                foodList = new ArrayList<>();
+                foodList = foodDatabase.selectFoodExcept(foodId);
+                for (Food x: foodList) {
+                    if(nameEditText.getText().toString().trim().equalsIgnoreCase(x.getNameFood())){
+                        nameEditText.setError("Tên món ăn đã tồn tại!");
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
     private void setupStatusSpinner() {
         // Thiết lập danh sách tranạng thái món ăn
         status = new ArrayList<>();
@@ -392,6 +420,8 @@ public class AdminEditItemActivity extends AppCompatActivity {
                 if(categoryDatabase.insertCategory(newCategoryob)){
                     categorylist.add(newCategoryob);
                     Toast.makeText(AdminEditItemActivity.this, "Thêm danh mục thành công!", Toast.LENGTH_SHORT).show();
+                    categoryAdapter = new CategoryAdapter( R.layout.activity_admin_item_danh_muc,categorylist,AdminEditItemActivity.this);
+                    recyclerView.setAdapter(categoryAdapter);
                 }else{
                     Toast.makeText(AdminEditItemActivity.this, "Danh mục: " + newCategory + " đã tồn tại!", Toast.LENGTH_SHORT).show();
                 }

@@ -1,8 +1,11 @@
 package Admin.Phuoc.admin_feedback.activity_feedback;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,7 +30,7 @@ public class AdminFeedbackDetailActivity extends AppCompatActivity {
     private FeedbackDatabase feedbackDatabase;
     private int intentIdFeedback;
     private String intentContentUserFeedback;
-    private Uri intentMedia1,intentMedia2,intentMedia3;
+    private byte[] intentMedia1,intentMedia2,intentMedia3;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +68,9 @@ public class AdminFeedbackDetailActivity extends AppCompatActivity {
         String intentNameUserFeedback = intentFeedback.getStringExtra("feedback_nameUserFeedback");
         String intentTimeFeedback = intentFeedback.getStringExtra("feedback_timeFeedback");
         intentContentUserFeedback = intentFeedback.getStringExtra("feedback_contentUserFeedback");
-        intentMedia1 = intentFeedback.getStringExtra("feedback_media1") != null ? Uri.parse(intentFeedback.getStringExtra("feedback_media1")) : null;
-        intentMedia2 = intentFeedback.getStringExtra("feedback_media2") != null ? Uri.parse(intentFeedback.getStringExtra("feedback_media2")) : null;
-        intentMedia3 = intentFeedback.getStringExtra("feedback_media3") != null ? Uri.parse(intentFeedback.getStringExtra("feedback_media3")) : null;
+        intentMedia1 = intentFeedback.getByteArrayExtra("feedback_media1");
+        intentMedia2 = intentFeedback.getByteArrayExtra("feedback_media2");
+        intentMedia3 = intentFeedback.getByteArrayExtra("feedback_media3");
         int intentStatusFeedback = intentFeedback.getIntExtra("feedback_statusFeedback",0);
         String intentContentAdminFeedback = intentFeedback.getStringExtra("feedback_contentAdminFeedback");
 
@@ -75,20 +78,38 @@ public class AdminFeedbackDetailActivity extends AppCompatActivity {
         nameUserFeedback.setText(intentNameUserFeedback);
         timeFeedback.setText("Thời gian phản hồi: " + intentTimeFeedback);
         contentUserFeedback.setText(intentContentUserFeedback);
-        if (intentMedia1 != null) {
-            Glide.with(AdminFeedbackDetailActivity.this)
-                    .load(intentMedia1)
-                    .into(media1);
+//        if (intentMedia1 != null) {
+//            Glide.with(AdminFeedbackDetailActivity.this)
+//                    .load(intentMedia1)
+//                    .into(media1);
+//        }
+//        if (intentMedia2 != null) {
+//            Glide.with(AdminFeedbackDetailActivity.this)
+//                    .load(intentMedia2)
+//                    .into(media2);
+//        }
+//        if (intentMedia3 != null) {
+//            Glide.with(AdminFeedbackDetailActivity.this)
+//                    .load(intentMedia3)
+//                    .into(media3);
+//        }
+        if (intentMedia1 != null && intentMedia1.length > 0) {
+            Bitmap bitmap1 = BitmapFactory.decodeByteArray(intentMedia1, 0, intentMedia1.length);
+            media1.setImageBitmap(bitmap1);
+        } else {
+            media1.setVisibility(View.GONE); // Hình ảnh mặc định
         }
-        if (intentMedia2 != null) {
-            Glide.with(AdminFeedbackDetailActivity.this)
-                    .load(intentMedia2)
-                    .into(media2);
+        if (intentMedia2 != null && intentMedia2.length > 0) {
+            Bitmap bitmap2 = BitmapFactory.decodeByteArray(intentMedia2, 0, intentMedia2.length);
+            media2.setImageBitmap(bitmap2);
+        } else {
+            media2.setVisibility(View.GONE); // Hình ảnh mặc định
         }
-        if (intentMedia3 != null) {
-            Glide.with(AdminFeedbackDetailActivity.this)
-                    .load(intentMedia3)
-                    .into(media3);
+        if (intentMedia3 != null && intentMedia3.length > 0) {
+            Bitmap bitmap3 = BitmapFactory.decodeByteArray(intentMedia3, 0, intentMedia3.length);
+            media3.setImageBitmap(bitmap3);
+        } else {
+            media3.setVisibility(View.GONE); // Hình ảnh mặc định
         }
     }
 
@@ -104,6 +125,7 @@ public class AdminFeedbackDetailActivity extends AppCompatActivity {
                 Feedback updateResponse = new Feedback(contentAdminFeedback.getText().toString().trim(),1,"DATETIME(CURRENT_TIMESTAMP, '+7 hours')",nameUserFeedback.getText().toString().trim(),intentIdFeedback,intentContentUserFeedback,null,null,null);
                 if(feedbackDatabase.updateResponse(intentIdFeedback,updateResponse)){
                     Toast.makeText(AdminFeedbackDetailActivity.this, "Phản hồi thành công!", Toast.LENGTH_SHORT).show();
+                    finish();
                 }else{
                     Toast.makeText(AdminFeedbackDetailActivity.this, "Phản hồi thất bại!", Toast.LENGTH_SHORT).show();
                     contentAdminFeedback.requestFocus();

@@ -8,7 +8,7 @@ public class Feedback {
     private int trangThai;
     private int maDonHang;
     private String noiDungAdminPhanHoi;
-    private String media1,media2,media3;
+    private byte[] media1,media2,media3;
 
     public Feedback() {
     }
@@ -21,7 +21,7 @@ public class Feedback {
         this.noiDungKhachPhanHoi = noiDungKhachPhanHoi;
         this.noiDungAdminPhanHoi = noiDungAdminPhanHoi;
     }
-    public Feedback(String noiDungAdminPhanHoi , int trangThai, String thoiGianPhanHoi, String tenKhachPhanHoi, int maPhanhoi, String noiDungKhachPhanHoi, String media1, String media2, String media3) {
+    public Feedback(String noiDungAdminPhanHoi , int trangThai, String thoiGianPhanHoi, String tenKhachPhanHoi, int maPhanhoi, String noiDungKhachPhanHoi, byte[] media1, byte[] media2, byte[] media3) {
         this.trangThai = trangThai;
         this.thoiGianPhanHoi = thoiGianPhanHoi;
         this.tenKhachPhanHoi = tenKhachPhanHoi;
@@ -33,27 +33,27 @@ public class Feedback {
         this.media3 = media3;
     }
 
-    public String getMedia3() {
+    public byte[] getMedia3() {
         return media3;
     }
 
-    public void setMedia3(String media3) {
+    public void setMedia3(byte[] media3) {
         this.media3 = media3;
     }
 
-    public String getMedia2() {
+    public byte[] getMedia2() {
         return media2;
     }
 
-    public void setMedia2(String media2) {
+    public void setMedia2(byte[] media2) {
         this.media2 = media2;
     }
 
-    public String getMedia1() {
+    public byte[] getMedia1() {
         return media1;
     }
 
-    public void setMedia1(String media1) {
+    public void setMedia1(byte[] media1) {
         this.media1 = media1;
     }
 

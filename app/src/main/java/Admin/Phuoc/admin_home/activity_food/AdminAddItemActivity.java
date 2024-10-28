@@ -166,7 +166,7 @@ public class AdminAddItemActivity extends AppCompatActivity {
                 foodList = new ArrayList<>();
                 foodList = foodDatabase.selectFood();
                 for (Food x: foodList) {
-                    if(nameEditText.getText().toString().trim().equals(x.getNameFood())){
+                    if(nameEditText.getText().toString().trim().equalsIgnoreCase(x.getNameFood())){
                         nameEditText.setError("Tên món ăn đã tồn tại!");
                         return;
                     }
@@ -368,6 +368,8 @@ public class AdminAddItemActivity extends AppCompatActivity {
                 if(categoryDatabase.insertCategory(newCategoryob)){
                     categorylist.add(newCategoryob);
                     Toast.makeText(AdminAddItemActivity.this, "Thêm danh mục thành công!", Toast.LENGTH_SHORT).show();
+                    categoryAdapter = new CategoryAdapter( R.layout.activity_admin_item_danh_muc,categorylist,AdminAddItemActivity.this);
+                    recyclerView.setAdapter(categoryAdapter);
                 }else{
                     Toast.makeText(AdminAddItemActivity.this, "Danh mục: " + newCategory + " đã tồn tại!", Toast.LENGTH_SHORT).show();
                 }
@@ -414,7 +416,7 @@ public class AdminAddItemActivity extends AppCompatActivity {
         foodList = new ArrayList<>();
         foodList = foodDatabase.selectFood();
         for (Food x: foodList) {
-            if(nameEditText.getText().toString().trim().equals(x.getNameFood())){
+            if(nameEditText.getText().toString().trim().equalsIgnoreCase(x.getNameFood())){
                 nameEditText.setError("Tên món ăn đã tồn tại!");
                 return false;
             }

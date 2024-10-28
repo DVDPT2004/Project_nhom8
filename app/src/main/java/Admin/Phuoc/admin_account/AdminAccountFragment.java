@@ -44,9 +44,9 @@ public class AdminAccountFragment extends Fragment {
                 userRepository.logout();
                 Intent intent = new Intent(getContext(), Login.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
-        // Inflate the layout for this fragment
         return rootView;
     }
 }
