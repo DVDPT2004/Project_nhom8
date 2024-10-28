@@ -30,6 +30,7 @@ public class OtpForgotPassWord extends AppCompatActivity {
     private String  getEmail;
     private String generatedOtp, generateOtp;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);

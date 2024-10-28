@@ -18,23 +18,39 @@ public class UserRepository {
     }
 
     // Đăng ký người dùng
-    public boolean registerUser(Userr user) {
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
+//    public boolean registerUser(Userr user) {
+//        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//
+//        values.put("full_name", user.getFullName());
+//        values.put("email", user.getEmail());
+//        values.put("password", user.getPassword());
+//        values.put("role", user.getRole());
+//        // Kiểm tra email có tồn tại không
+//        Cursor cursor = null;
+//        try {
+//            cursor = db.rawQuery("SELECT * FROM User WHERE email = ?", new String[]{user.getEmail()});
+//            if (cursor.getCount() > 0) {
+//                return false; // Email đã tồn tại
+//            }
+//            long result = db.insert("User", null, values);
+//            return result != -1; // Trả về true nếu đăng ký thành công
+//        } finally {
+//            if (cursor != null) {
+//                cursor.close();
+//            }
+//            db.close();
+//        }
+//    }
+// Kiểm tra xem email đã tồn tại chưa
 
-        values.put("full_name", user.getFullName());
-        values.put("email", user.getEmail());
-        values.put("password", user.getPassword());
-        values.put("role", user.getRole());
-        // Kiểm tra email có tồn tại không
+    // Kiểm tra xem email đã tồn tại chưa
+    public boolean isEmailExists(String email) {
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
         Cursor cursor = null;
         try {
-            cursor = db.rawQuery("SELECT * FROM User WHERE email = ?", new String[]{user.getEmail()});
-            if (cursor.getCount() > 0) {
-                return false; // Email đã tồn tại
-            }
-            long result = db.insert("User", null, values);
-            return result != -1; // Trả về true nếu đăng ký thành công
+            cursor = db.rawQuery("SELECT * FROM User WHERE email = ?", new String[]{email});
+            return cursor.getCount() > 0; // Trả về true nếu email đã tồn tại
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -43,12 +59,32 @@ public class UserRepository {
         }
     }
 
+    // Thêm người dùng vào cơ sở dữ liệu
+    public boolean addUser(Userr user) {
+        if (isEmailExists(user.getEmail())) {
+            return false; // Email đã tồn tại, không thêm người dùng mới
+        }
+
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("full_name", user.getFullName());
+        values.put("email", user.getEmail());
+        values.put("password", user.getPassword());
+        values.put("role", user.getRole());
+
+        try {
+            long result = db.insert("User", null, values);
+            return result != -1; // Trả về true nếu thêm thành công
+        } finally {
+            db.close();
+        }
+    }
+
+
     // Đăng nhập người dùng
     public Userr loginUser(String email, String password) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         Cursor cursor = null;
-
-
         try {
             cursor = db.rawQuery("SELECT * FROM User WHERE email = ? AND password = ?", new String[]{email, password});
             if (cursor.moveToFirst()) {
@@ -57,6 +93,7 @@ public class UserRepository {
                 String role = cursor.getString(cursor.getColumnIndexOrThrow("role"));
                 return new Userr(fullName, email, password, role); // Trả về người dùng
             }
+
 
         } finally {
             if (cursor != null) {

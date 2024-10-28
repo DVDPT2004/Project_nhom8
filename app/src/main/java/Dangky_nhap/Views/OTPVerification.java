@@ -26,6 +26,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.project_nhom8.R;
 
 import Dangky_nhap.Model.SendEmailTask;
+import Dangky_nhap.Model.UserRepository;
+import Dangky_nhap.Model.Userr;
+import Database.MainData.MainData;
 
 public class OTPVerification extends AppCompatActivity {
     private EditText otpEt1,otpEt2,otpEt3,otpEt4;
@@ -35,7 +38,9 @@ public class OTPVerification extends AppCompatActivity {
     private String generatedOtp,generateOtp; // Mã OTP được gửi đến email
     private Button verifyBtn;
     private  int selectedETPosition = 0;
-    private  String getemail;
+    private  String getfullName, getemail,getPass,getRole;
+    private UserRepository userRepository;
+    private MainData db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +60,14 @@ public class OTPVerification extends AppCompatActivity {
         verifyBtn = findViewById(R.id.verifyBtn);
         otpEmail = findViewById(R.id.otpEmail);
 
+        db = new MainData(this,"mainData.sqlite",null,1);
+        userRepository = new UserRepository(db,this);
 
+        getfullName = getIntent().getStringExtra("fullName");
         getemail = getIntent().getStringExtra("email");
-
+        getPass = getIntent().getStringExtra("password");
+        getRole = getIntent().getStringExtra("role");
+        generatedOtp = getIntent().getStringExtra("otp");
 
         otpEmail.setText(getemail);
 
@@ -72,8 +82,7 @@ public class OTPVerification extends AppCompatActivity {
         startCountDownTimer();
 
 
-        // Nhận mã OTP từ Intent
-        generatedOtp = getIntent().getStringExtra("otp");
+
         verifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,13 +90,17 @@ public class OTPVerification extends AppCompatActivity {
                 if(generateOtp.length() == 4){
                     // So sánh mã OTP nhập vào với mã OTP đã gửi
                     if (generateOtp.equals(generatedOtp)) {
-                        Toast.makeText(OTPVerification.this, "Xác thực thành công!", Toast.LENGTH_SHORT).show();
+                        Userr newUser = new Userr(getfullName,getemail,getPass,getRole);
+                        if(userRepository.addUser(newUser)){
+                            Toast.makeText(OTPVerification.this, "Xác thực thành công!", Toast.LENGTH_SHORT).show();
+                        }
                         // Chuyển đến màn hình đăng nhập hoặc màn hình chính
                         startActivity(new Intent(OTPVerification.this, Login.class));
                         finish();
                     } else {
                         Toast.makeText(OTPVerification.this, "Mã OTP không đúng!", Toast.LENGTH_SHORT).show();
                     }
+
 
 
                 }
@@ -151,7 +164,6 @@ public class OTPVerification extends AppCompatActivity {
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
         }
-
         @Override
         public void afterTextChanged(Editable s) {
             if (s.length() > 0) {

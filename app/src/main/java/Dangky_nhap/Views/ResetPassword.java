@@ -97,6 +97,7 @@ public class ResetPassword extends AppCompatActivity {
                     Toast.makeText(ResetPassword.this, "Mật khẩu không khớp!", Toast.LENGTH_SHORT).show();
                 }
 
+
             }
         });
 

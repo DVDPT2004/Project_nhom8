@@ -32,6 +32,6 @@ public class Splash extends AppCompatActivity {
                 startActivity(intent);
                 finish(); // Đóng SplashActivity để không quay lại được
             }
-        }, 3000);
+        }, 2000);
     }
 }
