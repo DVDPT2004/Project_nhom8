@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -60,7 +61,7 @@ public class Register extends AppCompatActivity {
         signUpBtn = findViewById(R.id.signUpBtn);
         signInBtn = findViewById(R.id.signInBtn);
 
-        //roleGroup = findViewById(R.id.roleGroup);
+
 
         passwordIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +110,6 @@ public class Register extends AppCompatActivity {
                 String mail = email.getText().toString();
                 String pass = password.getText().toString();
                 String conPass = conPassword.getText().toString();
-                // String role = ((RadioButton) findViewById(roleGroup.getCheckedRadioButtonId())).getText().toString();
 
                 // Kiểm tra các trường dữ liệu
                 if (name.isEmpty()) {
@@ -143,15 +143,19 @@ public class Register extends AppCompatActivity {
                 }
 
 
-                Userr newUser = new Userr(name,mail,pass,role);
+               Userr newUser = new Userr(name,mail,pass,role);
+                Log.d("role", "onClick: "+role);
 
-                if(userRepository.registerUser(newUser)){
+                if(!userRepository.isEmailExists(mail)){
                     // Tạo mã OTP ngẫu nhiên
                     String otp = generateOtp();
                     // Gửi mã OTP đến email
                     new SendEmailTask().execute(mail, otp);
                     Intent intent = new Intent(Register.this, OTPVerification.class);
-                    intent.putExtra("email", mail); // Gửi email cho OTPVerification
+                    intent.putExtra("fullName",name);
+                    intent.putExtra("email", mail);
+                    intent.putExtra("password",pass);
+                    intent.putExtra("role",role);// Gửi email cho OTPVerification
                     intent.putExtra("otp", otp); // Gửi mã OTP
                     startActivity(intent);
 
