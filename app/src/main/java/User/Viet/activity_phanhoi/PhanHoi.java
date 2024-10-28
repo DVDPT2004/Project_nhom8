@@ -140,12 +140,15 @@ public class PhanHoi extends AppCompatActivity {
         // Lấy thời gian hiện tại và chuyển đổi định dạng
         SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         String currentTime = originalFormat.format(new Date()); // Thời gian hiện tại
-        String formattedTime = processFeedbackTime(currentTime); // Định dạng thời gian
+        //String formattedTime = formatFeedbackTime(currentTime); // Định dạng thời gian
 
         // Lưu thời gian đã định dạng vào cơ sở dữ liệu
-        values.put("thoiGianPhanHoi", formattedTime);
+        values.put("thoiGianPhanHoi", currentTime);
         values.put("user_id", user_id);
         values.put("maDonHang", 1);
+        for (int i = 0; i < imageBitmaps.size(); i++) {
+            values.put("media" + (i + 1), saveImageToDatabase(imageBitmaps.get(i)));
+        }
 
         // Chèn vào cơ sở dữ liệu và trả về ID của hàng đã chèn
         long newRowId = db.insert("PhanHoi", null, values);
@@ -153,21 +156,19 @@ public class PhanHoi extends AppCompatActivity {
         return newRowId;
     }
 
-    private String processFeedbackTime(String inputTime) {
+    private String formatFeedbackTime(String thoigianphanhoi) {
         SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         SimpleDateFormat targetFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
         try {
             // Chuyển đổi từ chuỗi sang Date
-            Date date = originalFormat.parse(inputTime);
-
-            // Tạo Calendar và thiết lập thời gian từ date
-            Calendar feedbackCalendar = Calendar.getInstance();
-            feedbackCalendar.setTime(date);
+            Date date = originalFormat.parse(thoigianphanhoi);
 
             // Lấy thời gian hiện tại
             Calendar currentCalendar = Calendar.getInstance();
+            Calendar feedbackCalendar = Calendar.getInstance();
+            feedbackCalendar.setTime(date);
 
             // Tính số ngày chênh lệch
             long difference = currentCalendar.getTimeInMillis() - feedbackCalendar.getTimeInMillis();
@@ -177,19 +178,19 @@ public class PhanHoi extends AppCompatActivity {
             if (currentCalendar.get(Calendar.YEAR) == feedbackCalendar.get(Calendar.YEAR) &&
                     currentCalendar.get(Calendar.DAY_OF_YEAR) == feedbackCalendar.get(Calendar.DAY_OF_YEAR)) {
                 // Nếu trong ngày hiện tại, hiển thị HH:mm
-                return targetFormat.format(feedbackCalendar.getTime());
+                return targetFormat.format(date);
             } else if (daysDifference == 1) {
                 return "1 ngày trước";
             } else if (daysDifference == 2) {
                 return "2 ngày trước";
             } else if (daysDifference >= 3) {
-                return dateFormat.format(feedbackCalendar.getTime()); // Trả về định dạng DD/MM/YYYY
+                return dateFormat.format(date); // Trả về định dạng DD/MM/YYYY
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        return inputTime; // Trả về mặc định nếu không xác định được
+        return thoigianphanhoi; // Trả về mặc định nếu không xác định được
     }
 
     // Lưu ảnh dưới dạng byte[] để lưu vào cơ sở dữ liệu
