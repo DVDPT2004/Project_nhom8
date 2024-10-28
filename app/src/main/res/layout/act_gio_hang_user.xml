@@ -10,7 +10,7 @@
         android:textSize="20dp"
         android:textColor="@color/white"
         android:layout_height="60dp"
-        android:background="@android:color/holo_red_light"
+        android:background="@color/lavender"
         android:gravity="center"
         android:textAlignment="center"
         android:text="Giỏ hàng"
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0 VND"
-                android:textColor="#ff6351"
+                android:textColor="#FDBA38"
                 android:textSize="25dp"
                 android:textStyle="bold">
 
@@ -59,8 +59,8 @@
             android:id="@+id/btn_dathang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#01AED8"
+            android:backgroundTint="#FDBA38"
             android:text="Đặt hàng"
-            android:textColor="#FFFFFF"></Button>
+            android:textColor="#404040"></Button>
     </LinearLayout>
 </LinearLayout>

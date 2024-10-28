@@ -218,6 +218,7 @@
                         android:layout_height="wrap_content"
                         android:text="Chọn ảnh"
                         android:layout_gravity="end|center"
+                        android:textColor="#FDBA38"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -246,7 +247,8 @@
                         android:layout_height="wrap_content"
                         android:text="Chọn ảnh"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"
+                        android:textColor="#FDBA38"/>
                 </LinearLayout>
 
             </LinearLayout>

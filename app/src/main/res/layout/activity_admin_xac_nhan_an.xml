@@ -37,13 +37,15 @@
             android:layout_height="wrap_content"
             android:text="Hủy bỏ"
             android:layout_gravity="center"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp"
+            android:textColor="#FDBA38"/>
         <Button
             android:id="@+id/confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đồng ý"
             android:layout_gravity="center"
+            android:textColor="#FDBA38"
             />
     </LinearLayout>
 

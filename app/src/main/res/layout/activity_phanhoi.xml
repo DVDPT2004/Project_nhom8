@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@android:color/holo_red_light"
+        android:background="#404040"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:textColor="@android:color/white"
+            android:textColor="#FDBA38"
             android:layout_marginRight="20dp"
             android:text="Phản Hồi"
             android:layout_weight="1"
@@ -129,23 +129,26 @@
             android:padding="12dp"
             android:textSize="20sp" />
     </LinearLayout>
+
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imagemayanh"
-            android:src="@drawable/mayanh"
             android:layout_width="150dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/mayanh" />
+
         <ImageView
             android:id="@+id/imagefile"
-            android:src="@drawable/file"
             android:layout_width="150dp"
+            android:layout_height="100dp"
             android:layout_marginLeft="50dp"
-            android:layout_height="100dp" />
+            android:src="@drawable/file" />
     </TableRow>
+
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
@@ -168,10 +171,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="20dp"
-            android:background="@android:color/holo_red_light"
+            android:background="#404040"
             android:padding="10dp"
             android:text="Gửi phản hồi"
-            android:textColor="#212121"
+            android:textColor="#FDBA38"
             app:background="@null"
             app:backgroundTint="@null"
             tools:ignore="TouchTargetSizeCheck" />
@@ -182,10 +185,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:background="@android:color/holo_red_light"
+            android:background="#404040"
             android:padding="10dp"
             android:text="Hủy"
-            android:textColor="#212121"
+            android:textColor="#FDBA38"
             app:background="@null"
             app:backgroundTint="@null"
             tools:ignore="TouchTargetSizeCheck" />

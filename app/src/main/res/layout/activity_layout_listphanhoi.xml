@@ -19,8 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Phản Hồi"
-            android:textColor="@android:color/white"
-            android:textSize="20dp" />
+            android:textColor="#FDBA38"
+            android:textSize="25dp" />
     </LinearLayout>
 
     <!-- ListView phản hồi - Kéo dài toàn màn hình dưới tiêu đề -->

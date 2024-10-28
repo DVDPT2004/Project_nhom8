@@ -179,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
                     android:textStyle="bold"
-                    android:textColor="@color/holo_red_dark"
+                    android:textColor="#FDBA38"
                     android:text="Thành tiền"
                     />
             </LinearLayout>
@@ -230,6 +230,7 @@
                 android:layout_gravity="right"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
+                android:textColor="#FDBA38"
                 />
 
         </LinearLayout>

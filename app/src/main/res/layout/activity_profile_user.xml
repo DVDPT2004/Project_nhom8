@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Views.Profile_User"
-    android:background="@color/white">
+    android:background="#ffffff">
 
 
     <TextView
@@ -29,7 +29,7 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:gravity="center"
-        android:background="@color/white">
+        android:background="#ffffff">
 
         <ImageView
             android:id="@+id/avatar"
