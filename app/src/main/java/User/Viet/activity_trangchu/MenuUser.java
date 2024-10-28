@@ -17,9 +17,6 @@ import User.Viet.Fragment.GiaoDienDauFragment;
 import User.Viet.Fragment.LienHeFragment;
 import User.Viet.Fragment.UserFragment;
 
-
-//import com.example.appdatdoan.
-
 public class MenuUser extends AppCompatActivity {
     ActivityLayoutUserBinding binding;
 
@@ -27,16 +24,29 @@ public class MenuUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_layout_user);
-
         binding = ActivityLayoutUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new GiaoDienDauFragment());
-        binding.bottomNavigationView.setBackground(null);
 
+        // Kiểm tra Intent để lấy selected_item
+        int selectedItemId = getIntent().getIntExtra("selected_item", R.id.action_home);
+        int selectedItemId1 = getIntent().getIntExtra("selected_item1", R.id.action_home);
+
+        // Thiết lập BottomNavigationView để chọn mục đúng
+
+
+        // Thay thế Fragment mặc định dựa trên selectedItemId1 bằng if-else
+        if (selectedItemId1 == R.id.action_feedback) {
+            replaceFragment(new FeedbackFragment());
+        } else if (selectedItemId == R.id.action_cart) {
+            replaceFragment(new CartFragment());
+        } else {
+            replaceFragment(new GiaoDienDauFragment());
+        }
+        binding.bottomNavigationView.setSelectedItemId(selectedItemId);
+        binding.bottomNavigationView.setSelectedItemId(selectedItemId1);
+
+        // Lắng nghe sự kiện chọn item
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-
-
             if (item.getItemId() == R.id.action_home) {
                 replaceFragment(new GiaoDienDauFragment());
             } else if (item.getItemId() == R.id.action_cart) {
@@ -52,8 +62,6 @@ public class MenuUser extends AppCompatActivity {
             }
             return true;
         });
-
-
     }
 
     private void replaceFragment(Fragment fragment) {

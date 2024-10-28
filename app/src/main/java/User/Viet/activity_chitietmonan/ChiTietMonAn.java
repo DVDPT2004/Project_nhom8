@@ -95,7 +95,9 @@ public class ChiTietMonAn extends AppCompatActivity {
         cartIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChiTietMonAn.this, CartFragment.class);
+                Intent intent = new Intent(ChiTietMonAn.this, MenuUser.class);
+                // Gán ID của mục action_cart
+                intent.putExtra("selected_item", R.id.action_cart);
                 startActivity(intent);
             }
         });
@@ -109,9 +111,10 @@ public class ChiTietMonAn extends AppCompatActivity {
         adapterfeedback = new FeedbackAdapter(this, feedbacksList);
         lvFeedback.setAdapter(adapterfeedback);
         MainData phanHoiDatabase = new MainData(this,"mainData.sqlite",null,1);
-        Cursor cursor = phanHoiDatabase.SelectData("SELECT * FROM PhanHoi WHERE user_id = 2");
+        Cursor cursor = phanHoiDatabase.SelectData("SELECT * FROM PhanHoi");
         while (cursor.moveToNext()) {
             feedbacksList.add(new Feedback(
+                    cursor.getString(4),
                     cursor.getString(9), // Tên người dùng
                     cursor.getString(2), // Ngày phản hồi
                     cursor.getString(3), // Nội dung phản hồi
@@ -138,19 +141,21 @@ public class ChiTietMonAn extends AppCompatActivity {
         String hinhanh4 = intent.getStringExtra("hinhanh4");
         float giaGiam = intent.getFloatExtra("giaGiam", 0);
 
-        DBGioHangManager dbGioHangManager = new DBGioHangManager(ChiTietMonAn.this);
-
-// Kiểm tra xem sản phẩm đã có trong giỏ hàng hay chưa
-        Cursor cursorCheck = dbGioHangManager.selectData("SELECT * FROM giohang WHERE id_sp = " + maSanPham);
-        if (cursorCheck != null && cursorCheck.getCount() > 0) {
-            // Nếu sản phẩm đã tồn tại trong giỏ hàng, cập nhật giao diện nút
-            btnAddCard.setBackgroundColor(ContextCompat.getColor(ChiTietMonAn.this, R.color.darker_gray));
-            btnAddCard.setText("Đã thêm vào giỏ hàng");
-            btnAddCard.setEnabled(false); // Vô hiệu hóa nút
-        }
-        if (cursorCheck != null) {
-            cursorCheck.close(); // Đóng Cursor sau khi kiểm tra
-        }
+//        MainData mainData = new MainData(ChiTietMonAn.this);
+//        UserRepository userRepository = new UserRepository(mainData, this);
+//        String email = userRepository.getLoggedInUserEmail();
+//        int id_user = userRepository.getUserIdByEmail(email);
+//// Kiểm tra xem sản phẩm đã có trong giỏ hàng hay chưa
+//        Cursor cursorCheck = mainData.SelectData("SELECT * FROM GIOHANG WHERE maSanPham = " + maSanPham + " and id_user = " + id_user);
+//        if (cursorCheck != null && cursorCheck.getCount() > 0) {
+//            // Nếu sản phẩm đã tồn tại trong giỏ hàng, cập nhật giao diện nút
+//            btnAddCard.setBackgroundColor(ContextCompat.getColor(ChiTietMonAn.this, R.color.darker_gray));
+//            btnAddCard.setText("Đã thêm vào giỏ hàng");
+//            btnAddCard.setEnabled(false); // Vô hiệu hóa nút
+//        }
+//        if (cursorCheck != null) {
+//            cursorCheck.close(); // Đóng Cursor sau khi kiểm tra
+//        }
 
 // Định dạng số
         DecimalFormat decimalFormat = new DecimalFormat("#,##0");
@@ -181,8 +186,7 @@ public class ChiTietMonAn extends AppCompatActivity {
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ChiTietMonAn.this, MenuUser.class);
-                startActivity(intent);
+               finish();
 
             }
         });
