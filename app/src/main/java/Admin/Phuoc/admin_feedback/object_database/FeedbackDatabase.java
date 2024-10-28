@@ -33,6 +33,7 @@ public class FeedbackDatabase {
                 String thoigianphanhoi = cursor.getString(cursor.getColumnIndexOrThrow("thoiGianPhanHoi"));
                 String tenkhachphanhoi = cursor.getString(cursor.getColumnIndexOrThrow("tenKH"));
                 int maphanhoi = cursor.getInt(cursor.getColumnIndexOrThrow("maPhanHoi"));
+                int maDonHang = cursor.getInt(cursor.getColumnIndexOrThrow("maDonHang"));
                 String noiDungKhachPhanHoi = cursor.getString(cursor.getColumnIndexOrThrow("NoiDungKhachPhanHoi"));
 //                byte[] media1 = cursor.getBlob(cursor.getColumnIndexOrThrow("media1"));
 //                byte[] media2 = cursor.getBlob(cursor.getColumnIndexOrThrow("media2"));
@@ -42,7 +43,7 @@ public class FeedbackDatabase {
                 byte[] media3 = cursor.getBlob(7);
                 String displayTime = formatFeedbackTime(thoigianphanhoi);
 
-                Feedback feedback1 = new Feedback(noiDungAdminPhanHoi,trangthai,displayTime,tenkhachphanhoi,maphanhoi,noiDungKhachPhanHoi,media1,media2,media3);
+                Feedback feedback1 = new Feedback(maDonHang,noiDungAdminPhanHoi,trangthai,displayTime,tenkhachphanhoi,maphanhoi,noiDungKhachPhanHoi,media1,media2,media3);
                 feedbackList.add(feedback1);
             }
         }catch (Exception e) {
@@ -72,9 +73,11 @@ public class FeedbackDatabase {
                 byte[] media1 = cursor.getBlob(cursor.getColumnIndexOrThrow("media1"));
                 byte[] media2 = cursor.getBlob(cursor.getColumnIndexOrThrow("media2"));
                 byte[] media3 = cursor.getBlob(cursor.getColumnIndexOrThrow("media3"));
+                int maDonHang = cursor.getInt(cursor.getColumnIndexOrThrow("maDonHang"));
+
                 String displayTime = formatFeedbackTime(thoigianphanhoi);
 
-                Feedback feedback1 = new Feedback(noiDungAdminPhanHoi,trangthai,displayTime,tenkhachphanhoi,maphanhoi,noiDungKhachPhanHoi,media1,media2,media3);
+                Feedback feedback1 = new Feedback(maDonHang,noiDungAdminPhanHoi,trangthai,displayTime,tenkhachphanhoi,maphanhoi,noiDungKhachPhanHoi,media1,media2,media3);
                 feedbackList.add(feedback1);
             }
         }catch (Exception e) {
@@ -104,9 +107,11 @@ public class FeedbackDatabase {
                 byte[] media1 = cursor.getBlob(cursor.getColumnIndexOrThrow("media1"));
                 byte[] media2 = cursor.getBlob(cursor.getColumnIndexOrThrow("media2"));
                 byte[] media3 = cursor.getBlob(cursor.getColumnIndexOrThrow("media3"));
+                int maDonHang = cursor.getInt(cursor.getColumnIndexOrThrow("maDonHang"));
+
                 String displayTime = formatFeedbackTime(thoigianphanhoi);
 
-                Feedback feedback1 = new Feedback(noiDungAdminPhanHoi,trangthai,displayTime,tenkhachphanhoi,maphanhoi,noiDungKhachPhanHoi,media1,media2,media3);
+                Feedback feedback1 = new Feedback(maDonHang,noiDungAdminPhanHoi,trangthai,displayTime,tenkhachphanhoi,maphanhoi,noiDungKhachPhanHoi,media1,media2,media3);
                 feedbackList.add(feedback1);
             }
         }catch (Exception e) {

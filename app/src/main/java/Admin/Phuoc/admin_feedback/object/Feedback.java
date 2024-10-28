@@ -21,7 +21,7 @@ public class Feedback {
         this.noiDungKhachPhanHoi = noiDungKhachPhanHoi;
         this.noiDungAdminPhanHoi = noiDungAdminPhanHoi;
     }
-    public Feedback(String noiDungAdminPhanHoi , int trangThai, String thoiGianPhanHoi, String tenKhachPhanHoi, int maPhanhoi, String noiDungKhachPhanHoi, byte[] media1, byte[] media2, byte[] media3) {
+    public Feedback(Integer maDonHang,String noiDungAdminPhanHoi , int trangThai, String thoiGianPhanHoi, String tenKhachPhanHoi, int maPhanhoi, String noiDungKhachPhanHoi, byte[] media1, byte[] media2, byte[] media3) {
         this.trangThai = trangThai;
         this.thoiGianPhanHoi = thoiGianPhanHoi;
         this.tenKhachPhanHoi = tenKhachPhanHoi;
@@ -31,6 +31,7 @@ public class Feedback {
         this.media1 = media1;
         this.media2 = media2;
         this.media3 = media3;
+        this.maDonHang = maDonHang;
     }
 
     public byte[] getMedia3() {

@@ -21,8 +21,8 @@ public class MainActivityAdmin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_menu_admin);
+        EdgeToEdge.enable(this);  // kích hoạt chế dộ toàn maàn hình
+        setContentView(R.layout.activity_menu_admin);       // ánh xa toới layout
 
         binding = ActivityMenuAdminBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
