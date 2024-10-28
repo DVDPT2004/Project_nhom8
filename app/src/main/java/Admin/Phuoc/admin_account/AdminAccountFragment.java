@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.project_nhom8.R;
 
+import Admin.Doanh.DoanhThu;
 import Dangky_nhap.Model.UserRepository;
 import Dangky_nhap.Views.Login;
 import Dangky_nhap.Views.Profile_admin;
@@ -21,6 +23,7 @@ public class AdminAccountFragment extends Fragment {
     private UserRepository userRepository;
     private MainData db;
     private TextView logout,email;
+    private LinearLayout linearLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class AdminAccountFragment extends Fragment {
         rootView = inflater.inflate(R.layout.activity_profile_admin, container, false);
         logout = rootView.findViewById(R.id.logout);
         email = rootView.findViewById(R.id.email);
+        linearLayout = rootView.findViewById(R.id.revenueReport);
+
         String Email= userRepository.getLoggedInUserEmail();
         email.setText(Email);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +51,10 @@ public class AdminAccountFragment extends Fragment {
                 startActivity(intent);
                 getActivity().finish();
             }
+        });
+        linearLayout.setOnClickListener(v ->{
+            Intent intent = new Intent(getContext(), DoanhThu.class);
+            startActivity(intent);
         });
         return rootView;
     }

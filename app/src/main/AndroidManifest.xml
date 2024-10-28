@@ -65,10 +65,12 @@
 <!--        Tue end       -->
 
 
-<!--        Doanh       -->
-<!--        <activity android:name=".MainActivity">-->
-<!--        </activity>-->
-<!--        Doanh  end     -->
+            <!--        Doanh       -->
+            <activity android:name="Admin.Doanh.DoanhThu">
+            </activity>
+            <activity android:name="Admin.Doanh.Thongke">
+            </activity>
+            <!--        Doanh  end     -->
 
 
 <!--        Phuoc       -->
