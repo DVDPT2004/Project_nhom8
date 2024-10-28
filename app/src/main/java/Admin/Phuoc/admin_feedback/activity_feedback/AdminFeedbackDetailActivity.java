@@ -58,7 +58,6 @@ public class AdminFeedbackDetailActivity extends AppCompatActivity {
         buttonBack = findViewById(R.id.admin_feedback_detail_back);
 
         contentAdminFeedback.requestFocus();
-
     }
 
     private void getAndSetViews(){
@@ -78,21 +77,7 @@ public class AdminFeedbackDetailActivity extends AppCompatActivity {
         nameUserFeedback.setText(intentNameUserFeedback);
         timeFeedback.setText("Thời gian phản hồi: " + intentTimeFeedback);
         contentUserFeedback.setText(intentContentUserFeedback);
-//        if (intentMedia1 != null) {
-//            Glide.with(AdminFeedbackDetailActivity.this)
-//                    .load(intentMedia1)
-//                    .into(media1);
-//        }
-//        if (intentMedia2 != null) {
-//            Glide.with(AdminFeedbackDetailActivity.this)
-//                    .load(intentMedia2)
-//                    .into(media2);
-//        }
-//        if (intentMedia3 != null) {
-//            Glide.with(AdminFeedbackDetailActivity.this)
-//                    .load(intentMedia3)
-//                    .into(media3);
-//        }
+
         if (intentMedia1 != null && intentMedia1.length > 0) {
             Bitmap bitmap1 = BitmapFactory.decodeByteArray(intentMedia1, 0, intentMedia1.length);
             media1.setImageBitmap(bitmap1);

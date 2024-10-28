@@ -26,8 +26,6 @@ public class FeedbackAdapter extends RecyclerView.Adapter<FeedbackAdapter.Feedba
     private int layout;
     private List<Feedback> feedbackList;
     private FeedbackDatabase feedbackDatabase;
-    private MainData db;
-    private static final int REQUEST_CODE_ADD_PRODUCT = 1;
 
     public FeedbackAdapter(Context context, int layout, List<Feedback> feedbackList) {
         this.context = context;

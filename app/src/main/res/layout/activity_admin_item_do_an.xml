@@ -180,7 +180,7 @@
                 android:id="@+id/admin_button_delete_item"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Xóa"
+                android:text="Ẩn"
                 android:layout_weight="1"
                 android:layout_marginHorizontal="40dp"
                 />

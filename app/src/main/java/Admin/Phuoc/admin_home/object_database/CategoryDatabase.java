@@ -11,6 +11,7 @@ import Database.MainData.MainData;
 
 public class CategoryDatabase {
     private MainData databaseHelper;
+
     public CategoryDatabase(MainData databaseHelper) {
         this.databaseHelper = databaseHelper;
     }
@@ -67,4 +68,5 @@ public class CategoryDatabase {
         db.close();
         return deletedRows > 0;
     }
+
 }

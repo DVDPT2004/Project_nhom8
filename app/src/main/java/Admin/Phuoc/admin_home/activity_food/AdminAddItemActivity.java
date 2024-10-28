@@ -51,23 +51,20 @@ import Database.MainData.MainData;
 
 public class AdminAddItemActivity extends AppCompatActivity {
 
-    private static final int PICK_IMAGE_REQUEST = 1; // Mã yêu cầu chọn ảnh
     private GridLayout gridLayout;
     private CategoryAdapter categoryAdapter;
-    private ActivityResultLauncher<Intent> imageMainLauncher; // Trình khởi tạo cho ảnh chính
-    private ActivityResultLauncher<Intent> imageSubsidiaryLauncher; // Trình khởi tạo cho ảnh phụ
-    private ArrayList<Uri> selectedImageUris = new ArrayList<>(); // Danh sách các URI ảnh phụ đã chọn
+    private ActivityResultLauncher<Intent> imageMainLauncher;               // Trình khởi tạo cho ảnh chính
+    private ActivityResultLauncher<Intent> imageSubsidiaryLauncher;         // Trình khởi tạo cho ảnh phụ
+    private ArrayList<Uri> selectedImageUris = new ArrayList<>();           // Danh sách các URI ảnh phụ đã chọn
     private EditText nameEditText, descriptionEditText, priceEditText, discountEditText; // Các trường nhập liệu
-    private Spinner categorySpinner, statusSpinner; // Spinner cho danh mục món ăn
-    private ImageView imageViewMain; // Hình ảnh chính của món ăn
-    private Button addButton; // Nút thêm món ăn
-    private Button adminAddCategoryButton; // Nút thêm danh mục mới
+    private Spinner categorySpinner, statusSpinner;                         // Spinner cho danh mục món ăn
+    private ImageView imageViewMain;                                        // Hình ảnh chính của món ăn
+    private Button addButton, adminAddCategoryButton;                       // Nút thêm món ăn  // Nút thêm danh mục mới
     private ArrayList<Food> foodList;
-    private Uri imageMain; // URI của hình ảnh chính
+    private Uri imageMain;                                                  // URI của hình ảnh chính
     ArrayList<String> status;
     ArrayList<Category> categorylist;
     ArrayList<String> categorylistStr = new ArrayList<>();
-
     private MainData db;
     private FoodDatabase foodDatabase;
     private CategoryDatabase categoryDatabase;
@@ -117,21 +114,17 @@ public class AdminAddItemActivity extends AppCompatActivity {
         statusSpinner = findViewById(R.id.admin_status_add_item);
     }
 
-
-
     public void setupCategorySpinner() {
         // Thiết lập danh sách danh mục món ăn
         categorylistStr.clear();
         categorylist = new ArrayList<>();
         categorylistStr.add("");
-
         db = new MainData(this,"mainData.sqlite",null,1);
         categoryDatabase = new CategoryDatabase(db);
 
         ArrayList<Category> categoryListFromDb = categoryDatabase.selectCategory();
 //        Log.d(""+categoryListFromDb.size(),"aaaaaaa");
         categorylist.addAll(categoryListFromDb);
-
         // Tạo adapter cho spinner
         for (Category x: categorylist) {
             categorylistStr.add(x.getNameCategory());
@@ -197,8 +190,7 @@ public class AdminAddItemActivity extends AppCompatActivity {
                                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                                 imageViewMain.setImageBitmap(bitmap);
                                 imageMain = imageUri;
-
-                                Toast.makeText(this, imageUri.toString(), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(this, imageUri.toString(), Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -281,12 +273,11 @@ public class AdminAddItemActivity extends AppCompatActivity {
                         selectedImageUris);
 
                 foodDatabase.insertFood(newFood);
-
                 clearInputs();
                 Toast.makeText(AdminAddItemActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(AdminAddItemActivity.this, "Ten san pham da ton tai!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminAddItemActivity.this, "Tên món ăn đã tồn tại!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -299,9 +290,9 @@ public class AdminAddItemActivity extends AppCompatActivity {
         categorySpinner.setSelection(0);
         imageViewMain.setImageBitmap(null);
         statusSpinner.setSelection(0);
+        gridLayout.removeAllViews();
     }
 
-    // Hàm hiển thị popup để thêm danh mục mới
     private void showAddCategoryPopup() {
         // Lấy kích thước màn hình
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -345,25 +336,20 @@ public class AdminAddItemActivity extends AppCompatActivity {
 
         // Sử dụng LinearLayoutManager để hiển thị theo chiều dọc
         recyclerView.setLayoutManager(new LinearLayoutManager(AdminAddItemActivity.this));
-
         Collections.sort(categorylist, new Comparator<Category>() {
             @Override
             public int compare(Category p1, Category p2) {
                 return p1.getNameCategory().compareTo(p2.getNameCategory());  // Sắp xếp tăng dần theo tên
             }
         });
-        // Khởi tạo adapter và gán cho RecyclerView
         categoryAdapter = new CategoryAdapter( R.layout.activity_admin_item_danh_muc,categorylist,AdminAddItemActivity.this);
         recyclerView.setAdapter(categoryAdapter);
-
-
         // Xử lý khi nhấn nút lưu danh mục
         saveCategoryButton.setOnClickListener(v -> {
             String newCategory = categoryEditText.getText().toString().trim();
             if (!newCategory.isEmpty()) {
                 db = new MainData(this,"mainData.sqlite",null,1);
                 categoryDatabase = new CategoryDatabase(db);
-
                 Category newCategoryob = new Category(newCategory);
                 if(categoryDatabase.insertCategory(newCategoryob)){
                     categorylist.add(newCategoryob);
@@ -375,7 +361,6 @@ public class AdminAddItemActivity extends AppCompatActivity {
                 }
                 setupCategorySpinner();
                 recyclerView.setAdapter(categoryAdapter);
-                //popupWindow.dismiss();
             } else {
                 Toast.makeText(AdminAddItemActivity.this, "Tên danh mục không được để trống", Toast.LENGTH_SHORT).show();
             }
@@ -384,18 +369,15 @@ public class AdminAddItemActivity extends AppCompatActivity {
 
     // Cập nhật hình ảnh phụ hiển thị trong GridLayout
     private void updateImageViews() {
-        gridLayout.removeAllViews(); // Xóa tất cả các view hiện có
-
+        gridLayout.removeAllViews();
         for (int i = 0; i < selectedImageUris.size(); i++) {
             Uri imageUri = selectedImageUris.get(i);
-
             // Tạo một ImageView để hiển thị ảnh
             ImageView imageView = new ImageView(this);
             imageView.setLayoutParams(new GridLayout.LayoutParams(
                     new ViewGroup.LayoutParams(200, 180))); // Kích thước ảnh
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setImageURI(imageUri);
-
             // Thêm sự kiện click để xóa ảnh khi người dùng nhấn vào
             final int index = i;
             imageView.setOnClickListener(v -> {
@@ -403,7 +385,6 @@ public class AdminAddItemActivity extends AppCompatActivity {
                 selectedImageUris.remove(index);
                 updateImageViews(); // Cập nhật lại danh sách ảnh
             });
-
             // Thêm ImageView vào GridLayout
             gridLayout.addView(imageView);
         }
@@ -446,11 +427,6 @@ public class AdminAddItemActivity extends AppCompatActivity {
             return false;
         }
 
-//        if (discountEditText.getText().toString().trim().isEmpty()) {
-//            discountEditText.setError("Giảm giá không được để trống");
-//            discountEditText.requestFocus();
-//            return false;
-//        }
         if(!discountEditText.getText().toString().trim().isEmpty()){
             if (Integer.parseInt(discountEditText.getText().toString().trim()) < 0 || Integer.parseInt(discountEditText.getText().toString().trim()) > 100) {
                 discountEditText.setError("Giảm giá không hợp lệ");
@@ -463,7 +439,7 @@ public class AdminAddItemActivity extends AppCompatActivity {
             Toast.makeText(this, "Vui lòng chọn ảnh chính", Toast.LENGTH_SHORT).show();
             return false;
         }
-        // Nếu tất cả các trường đều hợp lệ
         return true;
     }
+
 }
