@@ -1,4 +1,6 @@
 package Admin.Doanh;
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -43,15 +45,15 @@ import Dangky_nhap.Views.Profile_admin;
 import Database.MainData.MainData;
 
 public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedListener {
-    private  List<String> xLabel = new ArrayList<>(); //ox
+    private  List<String> xLabel = new ArrayList<>(); // ds truc ox
     private  ArrayList<Entry> entries = new ArrayList<>(); // điểm tren do thi
     private CombinedChart mChart;
     private  EditText edtDateStart, edtDateEnd;
     private   TextView text_donhang,text_doanhthu;
     private    int totalDonhang=0 ;
     private    int totalDoanhthu=0;
-    private    int totalRevenue = 0 ;
-    private ArrayList<Integer> dsTongtien = new ArrayList<>();
+    private    int totalRevenue = 0 ; // tổng doanh thu 1 ngay
+    private ArrayList<Integer> dsTongtien = new ArrayList<>(); // lưu ổng tiền mỗi ngày
     private OrderDatabase orderDatabase;
     private MainData db;
     @Override
@@ -60,6 +62,26 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_doanh_thu);
+
+// thu vien bieu do
+        mChart = (CombinedChart) findViewById(R.id.combinedChart); // Khởi tạo biểu đồ
+        //cài đặt có sẵn ở thư viện biểu đồ
+        mChart.getDescription().setEnabled(false);
+        mChart.setBackgroundColor(Color.WHITE);
+        mChart.setDrawGridBackground(false);
+        mChart.setDrawBarShadow(false);
+        mChart.setHighlightFullBarEnabled(false);
+        mChart.setOnChartValueSelectedListener(this); // để xử lý các thao tác khi người dùng chọn một điểm dữ liệu.
+
+
+
+        YAxis rightAxis = mChart.getAxisRight(); // ben phai
+        rightAxis.setDrawGridLines(false);
+        rightAxis.setAxisMinimum(0f);
+
+        YAxis leftAxis = mChart.getAxisLeft(); // ben trai
+        leftAxis.setDrawGridLines(false);
+        leftAxis.setAxisMinimum(0f);
 
 
 
@@ -126,9 +148,13 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
         btnHienThi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                setDateRangeToXLabel();
+                // Kiểm tra xem edtDateEnd hoặc edtDateStart có rỗng không
+                if (edtDateEnd.getText().toString().isEmpty() || edtDateStart.getText().toString().isEmpty()) {
+                    Toast.makeText(DoanhThu.this, "Nhập ngày không bỏ trống", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Nếu không rỗng, gọi hàm setDateRangeToXLabel()
+                    setDateRangeToXLabel();
+                }
             }
         });
 
@@ -145,22 +171,6 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
 //        Hết xử lý texview
 
 
-        mChart = (CombinedChart) findViewById(R.id.combinedChart);
-        mChart.getDescription().setEnabled(false);
-        mChart.setBackgroundColor(Color.WHITE);
-        mChart.setDrawGridBackground(false);
-        mChart.setDrawBarShadow(false);
-        mChart.setHighlightFullBarEnabled(false);
-        mChart.setOnChartValueSelectedListener(this);
-
-
-        YAxis rightAxis = mChart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-        rightAxis.setAxisMinimum(0f);
-
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setAxisMinimum(0f);
 
 
 
@@ -174,8 +184,7 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
                 + e.getY()
                 + ", index: "
                 + h.getX()
-                + ", DataSet index: "
-                + h.getDataSetIndex(), Toast.LENGTH_SHORT).show();
+                , LENGTH_SHORT).show();
     }
 
     @Override
@@ -194,25 +203,28 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
             Date endDate = dateFormat.parse(edtDateEnd.getText().toString());
 
             // Kiểm tra xem ngày kết thúc có sau ngày bắt đầu không
-            if (startDate != null && endDate != null && !startDate.after(endDate)) {
+            if ( !startDate.after(endDate)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(startDate);
                 xLabel.clear();
                 dsTongtien.clear();
                 // Thêm các ngày dạng chuỗi vào mảng xLabel cho đến khi đạt đến ngày kết thúc
                 while (!calendar.getTime().after(endDate)) {
-//                    Kết nối db order
+                    //                    Kết nối db order
                     db = new MainData(DoanhThu.this,"mainData.sqlite",null,1);
                     orderDatabase = new OrderDatabase(db);
                     String dateString = dateFormat.format(calendar.getTime()); // Định dạng thành chuỗi
-                    totalRevenue = orderDatabase.selectTongTien(dateString); // Tính tổng tiền
+
+                    totalRevenue = orderDatabase.selectTongTien(dateString); // Tính tổng tiền mỗi ngày
                     Log.d("Tongtien", "setDateRangeToXLabel: "+totalRevenue);
-                    dsTongtien.add(totalRevenue); // thiết lập danh sach them truc oy
+
+                    dsTongtien.add(totalRevenue); //
                     // tong text doanh thu
                     totalDoanhthu +=totalRevenue;
-// tong text đơn
+                    // tong text đơn
                     totalDonhang += orderDatabase.DemSoDon(dateString);
-                    xLabel.add(dateString); // Thêm chuỗi vào xLabel
+
+                    xLabel.add(dateString); // Thêm chuỗi vào xLabel truc ox
 
                     calendar.add(Calendar.DAY_OF_MONTH, 1); // Tăng ngày lên 1
                 }
@@ -227,11 +239,11 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
 //        Hết xử lý texview
 
             } else {
-                Toast.makeText(this, "Vui lòng chọn khoảng ngày hợp lệ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Vui lòng chọn khoảng ngày hợp lệ", LENGTH_SHORT).show();
             }
         } catch (ParseException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Chọn ngày hợp lệ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Chọn ngày hợp lệ", LENGTH_SHORT).show();
 
         }
 
@@ -245,16 +257,17 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
                 return xLabel.get((int) value % xLabel.size());
             }
         });
+ //        thiết lập giá trị ox thành nhãn dán ở Xlabel
 
-        CombinedData data = new CombinedData();
-        LineData lineDatas = new LineData();
-        lineDatas.addDataSet((ILineDataSet) dataChart());
+        CombinedData data = new CombinedData(); // dùng để chứa dữ liệu
+        LineData lineDatas = new LineData(); // đối tượng chứa dữ liệu đừường
+        lineDatas.addDataSet((ILineDataSet) dataChart());  //(ILineDataSet) thực hiện việc ép kiểu
 
         data.setData(lineDatas);
 
         xAxis.setAxisMaximum(data.getXMax() + 0.25f);
-        mChart.setData(data);
-        mChart.invalidate();
+        mChart.setData(data);   // Cập nhật dữ liệu cho biểu đồ
+        mChart.invalidate();    // Yêu cầu vẽ lại biểu đồ
     }
 
     private  DataSet dataChart() {
@@ -265,18 +278,6 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
         Log.d("daata", "dataChart: "+xLabel.size() +" "+ data.size());
         //   Các điểm trên đồ thị
         for (int index = 0; index < xLabel.size(); index++) {
-//   test mac dinh         if (index < data.size()) {
-//                // Nếu index không vượt quá chiều dài của mảng data, lấy giá trị từ data
-//                entries.add(new Entry(index, data.get(index)));
-//                Log.d("daata11", "dataChart: "+index);
-//            } else {
-//                // Nếu index vượt quá chiều dài của mảng data, thêm giá trị 0
-//                entries.add(new Entry(index, 0));
-//                Log.d("daata12", "dataChart: "+index);
-//            }
-//            Log.d("daata13", "dataChart: "+index);
-
-
 
             entries.add(new Entry(index, data.get(index)));
 
@@ -289,7 +290,7 @@ public class DoanhThu extends AppCompatActivity implements OnChartValueSelectedL
         set.setCircleColor(Color.GREEN);
         set.setCircleRadius(5f);
         set.setFillColor(Color.GREEN);
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER); //Chọn chế độ hiển thị đường (Cubic Bezier, trong trường hợp này, tạo ra các đường cong mượt mà).
+        set.setMode(LineDataSet.Mode.LINEAR); //Chọn chế độ hiển thị đường (Linear, trong trường hợp này, tạo ra các đường cong mượt mà).
         set.setDrawValues(true);
         set.setValueTextSize(10f);
         set.setValueTextColor(Color.GREEN);
