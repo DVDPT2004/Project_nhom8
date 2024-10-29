@@ -127,6 +127,22 @@ public class FeedbackFragment extends Fragment {
         }
     }
 
+    // Phương thức cộng thêm 7 giờ vào chuỗi thời gian
+    private String addHoursToTime(String dateTimeStr, int hoursToAdd) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        try {
+            Date date = sdf.parse(dateTimeStr);
+            Calendar calendar = Calendar.getInstance();
+            if (date != null) {
+                calendar.setTime(date);
+                calendar.add(Calendar.HOUR, hoursToAdd);
+                return sdf.format(calendar.getTime());
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateTimeStr;
+    }
 
     // Hàm hiển thị chi tiết phản hồi trong một Dialog
     private void showFeedbackDetails(Context context, ItemFeedback feedback, Feedback feedbackImages) {
@@ -134,12 +150,12 @@ public class FeedbackFragment extends Fragment {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.setPadding(16, 16, 16, 16); // Padding cho layout
-
+        String ngayGioDatHangWith7Hours = addHoursToTime(feedback.getNgayGioDatHang(), 7);
         // Tạo TextView để hiển thị chi tiết phản hồi
         TextView textViewDetails = new TextView(context);
         textViewDetails.setText(
                 "Mã đơn hàng:"+feedback.getMaDonHang()+"\n"+
-                        "Thời gian đặt hàng:"+feedback.getNgayGioDatHang()+"\n"+
+                        "Thời gian đặt hàng:"+ngayGioDatHangWith7Hours+"\n"+
                         "Người gửi: " + feedback.getUserName() + "\n" +
                         "Thời gian phản hồi: " + feedback.getFeedbackTime() + "\n" +
                         "Nội dung phản hồi: " + feedback.getFeedbackContent() + "\n" +
